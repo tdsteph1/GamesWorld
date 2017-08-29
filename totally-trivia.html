@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TotallyTrivia: The Game</title>
+
+  <!-- Bootstrap File -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- JQuery -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="assets/js/totallytrivia.js"></script> 
+
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">  
+  <link rel="stylesheet" type="text/css" href="assets/css/totallytrivia.css">
+</head>
+<body>
+  <audio id="correct" src="assets/audio/correct.wav"></audio>
+  <audio id="incorrect" src="assets/audio/incorrect.wav"></audio>  
+  <!-- Main Window -->
+
+    <!-- (Current Stats and previous questions)-->
+    <div class="row" id="resultsWindow">
+      <div class="col-md" style="padding: 0;">
+        <div class="panel panel-primary display-area">
+
+          <div class="panel-heading d-flex justify-content-end">                         
+            <div class="p-2 flex-first mr-auto">
+              <h2 class="header-title">TOTALtrivia</h2>
+            </div> 
+            <div class="p-2 flex-first" id="correct">
+              <h3 class="title" id="allTimeScoreRight">Correct:</h3>
+            </div> 
+            <div class="p-2" id="incorrect">
+              <h3 class="title" id="allTimeWrong">Incorrect:</h3>
+            </div> 
+            <div class="p-2" id="percentage">
+              <h3 class="title" id="winPercent">Win percentage:</h3>
+            </div>
+            <div class="p-2 flex-last"  id="infoBtn">
+              <a href="#"><img src="assets/images/totallytrivia/info.png" class="infoIcon"></a>
+            </div>                                                                 
+          </div><!-- panel heading -->
+          <div class="panel-body">
+            <div class="container">
+              <ul class="nav nav-tabs" id="resultTabs">
+              </ul>
+              <div class="tab-content" id="resultContent">
+             
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center align-middle">
+              <button class="d-flex-column btn btn-info" id="newGameBtn">New Game</button>
+            </div> 
+          </div><!-- panel body -->            
+        </div><!-- panel -->  
+      </div><!-- column -->
+    </div> <!-- row -->
+
+  <!-- game select Window -->
+  <div class="container d-flex justify-content-center align-middle">
+    <div class="panel panel-info" id="gameSelect">  
+      <div class="panel-heading d-flex justify-content-end" >
+        <div class="p-2 mr-auto" ><h2>Select your Game</h2></div>
+        <div class="p-2" id="selectGameTypeBtn"><a href="#"><i class="material-icons md-dark">highlight_off</i></a></div>        
+      </div>  
+      <div class="panel-body">
+        <div> 
+          <form class="form" id="gameSelectForm">
+            <label for="trivia_category">Select Category: </label>
+            <select id="catSelect" name="trivia_category" class="form-control">
+              <option value="any">Any Category</option>
+              <option id="catOpt9" value="9">General Knowledge</option>
+              <option id="catOpt10" value="10">Entertainment: Books</option>
+              <option id="catOpt11" value="11">Entertainment: Film</option>
+              <option id="catOpt12" value="12">Entertainment: Music</option>
+              <option id="catOpt14" value="14">Entertainment: Television</option>
+              <option id="catOpt15" value="15">Entertainment: Video Games</option>
+              <option id="catOpt16" value="16">Entertainment: Board Games</option>
+              <option id="catOpt17" value="17">Science &amp; Nature</option>
+              <option id="catOpt18" value="18">Science: Computers</option>
+              <option id="catOpt19" value="19">Science: Mathematics</option>
+              <option id="catOpt20" value="20">Mythology</option>
+              <option id="catOpt21" value="21">Sports</option>
+              <option id="catOpt22" value="22">Geography</option>
+              <option id="catOpt23" value="23">History</option>
+              <option id="catOpt24" value="24">Politics</option>
+              <option id="catOpt25" value="25">Art</option>
+              <option id="catOpt26" value="26">Celebrities</option>
+              <option id="catOpt27" value="27">Animals</option>
+              <option id="catOpt28" value="28">Vehicles</option>
+              <option id="catOpt29" value="29">Entertainment: Comics</option>
+              <option id="catOpt30" value="30">Science: Gadgets</option>
+              <option id="catOpt31" value="31">Entertainment: Japanese Anime &amp; Manga</option>
+              <option id="catOpt32" value="32">Entertainment: Cartoon &amp; Animations</option>   
+            </select>
+            <br>
+            <label for="trivia_difficulty">Select Difficulty: </label>
+            <select id="catDifficulty" name="trivia_difficulty" class="form-control">
+              <option id="diffany" value="any">Any Difficulty</option>
+              <option id="diffeasy" value="easy">Easy</option>
+              <option id="diffmedium" value="medium">Medium</option>
+              <option id="diffhard" value="hard">Hard</option>
+            </select>
+            <br>            
+            <input id="submitBtn" disabled="true" type="submit" value="Submit" class="center-block">
+          </form>
+         </div>
+      </div> <!-- panel-body -->
+    </div> <!-- panel -->
+  </div><!-- container -->
+
+  <!-- trivia Window -->
+  <div class="container d-flex justify-content-center align-middle" style="position: relative; display:none;">
+    <div class="panel panel-info" id="triviaWindow">
+      <div class="panel-heading d-flex justify-content-around panel-info">
+        <div class="p-2 title"><h2 id="triviaWindowScore"></h2></div>
+        <div class="p-2 title"><h2 id="triviaWindowStatus"></h2></div>
+        <div class="p-2 title"><h2 id="triviaWindowClock" class="clock">00:15</h2></div>
+      </div> <!-- panel-heading -->     
+      <div class="panel-body ">
+        <div class="d-flex-row text-center" id="question">Current Question</div>
+        <div class="d-flex-column" id="answers">
+          <div class="p-2 answerField text-center" id="0" value="0"></div>
+          <div class="p-2 answerField text-center" id="1" value="1"></div> 
+          <div class="p-2 answerField text-center" id="2" value="2"></div>
+          <div class="p-2 answerField text-center" id="3" value="3"></div>
+          <div class="d-flex justify-content-center align-middle">
+            <button class="d-flex-column btn btn-info" id="triviaWindowCloseBtn">Close</button>
+          </div>                                                 
+        </div> <!-- row -->
+      </div> <!-- panel-body -->
+    </div> <!-- panel -->
+  </div><!-- container -->
+
+  <!-- instructions -->
+  <div class="container d-flex justify-content-center align-middle">
+    <div class="panel" id="info">
+      <div class="info-heading panel-heading d-flex justify-content-end">
+        <div class="mr-auto p-2">
+          <h3 class="text-center header-title">How to Play Totally Trivia </h3>
+        </div>
+        <div class="p-2"  id="infoWindowCloseBtn">
+            <a href="#"><i class="material-icons md-light">highlight_off</i></a>
+        </div>
+      </div> <!-- panel-heading -->     
+      <div class="panel-body ">
+        <ul style="padding: 20px;">
+          <li> Trivia game shows only one question until the player answers it or their time runs out. </li>
+          <li> If the player selects the correct answer, game informs you for choosing the right option. Next question automatically displays the next question without user input.
+          <li> The scenario is similar for wrong answers and time-outs.</li>
+          <li> If the player runs out of time, correct answer will automatically display. Next question automatically displays. </li>
+          <li> If the player chooses the wrong answer, correct answer will automatically display. Next question automatically displays.</li><li> Score of correct answers & incorrect answers are shown at the top of screen along with an option to restart the game.</li>
+        </ul>
+      </div> <!-- panel-body -->
+    </div> <!-- panel -->
+  </div><!-- container -->
+</body>
+</html>

@@ -1,0 +1,212 @@
+/**
+ First External CSS Stylesheet
+ **/
+
+/*
+Each of these CSS elements is associated with an HTML Element, Class, or ID.
+Flip between this CSS file and the HTML to see how things line up.
+Experiment with deleting lines of code from the CSS to see how it affects the webpage when you refresh in the browser.
+*/
+
+body{
+  padding: 0;
+  font-family: 'Arial', 'Helvetica Neue', Helvetica, serif;
+  font-size: 16px;
+  line-height: 150%;
+  color: #777777;
+  background-color: teal;
+  margin: 0 auto;
+}
+#messageBoard {
+  color: white;
+}
+
+/* general tags */
+h1 {
+  font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 28px;
+}
+
+h2 {
+  font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 24px;
+}
+
+h3 {
+  font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 20px;
+}
+a:link, a:visited {
+    padding: 10px;
+    text-decoration: none;
+    color: #777;
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+}
+a {
+  padding: 5px;
+}
+figure:hover{
+  background-color: yellow;
+  cursor: pointer; 
+}
+#closeBtn:hover{
+  font-size: 20px;
+  font-weight: bold;
+  color: yellow;
+}
+.header{
+  width: 100%;
+}
+
+.header-title{
+  color: #fff;
+  font-family: Orbitron;
+  font-weight: bold;
+}
+.title{
+  text-align: center;
+  color: white;
+}
+tbody {
+  background-color: #007171;
+}
+.table>tbody>tr>td{
+  border: none;
+}
+.table{
+  margin: 0;
+}
+.material-icons.md-light { 
+  color: rgba(255, 255, 255, 1); 
+}
+.material-icons.md-dark { 
+  color: teal; 
+}
+.material-icons:hover{
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/********** panel ***********/
+.panel-heading{
+  border-radius: 15px 15px 0 0!important;
+  border-color: teal!important;
+}
+.panel {
+  width: 100%;
+  line-height: 1.0;
+  margin: 0; 
+  border-color: teal!important;
+  border-radius: 15px!important;
+}
+.panel-body{
+  background-color: #fff;
+  border-radius: 0 0 15px 15px!important;  
+}
+
+.row{
+  margin:0;
+}
+.display-area{
+    background-color: #007171;
+}
+
+button {
+  margin: 15px;
+}
+.infoIcon{
+  width: 25px;
+  height: 25px;
+}
+#info{
+  opacity: 0.95; 
+  color:teal;
+  background: #fff;
+  width: 90%;
+  z-index: 100;
+  position: fixed; 
+  display: none;
+  top:25px;  
+}
+#infoBtn {
+  opacity: .5; 
+}
+#infoBtn:hover{
+  opacity: 1; 
+}
+.info-heading{
+  color: #000;
+  background-color: #00b3b3;
+}
+.info p{
+  padding-bottom: 15px;
+}
+@font-face {
+    font-family: digital-7;
+    src: url(../fonts/digital-7.ttf);
+}
+.clock{
+  font-family: digital-7;
+  background-color: teal;
+  padding: 2px;
+}
+
+ /*******  trivia window *************/
+ #question {
+  font-size:32px;
+  padding: 10px;
+ }
+ #triviaWindow{
+  opacity: 0.95; 
+  color:teal;
+  background: #fff;
+  width: 90%;
+  z-index: 99;
+  position: fixed; 
+  top:25px;
+  display: none; 
+ }
+ #triviaWindowScore, #triviaWindowStatus{
+  color:teal;
+ }
+
+ .answerField{
+  font-size: 40px;
+  color: #ffffd2;
+  border: #ffffd2 solid;
+  background-color: #17a2b8; 
+ }
+ .answerField:hover{
+  background-color: #ffffd2;
+  color: #17a2b8;
+  border: #17a2b8 solid;  
+  cursor: pointer; 
+}
+#resetBtn, #triviaWindowCloseBtn{
+  display:none;
+}
+.resultsIcon{
+  width: 10px;
+  height: 10px;
+}
+#resultsWindow{
+  z-index: 10;
+  padding: 25px;
+}
+#results{
+  padding: 10px;
+}
+
+.tab-pane{
+  padding: 15px;
+}
+#gameSelect{
+  opacity: 0.95; 
+  color:teal;
+  background: #fff;
+  z-index: 100;
+  position: fixed; 
+  top:25px; 
+  display: none;  
+  width: 75%;
+}
