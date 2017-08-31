@@ -1,0 +1,77 @@
+body
+{
+  background: url(../images/login_page.jpg) no-repeat center;
+
+  /* Allows background image to fit perfectly on Computer screen, Ipad Screen, & Iphone Screen without any white space */
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+	color: white;
+
+
+}
+
+.display-3
+{
+	text-align: center;
+
+	/* This Moves ("Games World Login") <h1> underneath Einstein <img> */
+	clear: both;											
+}
+
+.lead
+{
+	text-align: center;
+
+	/* This Moves ("The Future of Gaming") <p> underneath Einstein <img> */
+	clear: both;
+}
+
+#apEinsteinLogo
+{
+	/*NOTE: becasue we've changes the width and height of <img height: 150 width: 150>
+	        margin: 0 auto; will not work, only works with original size on img. */
+	margin-left: 480px;
+	 
+}
+
+
+
+
+/* Main See Through Jumbotron */
+#jumbo1
+{
+	background: rgb(60, 60, 60);							/* NOTE: setting opacity to 0.5 will cause the see through effect but, the children <div>/jumbotrons will be affected as well so using rgb fixes that. */
+    background: rgba(60, 60, 60, 0.4);
+	height: 975px;
+	margin: 0 auto;
+}
+
+/* Login Jumbotron */
+#jumbo2
+{
+	width: 50%;
+	
+	margin: 0 auto;
+}
+
+/* UserName & Password text */
+label
+{
+	color: black;
+}
+
+
+@media screen and (max-width: 1198px)
+{
+	
+	#apEinsteinLogo
+	{
+	
+		margin-left: 0;
+	 
+	}
+
+	
+}
