@@ -9,14 +9,6 @@ body {
   color: #fff;
 }
 
-.nav-link {
-  color: #fff !important;
-}
-
-.active {
-  background-color: #040404 !important;
-}
-
-.nav-tabs {
-    border-bottom: none !important;
+.navbar {
+  background-color: rgba(103, 74, 74, 0.15) !important;
 }
