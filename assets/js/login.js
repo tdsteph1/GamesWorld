@@ -27,13 +27,13 @@
   firebase.auth().onAuthStateChanged(function(user) 
   {
   	//if the user is in current Login Page and user name and password exist then go to MainPage(game planets page)
-    if(user && (currentPath === '/index.html' || currentPath === '/' )) 
+    if(user && (currentPath === '/landingpage.html' || currentPath === '/' )) 
     {
       // REDIRECT IF AUTHENTICATED
-      $(location).attr('href', 'auth.html');						
+      $(location).attr('href', 'landingpage.html');						
 
     } 
-    else if(!user && currentPath === '/auth.html') 	//Else user does not exist and stay at login page
+    else if(!user && currentPath === '/landingpage.html') 	//Else user does not exist and stay at login page
     {
       // REDIRECT IF NOT AUTHENTICATED
       $(location).attr('href', 'index.html');
@@ -52,7 +52,7 @@
     {
       // ADD USER TO DATABASE
       firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
-          $(location).attr('href', 'auth.html');
+          $(location).attr('href', 'landingpage.html');
         }).catch(function(error) {
           alert(error.message);
         });
@@ -66,7 +66,7 @@
     var password = $('#sign-password').val();
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function() 
     {
-        $(location).attr('href', 'auth.html');
+        $(location).attr('href', 'landingpage.html');
       }).catch(function(error) {
         alert(error.message);
       });
