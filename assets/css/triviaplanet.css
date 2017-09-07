@@ -100,15 +100,24 @@ tbody {
   border-radius: 15px!important;
 }
 .panel-body{
-  background-color: #fff;
   border-radius: 0 0 15px 15px!important;  
+}
+
+.panel-transparent {
+    background: none;
+}
+.panel-transparent .panel-heading{
+    background: rgba(122, 130, 136, 0.2)!important;
+}
+.panel-transparent .panel-footer{
+    background: rgba(122, 130, 136, 0.2)!important;
+}
+.panel-transparent .panel-body{
+  color: #fff;
 }
 
 .row{
   margin:0;
-}
-.display-area{
-    background-color: #007171;
 }
 
 button {
@@ -209,4 +218,7 @@ button {
   top:25px; 
   display: none;  
   width: 75%;
+}
+#resultContent{
+  background: rgba(122, 130, 136, 0.75)!important;
 }

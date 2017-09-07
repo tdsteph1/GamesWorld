@@ -1,6 +1,7 @@
 // JavaScript function that wraps everything
 $(document).ready(function() {
 
+//********** vars ****************************
       var htmlCall = ""; //the general query call to the api
       var triviaArray = []; //array holds trivia objects
       var gameStarted = false; // game starts when strike button is hit and pauses when choosing new opponent
@@ -20,7 +21,7 @@ $(document).ready(function() {
       var timerOff = false;var currentTimer;
       var currentTimer;      
 
-// ********* on click events ********************//
+// ********* on click events ***************
 
       // onclick event for answer radio element
       $(".answerField").on("click", function(){
@@ -78,8 +79,7 @@ $(document).ready(function() {
           }
        });
 
-// ********** functions **************** //
-
+// ********* functions ********************
       function setGameType(obj){
         currentCategory = obj.childNodes[3].value;
         currentCategoryDifficulty =  obj.childNodes[9].value;
