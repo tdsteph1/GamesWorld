@@ -1,5 +1,6 @@
 body{
   background: url("../images/landingpage_bg.jpg") no-repeat center fixed;
+  /*background: url("../images/144246-OTOQD9-270.jpg") no-repeat center fixed;*/
  /* Allows background image to fit perfectly on Computer screen, Ipad Screen, & Iphone Screen without any white space */
     -webkit-background-size: cover;
       -moz-background-size: cover;
@@ -20,9 +21,21 @@ a{
 
 span{
   position:absolute;
-  left: 20%;
-  top: 40%;
+  left: 15px;
+  top: 0px;
   font-size: 20px;
   font-weight: bold;
   color: black;
+}
+
+#trivia{
+  left: 200px;
+}
+
+#leaderboard{
+  left: 200px;
+}
+
+#credits{
+  right: 0px;
 }
