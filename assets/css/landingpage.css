@@ -9,10 +9,8 @@ body{
 }
 
 img{
-  border-radius: 50%;
   height: 150px;
   width: 150px;
-
 }
 
 div{
@@ -47,11 +45,16 @@ button{
 
 .planetDiv{
   float: left;
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: -10px 10px 5px darkgrey;
 }
 
 #astronaut{
+  float: left;
   left: 50px;
 }
+
 #trivia{
   left: 140px;
   top: 100px;
