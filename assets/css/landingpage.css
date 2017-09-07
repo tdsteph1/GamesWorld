@@ -6,6 +6,7 @@ body{
       -moz-background-size: cover;
       -o-background-size: cover;
       background-size: cover;
+      padding-bottom: 500px;
 }
 
 img{
@@ -17,11 +18,16 @@ div{
     position: relative;
 }
 
-span{
+.title{
   position:absolute;
   font-size: 24px;
   font-weight: bold;
   color: yellow;
+}
+
+p{
+  color: white;
+  font-size:medium;
 }
 
 button{
@@ -30,17 +36,17 @@ button{
 
 #triviaTitle{
   left: 55px;
-  top: 90px;
+  top: 80px;
 }
 
 #hangmanTitle{
   left: 30px;
-  top: 90px;
+  top: 85px;
 }
 
 #rpsTitle{
-  left: 65px;
-  top: 90px;
+  left: 60px;
+  top: 75px;
 }
 
 .planetDiv{
@@ -61,7 +67,7 @@ button{
 }
 
 #rps{
-  left: -150px;
+  left: -200px;
   top: 400px;
 }
 

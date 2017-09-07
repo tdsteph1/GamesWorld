@@ -13,7 +13,7 @@ $(document).ready(function() {
   firebase.initializeApp(config);
   var database=firebase.database();
   // Hide text on planets
-  $("span").hide();
+  $(".title").hide();
 
   $("img").on("click",function() {
     var size = $(this).attr("size");
@@ -45,10 +45,12 @@ $(document).ready(function() {
       if (snapshot.val() != null) {
         populationTrivia = 0;
         console.log(populationTrivia);
+        $("#popTriv").html(populationTrivia);
       }
       else {
-      populationTrivia = snapshot.numChildren();
-      console.log(populationTrivia);
+        populationTrivia = snapshot.numChildren();
+        console.log(populationTrivia);
+        $("#popTriv").html(populationTrivia);
       }
     });
 
@@ -56,10 +58,12 @@ $(document).ready(function() {
       if (snapshot.val() != null){
         populationRPS = 0;
         console.log(populationRPS);
+        $("#popRPS").html(populationRPS);
       }
       else {
-      populationRPS = snapshot.numChildren();
-      console.log(populationRPS);
+        populationRPS = snapshot.numChildren();
+        console.log(populationRPS);
+        $("#popRPS").html(populationRPS);
       }
     });
 
@@ -67,10 +71,12 @@ $(document).ready(function() {
       if (snapshot.val() != null){
         populationHangman = 0;
         console.log(populationHangman);
+        $("#popHangman").html(populationHangman);
       }
       else {
-      populationTrivia = snapshot.numChildren();
-      console.log(populationHangman);
+        populationTrivia = snapshot.numChildren();
+        console.log(populationHangman);
+        $("#popHangman").html(populationHangman);
       }
     });
   };
