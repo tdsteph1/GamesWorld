@@ -10,32 +10,65 @@ body{
 
 img{
   border-radius: 50%;
-  border: 5px solid white;
   height: 150px;
   width: 150px;
+
 }
 
-a{
-  position: relative;
+div{
+    position: relative;
 }
 
 span{
   position:absolute;
-  left: 15px;
-  top: 0px;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
-  color: black;
+  color: yellow;
 }
 
+button{
+  margin: 7px;
+}
+
+#triviaTitle{
+  left: 55px;
+  top: 90px;
+}
+
+#hangmanTitle{
+  left: 30px;
+  top: 90px;
+}
+
+#rpsTitle{
+  left: 65px;
+  top: 90px;
+}
+
+.planetDiv{
+  float: left;
+}
+
+#astronaut{
+  left: 50px;
+}
 #trivia{
-  left: 200px;
+  left: 140px;
+  top: 100px;
 }
 
-#leaderboard{
-  left: 200px;
+#rps{
+  left: -150px;
+  top: 400px;
 }
 
-#credits{
-  right: 0px;
+#hangman{
+  left: 70px;
+  top: 300px;
+}
+
+#easterEgg{
+  position:fixed;
+  left: 700px;
+  top: 100px;
 }

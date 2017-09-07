@@ -3,40 +3,50 @@
   <head>
     <meta charset="UTF-8">
     <title>GamesWorld Landing Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="assets/css/landingpage.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <div class="container">
-      <nav class="navbar navbar-light bg-light">
-       <!--  <a class="navbar-brand" href="#">
-          <img src="/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-          Bootstrap
-         </a>-->
-      </nav>
+  <div class="container">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Gamesworld</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="landingpage.html">Home</a></li>
+          <li class="active"><a href="leaderboard.html">Leaderboard</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+  </div>
+    <div class="planetDiv" id="astronaut">
+        <img src="assets/images/spaceman.png" alt="Profile" class="planet img-fluid">
     </div>
-    <div class="container-fluid">
-      <a href="#" id="profile" target="_blank">
-        <img src="assets/images/spaceman.png" alt="Profile" class="planet img-fluid"><span class="text-center">Profile</span>
-      </a>
       <br>
-      <a href="totally-trivia.html" id="trivia" target="_blank">
-        <img src="assets/images/blue_planet.png" alt="Trivia Game" class="planet img-fluid"><span class="text-center">Trivia Planet</span>
-      </a>
-      <br>
-      <a href="#" id="hangman" target="_blank">
-        <img src="assets/images/orange_planet.png" alt="Hangman Game" class="planet img-fluid"><span class="text-center">Hangman Planet</span>
-      </a>
-      <br>
-      <a href="leaderboard.html" id="leaderboard" target="_blank">
-        <img src="assets/images/pink-planet.png" alt="Leaderboard" class="planet img-fluid"><span class="text-center">Leaderboard</span>
-      </a>
-      <br>
-      <a href="#" id="credits" target="_blank">
-        <img src="assets/images/spaceship.png" alt="Credits" class="planet img-fluid"><span>Credits</span>
-      </a>
-      <br>
+      <div id="trivia" class="planetDiv">
+        <img src="assets/images/blue_planet.png" alt="Trivia Game" class="planet img-fluid" size="small"><span class="text-center" id="triviaTitle">Trivia Planet<br><form style="display: inline" action="triviaplanet.html" method="get">
+        <button class="btn btn-lg btn-primary">Play</button>
+          </form></span>
+      </div>
+      <div id="rps" class="planetDiv">
+        <img src="assets/images/pink-planet.png" alt="Rock Paper Scissors" class="planet img-fluid" size="small"><span class="text-center" id="rpsTitle">RPS Planet<br><form style="display: inline" action="rps.html" method="get">
+        <button class="btn btn-lg btn-primary">Play</button>
+          </form></span>
+      </div>
+
+      <div id="hangman" class="planetDiv">
+        <img src="assets/images/orange_planet.png" alt="Hangman Game" class="planet img-fluid" size="small"><span class="text-center" id="hangmanTitle">Hangman Planet<br><form style="display: inline" action="hangman.html" method="get">
+        <button class="btn btn-lg btn-primary">Play</button>
+          </form></span>
+      </div>
+    <div id="easterEgg" >
+        <img src="assets/images/spaceship.png" alt="easterEgg" class="planet img-fluid">
     </div>
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
