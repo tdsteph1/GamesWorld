@@ -5,14 +5,14 @@
   var player={
     name:"",
     gameName:"",
-    move:"",
     ready:false,
     wins:0,
+    score:0,
   }
   var opponent={
     name:"",
     gameName:"",
-    move:"",
+    score:0,
   }
   var currentConnections = 0;
 // *************** Initialize Firebase *************
@@ -29,14 +29,15 @@
   var database = firebase.database();
   var connectionsRef = database.ref("/connections"); 
   var connectedRef = database.ref(".info/connected");
-  var rps = database.ref("/rps");
-  var gameStart = database.ref("/tt/gameStart"); 
-  var player1 = database.ref("/tt/player1");
-  var player2 = database.ref("/tt/player2");
-  var chat = database.ref("/tt/chat");  
+  var tp = database.ref("/tp");
+  var gameStart = database.ref("/tp/gameStart"); 
+  var player1 = database.ref("/tp/player1");
+  var player2 = database.ref("/tp/player2");
+  var chat = database.ref("/tp/chat");  
   var opponentPointer = null;
   var playerPointer = null;  
 // *************** game start *********
+
   if (!player.name){
     $('#editPlayerName').modal('toggle');  // prompt screen to enter name if none
   }
@@ -55,34 +56,17 @@
     currentConnections = snap.numChildren();
     // if you first player (your name hasn't been set) and you are the only one in the game, clear the board
     if (currentConnections==1 && player.name==""){
-      rps.remove();
+      tp.remove();
     }
   });
-  // if opponent has left, reset the db opponent and reset local opponent values, turn off buttons
+  // if opponent has left, reset the db opponent and reset local opponent values, turn off butpons
   connectionsRef.on("child_removed", function(){
-    database.ref("/tt/"+opponent.gameName).remove();
+    database.ref("/tp/"+opponent.gameName).remove();
     $("#opponentName").html("waiting for opponent");
     $("#messageBoard").html(opponent.name + " has left the game. Waiting for new opponent");
     opponent.name = "";
     opponent.score = 0;
-  })
-
-// *************** information Window events **********
-      $("#infoBtn").on("click", function(){
-           $("#info").fadeToggle();
-      });
-      $("#infoWindowCloseBtn").on("click", function(){
-           $("#info").fadeToggle();
-      });
-      $(document).mouseup(function(e){
-          // if the information div is open, toggle it close
-          var container = $("#info");
-          // if the target of the click isn't the container nor a descendant of the container
-          if (!container.is(e.target) && container.has(e.target).length === 0) 
-          {
-              container.hide();
-          }
-       });    
+  })  
 // *************** Player Name submission *********** 
   $("#playerForm").on("submit", function(){
     // update local player name, playScreen, check if local player is player 1 or player 2 and push to firebase
@@ -93,13 +77,13 @@
     // if there is no player1 in the db, 
     // then local player's game name is player1, and set opponent pointer to player2 and wait for an opponent
     // else local player is player2, set opponent pointer to player1 and start game
-    database.ref("/rps/player1").once("value", function (snapshot){
+    database.ref("/tp/player1").once("value", function (snapshot){
         if (snapshot.numChildren()==0){
           player.gameName = "player1";
           opponent.gameName = "player2";        
-          opponentPointer = database.ref("/tt/player2");
-          playerPointer = database.ref("/tt/player1");
-          chat.set({chat:"Welcome to Tottaly Trivia"});  
+          opponentPointer = database.ref("/tp/player2");
+          playerPointer = database.ref("/tp/player1");
+          chat.set({chat:"Welcome to Trivia Planet"});  
           opponentPointer.once("value", function(snapshot){
             if (snapshot.hasChildren()){
                 opponent.name = snapshot.val().playerName;
@@ -107,8 +91,9 @@
                 opponentPointer.update({score:""});
                 gameStart.set({gameStart:true});
                 $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);
+                $("#messageBoard").html(opponent.name + " is ready to go!");
             } else {
-                $("#opponentName").html("not logged in yet");               
+                $("#messageBoard").html("your opponent has not logged in yet");               
             }  
           })             
          
@@ -116,16 +101,16 @@
           player.gameName = "player2";
           opponent.gameName = "player1";
           opponent.name = snapshot.val().playerName;
-          $("#opponentName").html(opponent.name);        
-          opponentPointer = database.ref("/tt/player1");
-          playerPointer = database.ref("/tt/player2");
+          $("#messageBoard").html(opponent.name + " is ready to go!");        
+          opponentPointer = database.ref("/tp/player1");
+          playerPointer = database.ref("/tp/player2");
           gameStart.set({gameStart:true});  
           $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);  
         }
 
     })
     // update player information in db
-    database.ref("/tt/"+ player.gameName).set({
+    database.ref("/tp/"+ player.gameName).set({
         playerName:player.name,
         score:0,
         wins:0,
@@ -168,7 +153,6 @@
   gameStart.on("value", function(snapshot){
     if (snapshot.hasChildren())
       if (snapshot.val().gameStart == true){
-        toggleButtons(true);
         $("#messageBoard").html("Let's Play!!");        
       }
   })
@@ -190,11 +174,7 @@
     }
   });
 //**************** listen for new chats **************
-  chat.on("value", function(snapshot){
-    $("#chatBox").html(snapshot.val().chat);
-    var height = document.getElementById("chatBox").scrollHeight;
-    $("#chatBox").scrollTop(height);
-  });  
+
 // *************** functions *******************
   function checkScores(){
       // if you both have made a move, then evaluate
@@ -202,8 +182,7 @@
       if (player.ready && opponent.ready){
         evaluate();
       }
-      else if (player.ready && opponent.ready == false){
-        toggleButtons(false);       
+      else if (player.ready && opponent.ready == false){      
         displayPickedIcon(player.gameName, player.move);        
         $("#messageBoard").html("waiting for "+ opponent.name +" to make finish");
         $("#waitingIcon").css("display", "block");
