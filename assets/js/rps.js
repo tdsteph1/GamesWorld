@@ -62,6 +62,10 @@
     if (currentConnections==1 && player.name==""){
       rps.remove();
     }
+    if (currentConnections > 2){
+      $("#messageBoard").html("Too many players on Planet RPS. Try again Later.");
+      $('#editPlayerName').modal('toggle');    
+    }
   });
   // if opponent has left, reset the db opponent and reset local opponent values, turn off buttons
   connectionsRef.on("child_removed", function(){
@@ -114,54 +118,57 @@
   });
 // *************** Player Name submission *********** 
   $("#playerForm").on("submit", function(){
-    // update local player name, playScreen, check if local player is player 1 or player 2 and push to firebase
-    event.preventDefault();
-    player.name = this.elements.playerNameInput.value;
-    $("#playerName").html(player.name);
+      event.preventDefault();    
+      if (currentConnections<=2){ 
+          // update local player name, playScreen, check if local player is player 1 or player 2 and push to firebase
+          player.name = this.elements.playerNameInput.value;
+          $("#playerName").html(player.name);
 
-    // if there is no player1 in the db, 
-    // then local player's game name is player1, and set opponent pointer to player2 and wait for an opponent
-    // else local player is player2, set opponent pointer to player1 and start game
-    database.ref("/rps/player1").once("value", function (snapshot){
-        if (snapshot.numChildren()==0){
-          player.gameName = "player1";
-          opponent.gameName = "player2";        
-          opponentPointer = database.ref("/rps/player2");
-          playerPointer = database.ref("/rps/player1");
-          chat.set({chat:"Welcome to Planetary RPS"});  
-          opponentPointer.once("value", function(snapshot){
-            if (snapshot.hasChildren()){
+          // if there is no player1 in the db, 
+          // then local player's game name is player1, and set opponent pointer to player2 and wait for an opponent
+          // else local player is player2, set opponent pointer to player1 and start game
+          database.ref("/rps/player1").once("value", function (snapshot){
+              if (snapshot.numChildren()==0){
+                player.gameName = "player1";
+                opponent.gameName = "player2";        
+                opponentPointer = database.ref("/rps/player2");
+                playerPointer = database.ref("/rps/player1");
+                chat.set({chat:"Welcome to Planetary RPS"});  
+                opponentPointer.once("value", function(snapshot){
+                  if (snapshot.hasChildren()){
+                      opponent.name = snapshot.val().playerName;
+                      $("#opponentName").html(opponent.name);
+                      opponentPointer.update({move:""});
+                      gameStart.set({gameStart:true});
+                      $("#last5MovesLabel").text(opponent.name + "'s last 5 moves");
+                      $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);
+                  } else {
+                      $("#opponentName").html("not logged in yet");               
+                  }  
+                })             
+               
+              } else {
+                player.gameName = "player2";
+                opponent.gameName = "player1";
                 opponent.name = snapshot.val().playerName;
-                $("#opponentName").html(opponent.name);
-                opponentPointer.update({move:""});
-                gameStart.set({gameStart:true});
+                $("#opponentName").html(opponent.name);        
+                opponentPointer = database.ref("/rps/player1");
+                playerPointer = database.ref("/rps/player2");
+                gameStart.set({gameStart:true});  
                 $("#last5MovesLabel").text(opponent.name + "'s last 5 moves");
-                $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);
-            } else {
-                $("#opponentName").html("not logged in yet");               
-            }  
-          })             
-         
+                $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);  
+              }
+          })
+          // update player information in db
+          database.ref("/rps/"+ player.gameName).set({
+              playerName:player.name,
+              move:"",
+              wins:0,
+          });
         } else {
-          player.gameName = "player2";
-          opponent.gameName = "player1";
-          opponent.name = snapshot.val().playerName;
-          $("#opponentName").html(opponent.name);        
-          opponentPointer = database.ref("/rps/player1");
-          playerPointer = database.ref("/rps/player2");
-          gameStart.set({gameStart:true});  
-          $("#last5MovesLabel").text(opponent.name + "'s last 5 moves");
-          $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);  
+          $("#messageBoard").html("Too many players in the room.  Try again later")
         }
-
-    })
-    // update player information in db
-    database.ref("/rps/"+ player.gameName).set({
-        playerName:player.name,
-        move:"",
-        wins:0,
-    });
-    $('#editPlayerName').modal('toggle');
+        $('#editPlayerName').modal('toggle');
   });
 //**************** edit Player Name *******************
   $(".fa-pencil").on("click", function(){
@@ -225,11 +232,11 @@
     }
   });
 //**************** listen for new chats **************
-chat.on("value", function(snapshot){
-  $("#chatBox").html(snapshot.val().chat);
-  var height = document.getElementById("chatBox").scrollHeight;
-  $("#chatBox").scrollTop(height);
-});  
+  chat.on("value", function(snapshot){
+    $("#chatBox").html(snapshot.val().chat);
+    var height = document.getElementById("chatBox").scrollHeight;
+    $("#chatBox").scrollTop(height);
+  });  
 // *************** functions *******************
   function toggleButtons(aBoolean){
     var allPlayButtons=document.getElementsByClassName("playbutton"); 
