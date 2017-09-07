@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title> Giphy </title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+   <title> Login </title>
    
    <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
-	<!-- jQuery, javascript file for the Bootstrap's javascript file to function -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <!-- jQuery, javascript file for the Bootstrap's javascript file to function -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
-	<!-- Fix The dropdown menue issue -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+  <!-- Fix The dropdown menue issue -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 
-	<!-- jQuery -->
+  <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
    <!-- Bootstrap's javascript file that allows the dropdown menu to work  -->
@@ -25,8 +29,15 @@
 <!-- AJAX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 
+<!-- Compiled and minified CSS -->
+ <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"> -->
+  <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+
 <!--             CSS           -->
 <link rel="stylesheet" href="assets/css/login.css">
+
+
+
 
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
@@ -66,6 +77,9 @@
               
               <form>
 
+                <!-- SIGN IN -->
+                <!-- Without the modal just use current email & password already displayed on screen -->
+
                 <!-- User Name -->
                 <div class="form-group">
 
@@ -78,7 +92,7 @@
                 <!-- Password -->
                 <div class="form-group">
     
-                  <label for="exampleInputPassword1">Password</label>
+                  <label for="exampleInputPassword1">Password </label>
                   <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         
                 </div>
@@ -87,7 +101,39 @@
                 <!-- NOTE: use <a> </a> to send us to main game page when we click (submit) -->
                 <!-- NOTE: (onlclick) once we click function execute function signIn() -->
                
-                <input type="submit" onclick="signIn();" class="btn btn-primary" id="loginButton"><i class="fa fa-google-plus-square" aria-hidden="true"></i> 
+                <button type="submit" class="btn btn-primary" id="loginButton" href="#sign-in-modal"> Login </button>
+
+                 
+
+                <!-- SIGN UP MODAL -->
+                <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Sign Up </a> -->
+                <button type="submit"  class="btn btn-primary modal-trigger" id="signUp" href="#modal1"><i class="fa fa-google-plus-square" aria-hidden="true"></i> sign up </button> 
+                <div id="modal1" class="modal">
+                  <div class="modal-content">
+
+                    <h4 class="blue-text">Sign Up</h4>
+                    
+                <div class="input-field inline">
+
+                  <input id="sign-email" type="email" class="validate black-text">
+                  <label for="sign-email" data-error="wrong" data-success="right">Email</label>
+
+                </div>
+
+                <div class="input-field inline">
+
+                  <input id="sign-password" type="password" class="validate black-text">
+                  <label for="sign-password" data-error="wrong" data-success="right">Password</label>
+
+                </div>
+              </div>
+
+              <div class="modal-footer">
+
+                <a id="sign-btn" class="modal-action modal-close waves-effect waves-green btn-flat teal white-text">Sign Up</a>
+
+              </div>
+            </div>
 
             </form>
     
@@ -126,11 +172,18 @@
 
 </div> <!-- End of Container -->
 
+<!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
+
 <!-- AJAX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <!-- LINK TO FIREBASE GOES HERE -->
-<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script> 
 
 <!-- Link to Moment.js should go here -->
 <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
@@ -138,8 +191,14 @@
 <!--Google -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+
 <!--Link to my logic.js file -->
-<script type="text/javascript" src="assets/js/login.js"> </script>
+<script type="text/javascript" src="./assets/js/login.js"> </script>
 
 
 
