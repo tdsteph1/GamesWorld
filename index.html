@@ -1,195 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Interactive RPS</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <!-- JQuery -->
+   <title> Login </title>
+   
+   <!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+  <!-- jQuery, javascript file for the Bootstrap's javascript file to function -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+  <!-- Fix The dropdown menue issue -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
+  <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>  
-  <script src="assets/js/rps.js"></script>
 
-    <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <!-- Bootstrap's javascript file that allows the dropdown menu to work  -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
-  <!-- CSS -->
-  <link rel="stylesheet" type="text/css" href="assets/css/rps.css">  
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css">  
+
+
+
+<!-- AJAX -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
+<!-- Compiled and minified CSS -->
+ <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"> -->
+  <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+
+<!--             CSS           -->
+<link rel="stylesheet" href="assets/css/login.css">
+
+
+
+
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
 </head>
 
 <body>
-<div class="container"><!-- Main Window -->
-  <div class="row d-flex flex-row">
-      <div class="panel panel-primary" style="width: 100%">
-<!-- ***************** main heading ****************** -->
-        <div class="panel-heading d-flex align-items-center justify-content-end"><!-- panel heading -->
-          <div class="mr-auto p-2"> <!-- brand -->
-            <span class="navbar-brand text-white">
-              <span class="header-title d-inline header-title">Interactive </span>
-              <span class="header-title-bold d-inline header-title" style="">
-                <i class="fa fa-hand-rock-o" aria-hidden="true" ></i>
-                <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-                <i class="fa fa-hand-scissors-o" aria-hidden="true"></i>                
-              </span>
-            </span>
-          </div>
-          <div class="p-2 d-flex align-items-center"> <!-- info button -->
-            <a href="#" id="infoBtn">
-              <img src="assets/images/rpg/info.png" class="infoIcon"/>
-            </a>        
-          </div>                   
-        </div><!-- panel-heading -->
 
-<!-- ***************** main body ****************** -->
-        <div class="panel-body">
-          <div class="d-flex align-items-center flex-row justify-content-center">
-            <div class="col-md-6">
-              <div>
-                <div class="panel panel-danger">
-                  <div class="panel-heading center-block" id="playerName">Player
-                    <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                  </div>
-                                    
-                  <div class="panel-body d-flex flex-row justify-content-center">
-                      <div id="playerRockIcon" class="playbutton" data-value="rock">
-                        <i class="fa fa-hand-rock-o" aria-hidden="true"></i>
-                      </div>
-                      <div id="playerPaperIcon" class="playbutton" data-value="paper">
-                        <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-                      </div>
-                      <div id="playerScissorIcon" class="playbutton" data-value="scissor">
-                        <i class="fa fa-hand-scissors-o" aria-hidden="true"></i>
-                      </div>
-                  </div>        
-                </div> 
-              </div>             
-            </div>
-            <div class="col-md-2 text">
-              <div>
-                <div class="evaluator" id="comparer">[]</div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div>
-                <div class="panel panel-danger" >
-                  <div class="panel-heading" id="opponentName">Opponent</div>
-                  <div class="panel-body">
-                      <div class="waiting" id="waitingIcon"><i class="fa fa-cog fa-spin fa-fw"></i></i></div>
-                      <div id="opponentRockIcon" class="opponentButton" data-value="rock">
-                        <i class="fa fa-hand-rock-o"></i></div>
-                      <div id="opponentPaperIcon" class="opponentButton" data-value="paper"><i class="fa fa-hand-paper-o" aria-hidden="true"></i></div>
-                      <div id="opponentScissorIcon" class="opponentButton" data-value="scissor"><i class="fa fa-hand-scissors-o" aria-hidden="true"></i></div>
-                  </div>         
+<!-- Contains all bootstrap content -->
+<div class="container">
+
+    <!-- Use Jumbotron header -->
+
+    <!-- Row1 -->
+    <div class="row">
+      
+      <!-- Col -->
+      <div class="col-lg-12">
+
+      <!-- Main JumboTron (see through) -->
+      <div class="jumbotron jumbotron-fluid" id="jumbo1">
+
+        <div class="container">
+          
+          <img src="assets/images/ap-einsteins_logo2.png" id="apEinsteinLogo" class="rounded float-left" alt="Responsive image" width="150" height="150"> 
+          <h1 class="display-3">Games World Login</h1>
+          <p class="lead">The Future of Gaming is Now!</p>
+
+        </div>
+
+      
+      
+
+          <!-- Jumbotron 2 within (main jumbotron) contains login(name & password) -->
+          <div class="jumbotron jumbotron-fluid" id="jumbo2">
+            <div class="container">
+   
+              
+              <form>
+
+                <!-- SIGN IN -->
+                <!-- Without the modal just use current email & password already displayed on screen -->
+
+                <!-- User Name -->
+                <div class="form-group">
+
+                  <label for="exampleInputEmail1">User Name</label>
+
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+    
+                  <label for="exampleInputPassword1">Password </label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        
+                </div>
+  
+                <!-- Submit Button -->
+                <!-- NOTE: use <a> </a> to send us to main game page when we click (submit) -->
+                <!-- NOTE: (onlclick) once we click function execute function signIn() -->
+               
+                <button type="submit" class="btn btn-primary" id="loginButton" href="#sign-in-modal"> Login </button>
+
+                 
+
+                <!-- SIGN UP MODAL -->
+                <!-- <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Sign Up </a> -->
+                <button type="submit"  class="btn btn-primary modal-trigger" id="signUp" href="#modal1"><i class="fa fa-google-plus-square" aria-hidden="true"></i> sign up </button> 
+                <div id="modal1" class="modal">
+                  <div class="modal-content">
+
+                    <h4 class="blue-text">Sign Up</h4>
+                    
+                <div class="input-field inline">
+
+                  <input id="sign-email" type="email" class="validate black-text">
+                  <label for="sign-email" data-error="wrong" data-success="right">Email</label>
+
+                </div>
+
+                <div class="input-field inline">
+
+                  <input id="sign-password" type="password" class="validate black-text">
+                  <label for="sign-password" data-error="wrong" data-success="right">Password</label>
+
                 </div>
               </div>
+
+              <div class="modal-footer">
+
+                <a id="sign-btn" class="modal-action modal-close waves-effect waves-green btn-flat teal white-text">Sign Up</a>
+
+              </div>
+            </div>
+
+            </form>
+    
             </div>
           </div>
-          <div class="container-fluid" style="border-top: 4px solid; margin-top: 30px;">
-          <div class="row">
-            <div class="d-flex col-sm-6" id="messageBoard">Welcome to Interactive RPS!</div>
-            <div class="d-flex col-sm-6" id="chatDiv">
-                <form id="chatForm" style="width: 100%">
-                  <div id="chatBox"></div>                
-                  <div class="form-group d-flex flex-row justify-content-end">
-                    <input type="text" id="chatInput" placeholder="...smack">
-                          <button type="submit" class="btn btn-default ">
-                            <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                          </button>
-                  </div>
-                </form>
-            </div>          
-          </div>
-          </div>
-        </div>
 
-<!-- ***************** main footer ****************** -->
-        <div class="panel-footer d-flex align-items-center justify-content-start">
-          <div id="standing" style="margin-right: 30px;">
-            <label for="wins">Wins:</label>
-            <span id="wins">0</span>
-            <label for="losses">Losses:</label>
-            <span id="losses">0</span>
-            <label for="ties">Ties:</label>
-            <span id="ties">0</span>
-          </div>
-          <div id="last5Moves">
-            <label for="score" id="last5MovesLabel"></label>
-            <span id="last5Moves" style="font-size: xx-large;"></span>
-          </div>
-          <div class="ml-auto" id="logo">
-            <span class="header-title d-inline header-title" style="font-size: 12px;">Interactive </span>
-            <span><i class="fa fa-hand-rock-o" aria-hidden="true"></i></span>
-            <span><i class="fa fa-hand-paper-o" aria-hidden="true"></i></span>
-            <span><i class="fa fa-hand-scissors-o" aria-hidden="true"></i></span> 
-          </div>
-        </div>
-      </div><!-- panel -->
-  </div><!--  row -->
-</div> <!-- Main Window -->
+       
 
-<!--************************ Welcome Window ************************* -->
-  <div id="editPlayerName" class="modal fade" role="dialog" style="color: blue">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header d-flex align-items-center text-center">
-          <h4 class="modal-title center-block" style="width: 100%">Sign in</h4>
-          <button type="button" class="close ml-auto" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <form id="playerForm">
-            <div class="form-group d-flex align-items-center">
-              <label for="name">Name:</label>
-              <input type="name" class="form-control" id="playerNameInput">
-            </div>
-            <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-default">Submit</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            </div>
-          </form>          
-        </div>
-      </div>
 
-    </div>
-  </div>
 
-<!-- *********************** Instructions ************************  -->
-  <div class="container d-flex justify-content-center align-middle">
-    <div class="panel" id="info">
-      <div class="info-heading panel-heading d-flex justify-content-end">
-        <div class="mr-auto text-center" style="width: 100%">
-          <span>
-            <h1>How to Play Interactive 
-            <i class="fa fa-hand-rock-o" aria-hidden="true"></i>
-            <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
-            <i class="fa fa-hand-scissors-o" aria-hidden="true"></i>
-            </h1> 
-          </span>
-        </div>
-        <div id="infoWindowCloseBtn" class="d-flex align-items-center">
-            <a href="#"><i class="material-icons md-light">highlight_off</i></a>
-        </div>
-      </div> <!-- panel-heading -->     
-      <div class="panel-body ">
-        <ul style="padding: 20px;">
-            <li>Only two users can play at the same time.</li>
-            <li>Both players click either rock, paper or scissors. After the players make their selection, the game will tell them whether a tie occurred or if one player defeated the other.</li>
-            <li>The game will track each player's wins and losses.</li>
-            <li>chat functionality available</li>
 
-        </ul>
-      </div> <!-- panel-body -->
-    </div> <!-- panel -->
-  </div><!-- container -->
+
+
+
+
+      </div> <!--End of jumbo1 -->
+
+    </div> <!--End of Col1 -->
+  </div>   <!-- End of Row1 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div> <!-- End of Container -->
+
+<!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase-messaging.js"></script>
+
+<!-- AJAX -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- LINK TO FIREBASE GOES HERE -->
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script> 
+
+<!-- Link to Moment.js should go here -->
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+<!--Google -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+
+<!--Link to my logic.js file -->
+<script type="text/javascript" src="./assets/js/login.js"> </script>
+
+
+
+
 </body>
-
 </html>
-
