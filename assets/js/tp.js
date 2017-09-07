@@ -112,6 +112,7 @@
     // update player information in db
     database.ref("/tp/"+ player.gameName).set({
         playerName:player.name,
+        ready: false;
         score:0,
         wins:0,
     });
@@ -140,7 +141,6 @@
         // if opponent name has not been assigned
         if (opponent.name ==""){    
             opponent.name = snapshot.val().playerName;
-          $("#opponentName").html(opponent.name);
           $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);  
         }
         opponent.wins = snapshot.val().wins;
