@@ -2,36 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>TotallyTrivia: The Game</title>
+  <title>Trivia World</title>
 
-  <!-- Bootstrap File -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Bootstrap File -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- JQuery -->
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="assets/js/totallytrivia.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>  
+  <script src="assets/js/tp.js"></script> 
+  <script src="assets/js/triviaplanet.js"></script> 
+
 
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css">  
-  <link rel="stylesheet" type="text/css" href="assets/css/totallytrivia.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/tp.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/triviaplanet.css">
+
+  <!-- fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css">    
 </head>
 <body>
   <audio id="correct" src="assets/audio/correct.wav"></audio>
   <audio id="incorrect" src="assets/audio/incorrect.wav"></audio>  
-  <!-- Main Window -->
-
+<!-- *********************** Main Window *****************************-->
     <!-- (Current Stats and previous questions)-->
     <div class="row" id="resultsWindow">
       <div class="col-md" style="padding: 0;">
-        <div class="panel panel-primary display-area">
+        <div class="panel panel-primary panel-transparent display-area">
 
           <div class="panel-heading d-flex justify-content-end">                         
             <div class="p-2 flex-first mr-auto">
-              <h2 class="header-title">TOTALtrivia</h2>
+              <h2 class="header-title">Trivia World</h2>
             </div> 
             <div class="p-2 flex-first" id="correct">
               <h3 class="title" id="allTimeScoreRight">Correct:</h3>
@@ -54,16 +61,32 @@
              
               </div>
             </div>
-
-            <div class="d-flex justify-content-center align-middle">
+           <div class="d-flex justify-content-center align-middle">
               <button class="d-flex-column btn btn-info" id="newGameBtn">New Game</button>
             </div> 
+          <div class="container-fluid" style="border-top: 4px solid; margin-top: 30px;">
+            <div class="row">
+              <div class="d-flex col-sm-6" id="messageBoard">Welcome to Trivia World!</div>
+                <div class="d-flex col-sm-6" id="chatDiv">
+                      <form id="chatForm" style="width: 100%">
+                        <div id="chatBox"></div>                
+                        <div class="form-group d-flex flex-row justify-content-end">
+                          <input type="text" id="chatInput" placeholder="...smack">
+                                <button type="submit" class="btn btn-default ">
+                                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                                </button>
+                        </div>
+                      </form>
+                </div>
+              </div>          
+            </div>
+          </div>            
           </div><!-- panel body -->            
         </div><!-- panel -->  
       </div><!-- column -->
     </div> <!-- row -->
 
-  <!-- game select Window -->
+<!--************************ game select Window  ********************-->
   <div class="container d-flex justify-content-center align-middle">
     <div class="panel panel-info" id="gameSelect">  
       <div class="panel-heading d-flex justify-content-end" >
@@ -139,12 +162,38 @@
     </div> <!-- panel -->
   </div><!-- container -->
 
-  <!-- instructions -->
+<!--************************ Welcome Window ************************* -->
+  <div id="editPlayerName" class="modal fade" role="dialog" style="color: blue">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header d-flex align-items-center text-center">
+          <h4 class="modal-title center-block" style="width: 100%">Sign in</h4>
+          <button type="button" class="close ml-auto" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form id="playerForm">
+            <div class="form-group d-flex align-items-center">
+              <label for="name">Name:</label>
+              <input type="name" class="form-control" id="playerNameInput">
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+          </form>          
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<!--************************ instructions ***************************-->
   <div class="container d-flex justify-content-center align-middle">
     <div class="panel" id="info">
       <div class="info-heading panel-heading d-flex justify-content-end">
         <div class="mr-auto p-2">
-          <h3 class="text-center header-title">How to Play Totally Trivia </h3>
+          <h3 class="text-center header-title">How to Play Trivia World </h3>
         </div>
         <div class="p-2"  id="infoWindowCloseBtn">
             <a href="#"><i class="material-icons md-light">highlight_off</i></a>
@@ -156,7 +205,7 @@
           <li> If the player selects the correct answer, game informs you for choosing the right option. Next question automatically displays the next question without user input.
           <li> The scenario is similar for wrong answers and time-outs.</li>
           <li> If the player runs out of time, correct answer will automatically display. Next question automatically displays. </li>
-          <li> If the player chooses the wrong answer, correct answer will automatically display. Next question automatically displays.</li><li> Score of correct answers & incorrect answers are shown at the top of screen along with an option to restart the game.</li>
+          <li> If the player chooses the wrong answer, correct answer will automatically display. Next question automatically displays.</li><li> Score of correct answer and incorrect answers are shown at the top of screen along with an option to restart the game.</li>
         </ul>
       </div> <!-- panel-body -->
     </div> <!-- panel -->
