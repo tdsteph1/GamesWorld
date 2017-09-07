@@ -31,55 +31,31 @@ $(document).ready(function() {
     }
   });
 
-
   // Detecting Presence
-  var checkPopulation = function() {
-    var connectionsRPS = database.ref("/rps/connections");
-    var connectionsTrivia = database.ref("/tp/connections");
-    var connectionsHangman = database.ref("/hangman/connections");
-    var populationTrivia = 0;
-    var populationRPS = 0;
-    var populationHangman = 0;
+  var connectionsTrivia = database.ref("/connections/tp");
+  var connectionsRPS = database.ref("/connections/rps");
+  var connectionsHangman = database.ref("/connections/hangman");
+  var populationTrivia = 0;
+  var populationRPS = 0;
+  var populationHangman = 0;
 
-    connectionsTrivia.on("value", function(snapshot) {
-      if (snapshot.val() != null) {
-        populationTrivia = 0;
-        console.log(populationTrivia);
-        $("#popTriv").html(populationTrivia);
-      }
-      else {
-        populationTrivia = snapshot.numChildren();
-        console.log(populationTrivia);
-        $("#popTriv").html(populationTrivia);
-      }
-    });
+  connectionsTrivia.on("value", function(snapshot) {
+    console.log(snapshot.numChildren());
+    populationTrivia = snapshot.numChildren();
+    $("#popTriv").html(populationTrivia);
+  });
 
-    connectionsRPS.on("value", function(snapshot) {
-      if (snapshot.val() != null){
-        populationRPS = 0;
-        console.log(populationRPS);
-        $("#popRPS").html(populationRPS);
-      }
-      else {
-        populationRPS = snapshot.numChildren();
-        console.log(populationRPS);
-        $("#popRPS").html(populationRPS);
-      }
-    });
+  connectionsRPS.on("value", function(snapshot) {
+    console.log(snapshot.numChildren());
+    populationRPS = snapshot.numChildren();
+    $("#popRPS").html(populationRPS);
+  });
 
-    connectionsHangman.on("value", function(snapshot) {
-      if (snapshot.val() != null){
-        populationHangman = 0;
-        console.log(populationHangman);
-        $("#popHangman").html(populationHangman);
-      }
-      else {
-        populationTrivia = snapshot.numChildren();
-        console.log(populationHangman);
-        $("#popHangman").html(populationHangman);
-      }
-    });
-  };
-  checkPopulation();
+  connectionsHangman.on("value", function(snapshot) {
+    console.log(snapshot.numChildren());
+    populationHangman = snapshot.numChildren();
+    $("#popHangman").html(populationHangman);
+  });
+
 });
 
