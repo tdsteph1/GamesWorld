@@ -32,8 +32,21 @@ $(document).ready(function(){
   var validletter;
   var countBack = 0;
   var apiKey = "juxQrOf82kwObIuNjV0BvKilXbJQfPUxwxf0LLMM07w7OHwN";
-  
+  var profanity;
+  var audioState = false;
+ 
+  $(document).on("click", ".mute", function() {
+    if (audioState === false) {
+      $("#audiotag1")[0].play();
+      audioState = true;
+    }
+    else if (audioState === true) {
+      $("#audiotag1")[0].pause();
+      audioState = false;
+    }
 
+  });
+  
   function fillBlanks() {
     for (var x = 0; x < randomWord.length; x++) {
       if (randomWord.charAt(x) !== " ") {
@@ -86,7 +99,7 @@ $(document).ready(function(){
     if (winCondition === randomWord.length && guessesRemaining >= 0){
       $(".panelAll").html("");
       $(".panelWords").html("");
-      $(".panelMain").html("<h1>You Win!!</h1>");
+      $(".panelMain").html("<h1>You Win!! The Answer is: " + randomWord + "</h1>");
       $(".panelMain").addClass("text-center");
       $(".panelMain").append("<button class='btn-lg playAgain'>");
       $(".playAgain").html("Play Again?");
@@ -101,7 +114,12 @@ $(document).ready(function(){
       $(".panelMain").append("<button class='btn-lg playAgain'>");
       $(".playAgain").html("Play Again?");
       losses++
-    }  
+    }
+
+  database.ref("/hangman/single").set({
+    wins: wins,
+    losses: losses
+  }); 
   }
 
   function reset () {
@@ -188,7 +206,7 @@ $(document).ready(function(){
             }
             fillBlanks();
             $(".panelWords").append("<h2 id='letterGuessed'> Letters Guessed: " + guessedLetters + "</h2>");
-            $(".panelWords").append("<h2 id='guesses'>Guesses Remaining: " + guessesRemaining + "</h2>")
+            $(".panelWords").append("<h2 id='guesses'>Guesses Remaining: " + guessesRemaining + "</h2>");
             var guessesDiv = "<div class='panel panel-default panelAll guessDiv'>";
             var guessesDivInternal ="<div class='panel-body panelWords guessForm'>";
             $(".container").append(guessesDiv);
@@ -235,7 +253,7 @@ $(document).ready(function(){
     $(".panelAll").append("<h2>Player 1</h2>");
     $(".panelAll3").append("<h2>Player 2</h2>");
 
-    //Creating form for player 1 to write word for play 2
+    //Creating form for player 1 to write word for player 2
     var inputDiv = "<div class='form-group'><label for='text'>Player 1, please write your guess here<br>(15 character max, letters only): </label><textarea class='form-control' rows='5' id='userSelectedWord' maxlength='15'></textarea></div>"
     $(".panelAll2").append(inputDiv);
     $(".panelAll2").append("<button class='btn-lg submit'>");
@@ -255,31 +273,72 @@ $(document).ready(function(){
            countBack++;
           }
         }
-
+        //Ajax call to check user input for profanity
         var queryTerm = userGamewordtoLowercase;
-        var queryURL = "https://neutrinoapi.com/bad-word-filter"
+        var queryURL = "http://www.purgomalum.com/service/containsprofanity?text=" + queryTerm;
         $.ajax({
           url: queryURL,
-          type: "get", //send it through get method
-          data: { 
-            "user-id": "drdito", 
-            "api-key": apiKey, 
-            "content": userGamewordtoLowercase
-          },
-          success: function(response) {
-            console.log(response);
-          },
-          error: function(xhr) {
-            //Do Something to handle error
-          }
+          method: "",
+          async: false
+        }).done(function(response) {
+          console.log(response);
+          profanity = response;
+          
         });
 
-        if (countBack === userGamewordtoLowercase.length) {
-          alert("Valid Word!!");
+        if (countBack === userGamewordtoLowercase.length && profanity === "false") {
+          randomWord = userGameword;
+          countBack = 0;
+          guessesRemaining = 3 + userGamewordtoLowercase.length;
+          $(".container").html("");
+          var newGameDiv = "<div class='panel panel-default text-center panelAll panelMain'>";
+          var internalNewGameDiv = "<div class='panel-body panelWords'>"
+          $(".container").append(newGameDiv);
+          $(".panelAll").append(internalNewGameDiv);
+          $(".panelWords").html("<h2>Player 2's word is:</h2>");
+          var wordWrapDiv = "<div id = 'wordWrap'>";
+          $(".panelWords").append(wordWrapDiv);
+          $(".panelAll").removeClass("text-center");
+          //loop to add in blanks
+            for (var i = 0; i < 16 ; i++) {
+              var underlineDiv = "<div id='underline" + i +"'>";
+              $("#wordWrap").append(underlineDiv);
+              var letterDiv = "<div id='letter" + i +"'>";
+              $("#underline" + i).append(letterDiv);
+          }
+          fillBlanks();
+          $(".panelWords").append("<h2 id='letterGuessed'> Letters Guessed: " + guessedLetters + "</h2>");
+          $(".panelWords").append("<h2 id='guesses'>Guesses Remaining: " + guessesRemaining + "</h2>");
+          $(".panelWords").append("Use Your Keyboard to Play!");
+          randomWordToLowerCase = userGamewordtoLowercase;
+          document.onkeyup = function(event) {
+            fillGuessedLetters();
+            checker();
+            winChecker();
+            $(".playAgain").on("click", function() {
+              reset();
+            });
+          }
+
+
+        }
+        else if (profanity === "true") {
+          countBack = 0;
+          $(".panelAll2").append("<h3>**No Profanity Please**</h3>");
+          profanity = "false";
+          $("#userSelectedWord").val("");
+
+        }
+
+        else {
+          $(".panelAll2").append("<h3>**Your Word is Invalid**</h3>");
           countBack = 0;
         }
-        else
-          alert("This is invalid");
+
+
+          
       });
+        
+        
   });
 });
