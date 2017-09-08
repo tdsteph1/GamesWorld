@@ -89,31 +89,40 @@ tbody {
 
 /********** panel ***********/
 .panel-heading{
+  padding: 0px;
   border-radius: 15px 15px 0 0!important;
-  border-color: teal!important;
+  border-color: #fff!important;
+  color: white;
+  font-size: 24px;
 }
 .panel {
-  width: 100%;
   line-height: 1.0;
   margin: 0; 
-  border-color: teal!important;
-  border-radius: 15px!important;
+  border-color: #fff important;
+  border-radius: 16px 16px 0 0!important;
 }
-.panel-body{
-  border-radius: 0 0 15px 15px!important;  
+.panel-footer{
+  font-size: x-large;
+  padding-right: 15px;
+  border-radius: 0 0 15px 15px!important;
+  border-color: #fff !important; 
+  background: rgba(122, 130, 136, 0.4)!important;
+  color: #fff;
+  border:solid;
 }
-
 .panel-transparent {
     background: none;
+    border: 1px solid #fff;
 }
 .panel-transparent .panel-heading{
-    background: rgba(122, 130, 136, 0.2)!important;
+    background: rgba(122, 130, 136, 0.4)!important;
 }
 .panel-transparent .panel-footer{
-    background: rgba(122, 130, 136, 0.2)!important;
+    background: rgba(122, 130, 136, 0.4)!important;
 }
 .panel-transparent .panel-body{
   color: #fff;
+  background: rgba(122, 130, 136, 0.4)!important;  
 }
 
 .row{

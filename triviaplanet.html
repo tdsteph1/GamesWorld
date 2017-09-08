@@ -15,7 +15,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>  
-  <script src="assets/js/tp.js"></script> 
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="assets/js/triviaplanet.js"></script> 
 
 
@@ -34,11 +34,11 @@
     <!-- (Current Stats and previous questions)-->
     <div class="row" id="resultsWindow">
       <div class="col-md" style="padding: 0;">
-        <div class="panel panel-primary panel-transparent display-area">
-
-          <div class="panel-heading d-flex justify-content-end">                         
+        <div class="panel panel-transparent ">
+    <!-- ***************** main window header ****************** -->
+          <div class="panel-heading panel-transparent d-flex justify-content-end">                         
             <div class="p-2 flex-first mr-auto">
-              <h2 class="header-title">Trivia World</h2>
+              <h2 class="header-title" id="welcomeTitle">Trivia Planet</h2>
             </div> 
             <div class="p-2 flex-first" id="correct">
               <h3 class="title" id="allTimeScoreRight">Correct:</h3>
@@ -53,6 +53,7 @@
               <a href="#"><img src="assets/images/totallytrivia/info.png" class="infoIcon"></a>
             </div>                                                                 
           </div><!-- panel heading -->
+    <!-- ***************** main window body ****************** -->          
           <div class="panel-body">
             <div class="container">
               <ul class="nav nav-tabs" id="resultTabs">
@@ -62,7 +63,8 @@
               </div>
             </div>
            <div class="d-flex justify-content-center align-middle">
-              <button class="d-flex-column btn btn-info" id="newGameBtn">New Game</button>
+              <div id="loginBtn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login to begin</div>
+              <div class="waiting" id="waitingIcon"><i class='fa fa-cog fa-spin fa-fw'></i></div>
             </div> 
           <div class="container-fluid" style="border-top: 4px solid; margin-top: 30px;">
             <div class="row">
@@ -81,7 +83,20 @@
               </div>          
             </div>
           </div>            
-          </div><!-- panel body -->            
+          </div><!-- panel body -->
+    <!-- ***************** main footer ****************** -->
+          <div class="panel-footer d-flex align-items-center justify-content-start">
+            <div id="standing" style="margin-right: 30px;">
+              <label for="wins">Wins:</label>
+              <span id="wins">0</span>
+              <label for="losses">Losses:</label>
+              <span id="losses">0</span>
+            </div>
+            <div class="ml-auto" id="logo">
+              <span class="header-title d-inline header-title" style="font-size: 12px;">Trivia Planet</span> 
+            </div>
+          </div>
+
         </div><!-- panel -->  
       </div><!-- column -->
     </div> <!-- row -->
@@ -90,7 +105,7 @@
   <div class="container d-flex justify-content-center align-middle">
     <div class="panel panel-info" id="gameSelect">  
       <div class="panel-heading d-flex justify-content-end" >
-        <div class="p-2 mr-auto" ><h2>Select your Game</h2></div>
+        <div class="p-2 mr-auto" ><h2>Select your Category and Level</h2></div>
         <div class="p-2" id="selectGameTypeBtn"><a href="#"><i class="material-icons md-dark">highlight_off</i></a></div>        
       </div>  
       <div class="panel-body">
@@ -139,7 +154,7 @@
     </div> <!-- panel -->
   </div><!-- container -->
 
-  <!-- trivia Window -->
+<!--************************ trivia Window ***************************-->
   <div class="container d-flex justify-content-center align-middle" style="position: relative; display:none;">
     <div class="panel panel-info" id="triviaWindow">
       <div class="panel-heading d-flex justify-content-around panel-info">
