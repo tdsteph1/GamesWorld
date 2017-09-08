@@ -4,12 +4,12 @@ body {
  background-position: center;
  background-repeat: no-repeat;
  background-size: cover;
-}
+ }
 
-h1 {
+.container {
   font-family: 'Geostar Fill', cursive;
+  
 }
-
 .jumbotron {
   background-color: rgba(241, 147, 147, 0.25);
   color: #fff;
@@ -83,4 +83,12 @@ h1 {
 
  .playAgain {
     background-color: #953c3c;
+ }
+
+ .submit {
+   background-color: #953c3c; 
+ }
+
+ .panelAll2 {
+    font-size: 24px;
  }

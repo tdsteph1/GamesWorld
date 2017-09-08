@@ -27,6 +27,11 @@ $(document).ready(function(){
   var randomWordToLowerCase ="";
   var wins = 0;
   var losses = 0;
+  var userGameword = "";
+  var userGamewordtoLowercase = "";
+  var validletter;
+  var countBack = 0;
+  var apiKey = "juxQrOf82kwObIuNjV0BvKilXbJQfPUxwxf0LLMM07w7OHwN";
   
 
   function fillBlanks() {
@@ -194,7 +199,7 @@ $(document).ready(function(){
               fillGuessedLetters();
               checker();
               winChecker();
-              $(".playAgain").on("click", function(event) {
+              $(".playAgain").on("click", function() {
                 reset();
               });
 
@@ -203,6 +208,78 @@ $(document).ready(function(){
         }
       });
     });
-  
 
+//--------------------------------
+//Multiplayer starts here
+  $(".multi").on("click", function(event) {
+    event.preventDefault();
+    $(".jumbotron").css("display", "none");
+    var rowDiv = "<div class='row row1'>"
+    var columnDiv = "<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column1'>"
+    var newMultiDiv = "<div class='panel panel-default text-center panelAll panelMain'>";
+    var internalMultiNewDiv = "<div class='panel-body panelWords'>"
+    $(".container").append(rowDiv);
+    $(".row1").append(columnDiv);
+    $(".column1").append(newMultiDiv);
+    $(".panelAll").append(internalMultiNewDiv);
+    var column2Div = "<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column2'>"
+    var newMultiDiv2 = "<div class='panel panel-default text-center panelAll2 panelMain'>";
+    $(".row1").append(column2Div);
+    $(".column2").append(newMultiDiv2);
+    $(".panelAll2").append(internalMultiNewDiv);
+    var column3Div = "<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column3'>"
+    var newMultiDiv3 = "<div class='panel panel-default text-center panelAll3 panelMain'>";
+    $(".row1").append(column3Div);
+    $(".column3").append(newMultiDiv3);
+    $(".panelAll3").append(internalMultiNewDiv);
+    $(".panelAll").append("<h2>Player 1</h2>");
+    $(".panelAll3").append("<h2>Player 2</h2>");
+
+    //Creating form for player 1 to write word for play 2
+    var inputDiv = "<div class='form-group'><label for='text'>Player 1, please write your guess here<br>(15 character max, letters only): </label><textarea class='form-control' rows='5' id='userSelectedWord' maxlength='15'></textarea></div>"
+    $(".panelAll2").append(inputDiv);
+    $(".panelAll2").append("<button class='btn-lg submit'>");
+    $(".submit").html("Submit");
+      $(".submit").on("click", function(event) {
+        event.preventDefault();
+        userGameword = $("#userSelectedWord").val().trim();
+        userGamewordtoLowercase = userGameword.toLowerCase();
+        for (var q = 0; q < userGamewordtoLowercase.length; q++) {
+          for (var f = 0; f < alphabet.length; f++) {
+            if (userGamewordtoLowercase.charAt(q) === alphabet[f]) {
+              countBack++;
+              console.log(countBack);
+            }
+          }
+          if (userGamewordtoLowercase.charAt(q) === " " ) {
+           countBack++;
+          }
+        }
+
+        var queryTerm = userGamewordtoLowercase;
+        var queryURL = "https://neutrinoapi.com/bad-word-filter"
+        $.ajax({
+          url: queryURL,
+          type: "get", //send it through get method
+          data: { 
+            "user-id": "drdito", 
+            "api-key": apiKey, 
+            "content": userGamewordtoLowercase
+          },
+          success: function(response) {
+            console.log(response);
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+          }
+        });
+
+        if (countBack === userGamewordtoLowercase.length) {
+          alert("Valid Word!!");
+          countBack = 0;
+        }
+        else
+          alert("This is invalid");
+      });
+  });
 });
