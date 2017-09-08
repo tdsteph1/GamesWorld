@@ -1,4 +1,16 @@
 $(document).ready(function(){
+  
+  var config = {
+      apiKey: "AIzaSyBB23QESbNrXQRw6FbimCzI6BfXAkPYVKo",
+      authDomain: "gamesworld-d56f1.firebaseapp.com",
+      databaseURL: "https://gamesworld-d56f1.firebaseio.com",
+      projectId: "gamesworld-d56f1",
+      storageBucket: "gamesworld-d56f1.appspot.com",
+      messagingSenderId: "411556798841"
+    };
+    firebase.initializeApp(config);
+  var database = firebase.database();
+
   var gameWords = { marsMovies: ["RocketMan", "The Martian", "Mars Attacks", "Red Planet", "Total Recall"],
                    exploration: ["Neil Armstrong", "Discovery", "Atlantis", "Sputnik", "Apollo", "Buzz Aldrin"],
                          space: ["Eclipse", "Lunar", "Cosmic Rays", "Dark Matter", "Olympus Mons", "Orbit"],
@@ -13,6 +25,8 @@ $(document).ready(function(){
   var guessesRemaining= 0;
   var correctLetters = [];
   var randomWordToLowerCase ="";
+  var wins = 0;
+  var losses = 0;
   
 
   function fillBlanks() {
@@ -39,7 +53,7 @@ $(document).ready(function(){
     }
     $("#letterGuessed").html("<h2 id='letterGuessed'> Letters Guessed: " + guessedLetters + "</h2>")
     $("#guesses").html("<h2 id='guesses'> Guesses Remaining: " + guessesRemaining + "</h2>");
-    console.log(guessesRemaining);
+   
     
   }
 
@@ -48,23 +62,56 @@ $(document).ready(function(){
       if (randomWordToLowerCase.charAt(r) === event.key) {
         $("#letter" + r).css("visibility", "visible")
         var correctIndex = correctLetters.indexOf(event.key);
+          
+        
         if (correctIndex === -1) {
           correctLetters.push(event.key);
-          winCondition++;
-          console.log(correctLetters);
+          for (var y = 0; y < randomWordToLowerCase.length; y++) {
+            if (randomWordToLowerCase.charAt(y) === event.key) {
+              winCondition++;
+            }
+          }
         }
-      }
+        
     }
+  }
+}
+
+  function winChecker () {
+    if (winCondition === randomWord.length && guessesRemaining >= 0){
+      $(".panelAll").html("");
+      $(".panelWords").html("");
+      $(".panelMain").html("<h1>You Win!!</h1>");
+      $(".panelMain").addClass("text-center");
+      $(".panelMain").append("<button class='btn-lg playAgain'>");
+      $(".playAgain").html("Play Again?");
+      wins++;
+    }
+
+    else if (guessesRemaining === 0 && winCondition !== randomWord.length) {
+      $(".panelAll").html("");
+      $(".panelWords").html("");
+      $(".panelMain").html("<h1>I'm sorry, you ran out of guesses. The Answer is: " + randomWord + "</h1>");
+      $(".panelMain").addClass("text-center");
+      $(".panelMain").append("<button class='btn-lg playAgain'>");
+      $(".playAgain").html("Play Again?");
+      losses++
+    }  
+  }
+
+  function reset () {
+   location.reload();
   }
 
 
 
   //Singleplayer game
   //--------------------------------------------------
+   
     $(".single").on("click", function(event) {
     event.preventDefault();
     $(".jumbotron").css("display", "none");
-    var newDiv = "<div class='panel panel-default text-center panelAll'>";
+    var newDiv = "<div class='panel panel-default text-center panelAll panelMain'>";
     var internalNewDiv = "<div class='panel-body panelWords'>"
     $(".container").append(newDiv);
     $(".panelAll").append(internalNewDiv);
@@ -146,10 +193,16 @@ $(document).ready(function(){
             document.onkeyup = function(event) {
               fillGuessedLetters();
               checker();
+              winChecker();
+              $(".playAgain").on("click", function(event) {
+                reset();
+              });
 
             }
             
         }
       });
     });
+  
+
 });
