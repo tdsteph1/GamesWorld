@@ -31,7 +31,7 @@
   firebase.initializeApp(config);
 // *************** db shortcuts ****************
   var database = firebase.database();
-  var connectionsRef = database.ref("/connections"); 
+  var connectionsRef = database.ref("/connections/rps"); 
   var connectedRef = database.ref(".info/connected");
   var rps = database.ref("/rps");
   var gameStart = database.ref("/rps/gameStart"); 
@@ -166,7 +166,12 @@
               wins:0,
           });
         } else {
-          $("#messageBoard").html("Too many players in the room.  Try again later")
+          swal({
+            title: "Login Error",
+            text: "Too many players on Trivia Planet! Try again later.",
+            icon: "error",
+          });
+          $("#messageBoard").html("Too many players in the room.  Try again later");
         }
         $('#editPlayerName').modal('toggle');
   });
