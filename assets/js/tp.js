@@ -93,7 +93,7 @@
                 $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);
                 $("#messageBoard").html(opponent.name + " is ready to go!");
             } else {
-                $("#messageBoard").html("your opponent has not logged in yet");               
+                $("#messageBoard").html(player.name + ", your opponent has not logged in yet");               
             }  
           })             
          
@@ -112,7 +112,7 @@
     // update player information in db
     database.ref("/tp/"+ player.gameName).set({
         playerName:player.name,
-        ready: false;
+        ready: false,
         score:0,
         wins:0,
     });
@@ -144,7 +144,8 @@
           $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);  
         }
         opponent.wins = snapshot.val().wins;
-        opponent.score = snapshot.val().score;        
+        opponent.score = snapshot.val().score;
+        opponent.ready = snapshot.val().ready;        
         checkScores();
     }    
   });  
