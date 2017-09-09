@@ -35,7 +35,7 @@ button{
 }
 
 #triviaTitle{
-  left: 55px;
+  left: 200px;
   top: 80px;
 }
 
@@ -53,11 +53,22 @@ button{
   left: 30px;
   top: 130px;
 }
+
 .planetDiv{
-  float: left;
+  position:relative;
+}
+
+.planet{
   border-radius: 50%;
   border: 5px solid white;
   box-shadow: -10px 10px 5px darkgrey;
+  height: 150px;
+  width: 150px;
+}
+
+#planetSW{
+  border-radius: 50%;
+  border: 7px double lightgreen;
 }
 
 #astronaut{
@@ -66,35 +77,23 @@ button{
 }
 
 #trivia{
-  left: 120px;
-  top: 100px;
+  left: 180px;
 }
 
 #rps{
-  left: -210px;
-  top: 400px;
+  left: 25px;
+  top: 25px;
 }
 
 #hangman{
-  left: 40px;
-  top: 300px;
+ left: 320px;
 }
 
 #starWars{
-  left: 100px;
-  top: 100px;
-  border-radius: 50%;
-  border: 7px double lightgreen;
+  left: 35px;
+  top: 35px;
 }
 
-#AP-logo{
-  position: fixed;
-  top: 8px;
-  right: 150px;
-  height: 25px;
-  width: 25px;
-  z-index: -1;
-}
 
 #footer{
   border-radius: 50%;
@@ -117,14 +116,25 @@ button{
   color:lightgreen;
 }
 
+#AP-logo{
+  position: fixed;
+  top: 8px;
+  right: 150px;
+  height: 25px;
+  width: 25px;
+  z-index: -1;
+}
+
+
 @media screen and (max-width: 980px) and (min-width:769px){
 
   #AP-logo{
     position: fixed;
-    top: 25px;
-    right: 125px;
+    top: 45px;
+    right: 130px;
     z-index: -1;
   }
+
 }
 
 @media screen and (max-width: 768px) and (min-width:641px){
@@ -138,5 +148,6 @@ button{
 }
 
 @media screen and (max-width: 640px){
+
 
 }
