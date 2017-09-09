@@ -95,3 +95,11 @@ body {
  .mute {
   background-color: #953c3c;
  }
+.chat {
+   background-color: #953c3c;
+}
+
+#message {
+  font-family: times;
+  font-size: 12px;
+} 

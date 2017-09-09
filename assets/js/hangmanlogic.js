@@ -12,7 +12,9 @@ $(document).ready(function(){
   var database = firebase.database();
   var connectionsRef = database.ref("/connections/hangman"); 
   var connectedRef = database.ref(".info/connected");
-  var chat = database.ref("/rps/chat");  
+  var chat = database.ref("/hangman/multi/chat");
+  var singlePlayer = database.ref("/hangman/single")
+     
 
   var gameWords = { marsMovies: ["RocketMan", "The Martian", "Mars Attacks", "Red Planet", "Total Recall"],
                    exploration: ["Neil Armstrong", "Discovery", "Atlantis", "Sputnik", "Apollo", "Buzz Aldrin"],
@@ -38,6 +40,16 @@ $(document).ready(function(){
   var profanity;
   var audioState = false;
   var currentConnections = 0;
+  var chatActive = false;
+  var oldWins;
+  var oldLosses; 
+  var newWins;
+  var newLosses;
+
+  singlePlayer.on("value", function(snap) {
+    oldWins = snap.val().hangmanWins;
+    oldLosses = snap.val().hangmanLosses;  
+  });
 
   function fillBlanks() {
     for (var x = 0; x < randomWord.length; x++) {
@@ -55,19 +67,21 @@ $(document).ready(function(){
   }
 
   function fillGuessedLetters() {
-    var indexTwo = alphabet.indexOf(event.key);
-    var index = guessedLetters.indexOf(event.key);
-    if (index === -1 && indexTwo !== -1) {
-      guessedLetters.push(event.key);
-      guessesRemaining--;
-    }
-    $("#letterGuessed").html("<h2 id='letterGuessed'> Letters Guessed: " + guessedLetters + "</h2>")
-    $("#guesses").html("<h2 id='guesses'> Guesses Remaining: " + guessesRemaining + "</h2>");
+    if (chatActive !== true) {
+      var indexTwo = alphabet.indexOf(event.key);
+      var index = guessedLetters.indexOf(event.key);
+      if (index === -1 && indexTwo !== -1) {
+        guessedLetters.push(event.key);
+        guessesRemaining--;
+      }
+      $("#letterGuessed").html("<h2 id='letterGuessed'> Letters Guessed: " + guessedLetters + "</h2>")
+      $("#guesses").html("<h2 id='guesses'> Guesses Remaining: " + guessesRemaining + "</h2>");
    
-    
+    }
   }
 
   function checker() {
+    if (chatActive !== true) {
     for (var r = 0; r < randomWordToLowerCase.length; r++) {
       if (randomWordToLowerCase.charAt(r) === event.key) {
         $("#letter" + r).css("visibility", "visible")
@@ -85,9 +99,15 @@ $(document).ready(function(){
         
     }
   }
+ }
 }
 
   function winChecker () {
+    singlePlayer.on("value", function(snap) {
+    oldWins = snap.val().hangmanWins;
+    oldLosses = snap.val().hangmanLosses;  
+    });
+
     if (winCondition === randomWord.length && guessesRemaining >= 0){
       $(".panelAll").html("");
       $(".panelWords").html("");
@@ -107,11 +127,18 @@ $(document).ready(function(){
       $(".playAgain").html("Play Again?");
       losses++
     }
+    newWins = oldWins + wins;
+    newLosses = oldLosses + losses;
 
-  }
+    singlePlayer.set({
+      hangmanLosses: newLosses,
+      hangmanWins: newWins
+    });
+}
+
 
   function reset () {
-   location.reload();
+    location.reload();
   }
 
 
@@ -126,6 +153,7 @@ $(document).ready(function(){
     $(".container").append(newDiv);
     $(".panelAll").append(internalNewDiv);
     $(".panelWords").html("<h3>Singleplayer Hangman. Choose a topic below:");
+    $(".panelWords").append("<h3> Your all time record: " + oldWins + " Wins and " + oldLosses + " Losses.");
     var newButton = "<button class='btn-lg moviesButton theme'>"
     var newButton2 = "<button class='btn-lg spaceExplorationButton theme'>"
     $(".panelWords").append(newButton);
@@ -223,10 +251,8 @@ $(document).ready(function(){
             var con = connectionsRef.push(true);
             con.onDisconnect().remove();
             currentConnections ++;
-            console.log(currentConnections);
           }
       });
-
     $(".jumbotron").css("display", "none");
     var rowDiv = "<div class='row row1'>"
     var columnDiv = "<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column1'>"
@@ -263,7 +289,6 @@ $(document).ready(function(){
           for (var f = 0; f < alphabet.length; f++) {
             if (userGamewordtoLowercase.charAt(q) === alphabet[f]) {
               countBack++;
-              console.log(countBack);
             }
           }
           if (userGamewordtoLowercase.charAt(q) === " " ) {
@@ -271,19 +296,20 @@ $(document).ready(function(){
           }
         }
         //Ajax call to check user input for profanity
+        /*
         var queryTerm = userGamewordtoLowercase;
         var queryURL = "http://www.purgomalum.com/service/containsprofanity?text=" + queryTerm;
         $.ajax({
           url: queryURL,
-          method: "",
+          method: "GET",
           async: false
         }).done(function(response) {
           console.log(response);
           profanity = response;
           
-        });
+        });*/
 
-        if (countBack === userGamewordtoLowercase.length && profanity === "false") {
+        if (countBack === userGamewordtoLowercase.length) {
           randomWord = userGameword;
           countBack = 0;
           guessesRemaining = 3 + userGamewordtoLowercase.length;
@@ -324,21 +350,46 @@ $(document).ready(function(){
           $(".panel2").css("background-color", "#fff");
           $(".panel2").css("color", "black");
           $(".panel2").append("<div class='form-group'><label for='comment'></label><textarea class='form-control' rows='1' id='chatTextArea'></textarea></div>")
+          $(".panel2").append("<button class='btn-lg chat'>Submit</button>")
+          //Sending submitted chat info to database
+          $(".chat").on("click", function(event){
+            event.preventDefault();
+            var chatData = $("#chatTextArea").val().trim();
+            $("#chatTextArea").val("");
+              chat.set({
+                newMessage: chatData
+              });
+            });
+          chat.on("value", function(snap){
+          var newMessageWrite = snap.val().newMessage;
+          $("#chat").append("<p id='message'>" + newMessageWrite + "</p>");
+
+
+
+          });
           $(".row2").append("<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column4'>");
           var newMultiDiv3 = "<div class='panel panel-default text-center panelAll panel3'>";
           $(".column4").append(newMultiDiv3);
           $(".panel3").html("<h2>Player 2</h2>");
 
-
+          $(".panel2").on("mouseenter", function () {
+            chatActive = true;
+            console.log(chatActive);
+          });
+          $(".panel2").on("mouseleave", function() {
+            chatActive = false;
+            console.log(chatActive);
+          });
           randomWordToLowerCase = userGamewordtoLowercase;
+          
+        
           document.onkeyup = function(event) {
             fillGuessedLetters();
             checker();
             winChecker();
-            $(".playAgain").on("click", function() {
-              reset();
-            });
           }
+            
+          
 
 
         }
@@ -361,6 +412,11 @@ $(document).ready(function(){
         
         
   });
+
+$(document).on("click", ".playAgain", function(){
+  reset(); 
+})
+
 $(document).on("click", ".mute", function() {
   if (audioState === false) {
     $("#audiotag1")[0].play();
