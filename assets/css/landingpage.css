@@ -1,28 +1,110 @@
 body{
   background: url("../images/landingpage_bg.jpg") no-repeat center fixed;
+  /*background: url("../images/144246-OTOQD9-270.jpg") no-repeat center fixed;*/
  /* Allows background image to fit perfectly on Computer screen, Ipad Screen, & Iphone Screen without any white space */
     -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
       background-size: cover;
+      padding-bottom: 500px;
 }
 
 img{
-  border-radius: 50%;
-  border: 5px solid white;
   height: 150px;
   width: 150px;
 }
 
-a{
-  position: relative;
+div{
+    position: relative;
 }
 
-span{
+.title{
   position:absolute;
-  left: 20%;
-  top: 40%;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
-  color: black;
+  color: yellow;
+}
+
+p{
+  color: white;
+  font-size:medium;
+}
+
+button{
+  margin: 7px;
+}
+
+#triviaTitle{
+  left: 55px;
+  top: 80px;
+}
+
+#hangmanTitle{
+  left: 30px;
+  top: 85px;
+}
+
+#rpsTitle{
+  left: 60px;
+  top: 75px;
+}
+
+#starWarsTitle{
+  left: 30px;
+  top: 130px;
+}
+.planetDiv{
+  float: left;
+  border-radius: 50%;
+  border: 5px solid white;
+  box-shadow: -10px 10px 5px darkgrey;
+}
+
+#astronaut{
+  float: left;
+  left: 50px;
+}
+
+#trivia{
+  left: 140px;
+  top: 100px;
+}
+
+#rps{
+  left: -200px;
+  top: 400px;
+}
+
+#hangman{
+  left: 70px;
+  top: 300px;
+}
+
+#starWars{
+  position:fixed;
+  left: 700px;
+  top: 100px;
+  border-radius: 50%;
+  border: 7px double lightgreen;
+}
+
+#footer{
+  border-radius: 50%;
+  border: 2px solid lightgrey;
+  box-shadow: -10px 10px 5px darkgrey;
+  padding-top: 10px;
+}
+
+#footerText{
+  color: lightgreen;
+}
+
+#profilePic{
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+
+#logo{
+  color:lightgreen;
 }

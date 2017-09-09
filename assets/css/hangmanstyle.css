@@ -1,17 +1,30 @@
 body {
  background-image: url("../images/mars.jpg");
- background-size: cover;
- background-repeat: no-repeat;
+ height: 100%; 
  background-position: center;
-}
+ background-repeat: no-repeat;
+ background-size: cover;
+ }
 
-h1 {
+.container {
   font-family: 'Geostar Fill', cursive;
+  
+}
+.jumbotron {
+  background-color: rgba(241, 147, 147, 0.25);
+  color: #fff;
 }
 
-.jumbotron {
-  background-color: rgba(241, 147, 147, 0.08);
+.panel {
+  background-color: rgba(241, 147, 147, 0.25);
   color: #fff;
+  border: none;
+}
+
+.panelWords {
+  color: #fff !important;
+  font-family: 'Geostar Fill', cursive;
+  font-size: 30px;
 }
 
 #letter0, #letter1, #letter2, #letter3, #letter4, #letter5, #letter6, #letter7, #letter8, #letter9, 
@@ -53,5 +66,32 @@ h1 {
 
 .theme {
   margin: 10px;
+  background-color: #953c3c;
 }
 
+.single {
+ background-color: #953c3c;
+}
+ .multi {
+  background-color: #953c3c;
+ }
+
+ .form-control {
+    font-family: times;
+    font-size: 24px;
+ }
+
+ .playAgain {
+    background-color: #953c3c;
+ }
+
+ .submit {
+   background-color: #953c3c; 
+ }
+
+ .panelAll2 {
+    font-size: 24px;
+ }
+ .mute {
+  background-color: #953c3c;
+ }
