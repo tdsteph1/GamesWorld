@@ -12,7 +12,7 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Gamesworld</a>
+          <a id="logo" class="navbar-brand" href="landingpage.html">Gamesworld</a>
         </div>
         <ul class="nav navbar-nav">
           <li class="active"><a href="landingpage.html">Home</a></li>
@@ -20,8 +20,10 @@
           <li><a href="#">About</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><p id="username">User Name</span>
+            <img id="profilePic" src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="Profile Pic">
+          </li>
+          <li><button type="submit" class="btn btn-primary" id="sign-out"> Sign out </button></li>
         </ul>
       </div>
   </div>
@@ -30,7 +32,7 @@
     </div>
       <br>
       <div id="trivia" class="planetDiv">
-        <img src="assets/images/blue_planet.png" alt="Trivia Game" class="planet img-fluid" size="small">
+        <img class="expand" src="assets/images/blue_planet.png" alt="Trivia Game" class="planet img-fluid" size="small">
         <span class="title text-center" id="triviaTitle">Trivia Planet<br>
           <p>Population: <span id="popTriv"></span></p>
           <form style="display: inline" action="triviaplanet.html" method="get">
@@ -39,7 +41,7 @@
         </span>
       </div>
       <div id="rps" class="planetDiv">
-        <img src="assets/images/pink-planet.png" alt="Rock Paper Scissors" class="planet img-fluid" size="small">
+        <img class="expand" src="assets/images/pink-planet.png" alt="Rock Paper Scissors" class="planet img-fluid" size="small">
         <span class="title text-center" id="rpsTitle">RPS Planet<br>
           <p>Population: <span id="popRPS"></span></p>
           <form style="display: inline" action="rps.html" method="get">
@@ -48,7 +50,7 @@
         </span>
       </div>
       <div id="hangman" class="planetDiv">
-        <img src="assets/images/orange_planet.png" alt="Hangman Game" class="planet img-fluid" size="small">
+        <img class="expand" src="assets/images/orange_planet.png" alt="Hangman Game" class="planet img-fluid" size="small">
         <span class="title text-center" id="hangmanTitle">Hangman Planet<br>
           <p>Population: <span id="popHangman"></span></p>
           <form style="display: inline" action="hangman.html" method="get">
@@ -56,8 +58,20 @@
           </form>
         </span>
       </div>
-    <div id="easterEgg" >
-      <img src="assets/images/spaceship.png" alt="easterEgg" class="planet img-fluid">
+    <div id="starWars">
+      <img class="expand" src="assets/images/spaceship.png" alt="Star Wars Game" class="planet img-fluid">
+      <span class="title text-center" id="starWarsTitle">Star Wars Battle<br>
+        <p>Population: <span id="popStarWars"></span></p>
+        <form style="display: inline" action="#" method="get">
+          <button class="btn btn-success">Play</button>
+        </form>
+      </span>
+    </div>
+
+    <div id="footer" class="navbar navbar-inverse navbar-fixed-bottom">
+      <div class="container text-center">
+        <a id="footerText" href="http://www.freepik.com">Designed by Freepik</a>
+      </div>
     </div>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
