@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Star Wars </title>
+
+	 <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- jQuery, javascript file for the Bootstrap's javascript file to function -->
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  	<!-- Bootstrap's javascript file that allows the dropdown menu to work  -->
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  	<!--                CSS           -->
+  	<link rel="stylesheet" href="assets/css/starwars.css">
+
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  
+</head>
+
+<body>
+
+<h1 class="title"> Star Wars RPG </h1>
+
+<div class="container">
+
+	<!--Row1 -->
+	<div class="row">
+
+		<!-- Col -->
+		<div class="col-lg-12">
+
+			<!--Insert All 4 characters to choose from -->
+			<div id="characters">
+				<span id = "name" > </span>
+				<span id = "health">  </span>
+
+				<span id ="name2" > </span>
+				<span id = "health2">  </span>
+
+				<span id ="name3" > </span>
+				<span id = "health3">  </span>
+
+				<span id ="name4" > </span>
+				<span id = "health4">  </span>
+				
+							
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Row2 -->
+	<div class="row">
+
+		<!-- Col -->
+		<div class="col-lg-12">
+
+			<h2 id="yourCharacter"> Your Character </h2>
+
+			<div id ="choice"> 
+
+			<span id = "chosenName" > </span>
+		    <span id = "chosenHealth">  </span>
+
+		</div>
+
+		</div>
+	</div>
+
+	<!-- Row3 -->
+	<div class="row">
+
+		<!-- Col -->
+		<div class="col-lg-12">
+
+			<h2 id="enemies"> Enemies Available To Attack </h2>
+
+				<div id = "enemiesRemain">
+
+				<span id = "enemyName1"> </span>
+				<span id = "enemyHealth1"> </span>
+
+				<span id = "enemyName2"> </span>
+				<span id = "enemyHealth2"> </span>
+
+				<span id = "enemyName3"> </span>
+				<span id = "enemyHealth3"> </span>
+
+
+
+				</div>
+
+		</div>
+	</div>
+
+	<!-- Row4 -->
+	<div class="row">
+
+		<!-- Col -->
+		<div class="col-lg-12">
+
+			<h2 id="fightSection"> Fight Section </h2>
+			<button id="attackButton" class="btn btn-primary" value="A"><h5>Attack</h5></button>
+			
+			<!-- Display "No Enemy Here" if no enemy is in (Defender) -->
+			<h4 id="errorMessage"> </h4>
+
+
+		</div>
+	</div>
+	
+	<!-- Row5 -->
+	<div class="row">
+
+		<!-- Col -->
+		<div class="col-lg-6">
+
+			<h2 id="defender"> Defender </h2>
+
+			<div id ="enemyChoice">
+
+				<span id = "defenderName"> </span>
+				<span id = "defenderHealth"> </span>
+
+
+			</div>
+			
+
+		</div>
+
+		<!-- Col -->
+		<div class="col-lg-6">
+
+				<h4 id="yourAttack"> you attacked <span class="enemyYouAttack"> </span> for <span id="yourAttackDamage"> </span> damage </h4>
+
+				<h4 id="hisAttack"> <span class="enemyYouAttack"> </span> attacked you back for <span id="enemyAttackDamage"> </span> damage </h4>
+
+				<h4 id="winMsg"> You've Won!!!! Select another character to fight! </h4>
+				<h4 id="loseMsg"> You've been defeated ... GAME OVER!!! </h4>
+				<h4 id="winMsg2"> You've Won!!!! You've defeated all enemies! Game Over!!!! </h4>
+				<button id="restartButton" class="btn btn-primary" value="R"><h5>Restart</h5></button>
+
+				
+	</div>
+
+
+</div>
+
+
+
+<script src="assets/js/starwars.js"></script>
+
+</body>
+</html>

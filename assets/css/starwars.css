@@ -1,0 +1,255 @@
+body
+{
+	background: url("../images/star-wars-background3.jpg") no-repeat fixed center;				/* Center allows full image to fit virtically */
+
+	/* Allows background image to fit perfectly on Computer screen, Ipad Screen, & Iphone Screen without any white space */
+	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+
+  	color: black;
+
+}
+
+.title
+{
+	text-align: center;
+	position: relative;
+	bottom: 10px;
+}
+
+.container
+{
+	position: relative;
+	bottom: 20px;
+}
+
+#characters
+{
+
+
+}
+
+.characterContainer
+{
+	border-style: solid;
+    border-color: green;
+    border-width: 2px;
+    width: 200px;
+    height: 200px;
+
+    padding: 25px;					/* Minimizes image causing space between green border and image */
+
+ 	background: white;				/* White between green border & image */
+
+   
+}
+
+#name
+{
+	position: absolute;
+	margin-left: 50px;
+}
+
+#health
+{
+	
+	position: absolute;
+	bottom: 0px;
+	margin-left: 80px;
+	
+	
+}
+
+#chosenName
+{
+	position: absolute;
+	margin-left: 50px;
+}
+
+#chosenHealth
+{
+	
+	position: absolute;
+	bottom: 0px;
+	margin-left: 80px;
+	
+	
+}
+
+#enemyName1
+{
+	position: absolute;
+	margin-left: 50px;
+}
+
+#enemyHealth1
+{
+	position: absolute;
+	bottom: 0px;
+	margin-left: 80px;
+	
+}
+
+#defenderName
+{
+	position: absolute;
+	margin-left: 50px;
+}
+
+#defenderHealth
+{
+	position: absolute;
+	bottom: 0px;
+	margin-left: 80px;
+}
+
+#name2
+{
+	position: absolute;
+	margin-left: 250px;
+	
+}
+
+#health2
+{
+	position: absolute;
+	bottom: 0px;
+	margin-left: 280px;
+
+	
+}
+
+#enemyName2
+{
+	position: absolute;
+	margin-left: 250px;
+}
+
+#enemyHealth2
+{
+	position: absolute;
+	bottom: 0px;
+	margin-left: 280px;	
+}
+
+#name3
+{
+	position: absolute;
+	margin-left: 450px;
+	
+}
+
+#health3
+{
+	position: absolute;
+	bottom: 0px;
+	margin-left: 480px;
+
+}
+
+#enemyName3
+{
+	position: absolute;
+	margin-left: 450px;
+}
+
+#enemyHealth3
+{
+	position: absolute;
+	bottom: 0px;
+	margin-left: 480px;
+}
+
+#name4
+{
+	position: absolute;
+	margin-left: 650px;
+	
+}
+
+#health4
+{
+	position: absolute;
+	bottom: 0px;
+	margin-left: 680px;
+
+}
+
+.enemyColor
+{
+	background: red;											/* Changes enemies to red */
+}
+
+#errorMessage
+{
+	color: black;
+	font-weight: bold;
+}
+
+#attackButton
+{
+	background: orange;
+}
+
+#yourAttack
+{
+	display: none;
+}
+
+#hisAttack
+{
+	display: none;
+}
+
+#loseMsg
+{
+	display: none;
+	color: red;
+	font-weight: bold;
+}
+
+#winMsg
+{
+	display: none;
+	color: red;
+	font-weight: bold;
+}
+
+#winMsg2
+{
+	display: none;
+	color: red;
+	font-weight: bold;
+}
+
+#restartButton
+{
+	display: none;
+	background: orange;
+}
+
+#yourAttack
+{
+	color: black;
+	font-weight: bold;
+
+}
+
+#hisAttack
+{
+	color: black;
+	font-weight: bold;
+}
+
+#yourAttackDamage
+{
+	color: red;
+}
+
+#enemyAttackDamage
+{
+	color: red;
+}
+
