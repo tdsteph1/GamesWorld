@@ -15,7 +15,8 @@ $(document).ready(function() {
   // Hide text on planets
   $(".title").hide();
 
-  $("img").on("click",function() {
+  // Allow players to click on planet to enlarge
+  $(".expand").on("click",function() {
     var size = $(this).attr("size");
 
     if (size ==="small") {
@@ -35,27 +36,57 @@ $(document).ready(function() {
   var connectionsTrivia = database.ref("/connections/tp");
   var connectionsRPS = database.ref("/connections/rps");
   var connectionsHangman = database.ref("/connections/hangman");
+  var connectionsStarWars = database.ref("/connections/starwars");
   var populationTrivia = 0;
   var populationRPS = 0;
   var populationHangman = 0;
-
+  var populationStarWars = 0;
+  // Update Trivia Planet connections
   connectionsTrivia.on("value", function(snapshot) {
     console.log(snapshot.numChildren());
     populationTrivia = snapshot.numChildren();
     $("#popTriv").html(populationTrivia);
   });
-
+  // Update RPS Planet connections
   connectionsRPS.on("value", function(snapshot) {
     console.log(snapshot.numChildren());
     populationRPS = snapshot.numChildren();
     $("#popRPS").html(populationRPS);
   });
-
+  // Update Hangman Planet connections
   connectionsHangman.on("value", function(snapshot) {
     console.log(snapshot.numChildren());
     populationHangman = snapshot.numChildren();
     $("#popHangman").html(populationHangman);
   });
+  // Update Star Wars Battle connections
+  connectionsStarWars.on("value", function(snapshot) {
+    console.log(snapshot.numChildren());
+    populationStarWars = snapshot.numChildren();
+    $("#popStarWars").html(populationStarWars);
+  });
 
+  // Sign out Player
+  $('#sign-out').on('click', function(event)
+  {
+    event.preventDefault();
+    firebase.auth().signOut().then(function()
+    {
+        $(location).attr('href', 'index.html');
+
+     })
+      .catch(function(error)
+      {
+         swal( "Error" ,  error.message,  "error" );
+      });
+
+     //disconnect particular user
+      //user.onDisconnect().remove();
+ });
+  // Grab user name and display in navbar
+  var user = firebase.auth().currentUser;
+  console.log(user);
+  // var userName = user.userName;
+  // console.log(userName);
 });
 

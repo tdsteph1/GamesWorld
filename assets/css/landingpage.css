@@ -49,6 +49,10 @@ button{
   top: 75px;
 }
 
+#starWarsTitle{
+  left: 30px;
+  top: 130px;
+}
 .planetDiv{
   float: left;
   border-radius: 50%;
@@ -76,8 +80,31 @@ button{
   top: 300px;
 }
 
-#easterEgg{
+#starWars{
   position:fixed;
   left: 700px;
   top: 100px;
+  border-radius: 50%;
+  border: 7px double lightgreen;
+}
+
+#footer{
+  border-radius: 50%;
+  border: 2px solid lightgrey;
+  box-shadow: -10px 10px 5px darkgrey;
+  padding-top: 10px;
+}
+
+#footerText{
+  color: lightgreen;
+}
+
+#profilePic{
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+
+#logo{
+  color:lightgreen;
 }
