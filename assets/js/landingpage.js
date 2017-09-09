@@ -16,7 +16,7 @@ $(document).ready(function() {
   $(".title").hide();
 
   // Allow players to click on planet to enlarge
-  $(".expand").on("click",function() {
+  $(".planet").on("click",function() {
     var size = $(this).attr("size");
 
     if (size ==="small") {
