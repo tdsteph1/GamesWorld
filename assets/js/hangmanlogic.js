@@ -10,6 +10,9 @@ $(document).ready(function(){
     };
     firebase.initializeApp(config);
   var database = firebase.database();
+  var connectionsRef = database.ref("/connections/hangman"); 
+  var connectedRef = database.ref(".info/connected");
+  var chat = database.ref("/rps/chat");  
 
   var gameWords = { marsMovies: ["RocketMan", "The Martian", "Mars Attacks", "Red Planet", "Total Recall"],
                    exploration: ["Neil Armstrong", "Discovery", "Atlantis", "Sputnik", "Apollo", "Buzz Aldrin"],
@@ -34,19 +37,8 @@ $(document).ready(function(){
   var apiKey = "juxQrOf82kwObIuNjV0BvKilXbJQfPUxwxf0LLMM07w7OHwN";
   var profanity;
   var audioState = false;
- 
-  $(document).on("click", ".mute", function() {
-    if (audioState === false) {
-      $("#audiotag1")[0].play();
-      audioState = true;
-    }
-    else if (audioState === true) {
-      $("#audiotag1")[0].pause();
-      audioState = false;
-    }
+  var currentConnections = 0;
 
-  });
-  
   function fillBlanks() {
     for (var x = 0; x < randomWord.length; x++) {
       if (randomWord.charAt(x) !== " ") {
@@ -116,16 +108,11 @@ $(document).ready(function(){
       losses++
     }
 
-  database.ref("/hangman/single").set({
-    wins: wins,
-    losses: losses
-  }); 
   }
 
   function reset () {
    location.reload();
   }
-
 
 
   //Singleplayer game
@@ -231,6 +218,15 @@ $(document).ready(function(){
 //Multiplayer starts here
   $(".multi").on("click", function(event) {
     event.preventDefault();
+    connectedRef.on("value", function(snap) {
+          if (snap.val()) {
+            var con = connectionsRef.push(true);
+            con.onDisconnect().remove();
+            currentConnections ++;
+            console.log(currentConnections);
+          }
+      });
+
     $(".jumbotron").css("display", "none");
     var rowDiv = "<div class='row row1'>"
     var columnDiv = "<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column1'>"
@@ -254,7 +250,8 @@ $(document).ready(function(){
     $(".panelAll3").append("<h2>Player 2</h2>");
 
     //Creating form for player 1 to write word for player 2
-    var inputDiv = "<div class='form-group'><label for='text'>Player 1, please write your guess here<br>(15 character max, letters only): </label><textarea class='form-control' rows='5' id='userSelectedWord' maxlength='15'></textarea></div>"
+
+    var inputDiv = "<div class='form-group'><label for='text'>Player 1, please write your word for Player 2 to guess here<br>(15 character max, letters only): </label><textarea class='form-control' rows='5' id='userSelectedWord' maxlength='15'></textarea></div>"
     $(".panelAll2").append(inputDiv);
     $(".panelAll2").append("<button class='btn-lg submit'>");
     $(".submit").html("Submit");
@@ -293,7 +290,11 @@ $(document).ready(function(){
           $(".container").html("");
           var newGameDiv = "<div class='panel panel-default text-center panelAll panelMain'>";
           var internalNewGameDiv = "<div class='panel-body panelWords'>"
-          $(".container").append(newGameDiv);
+          var rowDiv = "<div class='row row1'>"
+          var columnDiv = "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 column1'>"
+          $(".container").append(rowDiv);
+          $(".row1").append(columnDiv);
+          $(".column1").append(newGameDiv);
           $(".panelAll").append(internalNewGameDiv);
           $(".panelWords").html("<h2>Player 2's word is:</h2>");
           var wordWrapDiv = "<div id = 'wordWrap'>";
@@ -307,9 +308,28 @@ $(document).ready(function(){
               $("#underline" + i).append(letterDiv);
           }
           fillBlanks();
+
           $(".panelWords").append("<h2 id='letterGuessed'> Letters Guessed: " + guessedLetters + "</h2>");
           $(".panelWords").append("<h2 id='guesses'>Guesses Remaining: " + guessesRemaining + "</h2>");
           $(".panelWords").append("Use Your Keyboard to Play!");
+          $(".container").append("<div class='row row2'>");
+          $(".row2").append("<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column2'>");
+          var newMultiDiv = "<div class='panel panel-default text-center panelAll panel1'>";
+          $(".column2").append(newMultiDiv);
+          $(".panel1").html("<h2>Player 1</h2>");
+          $(".row2").append("<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column3'>");
+          var newMultiDiv2 = "<div class='panel panel-default text-center panelAll panel2'>";
+          $(".column3").append(newMultiDiv2);
+          $(".panel2").html("<h2 id='chat'>Chat</h2>");
+          $(".panel2").css("background-color", "#fff");
+          $(".panel2").css("color", "black");
+          $(".panel2").append("<div class='form-group'><label for='comment'></label><textarea class='form-control' rows='1' id='chatTextArea'></textarea></div>")
+          $(".row2").append("<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column4'>");
+          var newMultiDiv3 = "<div class='panel panel-default text-center panelAll panel3'>";
+          $(".column4").append(newMultiDiv3);
+          $(".panel3").html("<h2>Player 2</h2>");
+
+
           randomWordToLowerCase = userGamewordtoLowercase;
           document.onkeyup = function(event) {
             fillGuessedLetters();
@@ -341,4 +361,16 @@ $(document).ready(function(){
         
         
   });
+$(document).on("click", ".mute", function() {
+  if (audioState === false) {
+    $("#audiotag1")[0].play();
+    audioState = true;
+  }
+  else if (audioState === true) {
+    $("#audiotag1")[0].pause();
+    audioState = false;
+  }
+
+});
+
 });
