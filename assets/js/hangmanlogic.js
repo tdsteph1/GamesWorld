@@ -14,7 +14,8 @@ $(document).ready(function(){
   var connectedRef = database.ref(".info/connected");
   var chat = database.ref("/hangman/multi/chat");
   var singlePlayer = database.ref("/hangman/single")
-     
+  var user1 = false;
+  var player1 = "";  
 
   var gameWords = { marsMovies: ["RocketMan", "The Martian", "Mars Attacks", "Red Planet", "Total Recall"],
                    exploration: ["Neil Armstrong", "Discovery", "Atlantis", "Sputnik", "Apollo", "Buzz Aldrin"],
@@ -50,6 +51,9 @@ $(document).ready(function(){
     oldWins = snap.val().hangmanWins;
     oldLosses = snap.val().hangmanLosses;  
   });
+
+
+
 
   function fillBlanks() {
     for (var x = 0; x < randomWord.length; x++) {
@@ -147,6 +151,10 @@ $(document).ready(function(){
    
     $(".single").on("click", function(event) {
     event.preventDefault();
+    connectedRef.on("value", function(snap) {
+    var con = connectionsRef.push(true);
+    con.onDisconnect().remove();
+    });
     $(".jumbotron").css("display", "none");
     var newDiv = "<div class='panel panel-default text-center panelAll panelMain'>";
     var internalNewDiv = "<div class='panel-body panelWords'>"
@@ -224,7 +232,7 @@ $(document).ready(function(){
             $(".panelWords").append("<h2 id='guesses'>Guesses Remaining: " + guessesRemaining + "</h2>");
             var guessesDiv = "<div class='panel panel-default panelAll guessDiv'>";
             var guessesDivInternal ="<div class='panel-body panelWords guessForm'>";
-            $(".container").append(guessesDiv);
+            $(".container1").append(guessesDiv);
             $(".guessDiv").append(guessesDivInternal);
             $(".guessForm").html("Use Your Keyboard to Play!");
 
@@ -247,12 +255,10 @@ $(document).ready(function(){
   $(".multi").on("click", function(event) {
     event.preventDefault();
     connectedRef.on("value", function(snap) {
-          if (snap.val()) {
-            var con = connectionsRef.push(true);
-            con.onDisconnect().remove();
-            currentConnections ++;
-          }
-      });
+    var con = connectionsRef.push(true);
+    con.onDisconnect().remove();
+    });
+
     $(".jumbotron").css("display", "none");
     var rowDiv = "<div class='row row1'>"
     var columnDiv = "<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column1'>"
@@ -298,10 +304,10 @@ $(document).ready(function(){
         //Ajax call to check user input for profanity
         /*
         var queryTerm = userGamewordtoLowercase;
-        var queryURL = "http://www.purgomalum.com/service/containsprofanity?text=" + queryTerm;
+        var queryURL = "https://www.purgomalum.com/service/containsprofanity?text=" + queryTerm;
         $.ajax({
           url: queryURL,
-          method: "GET",
+          method: "get",
           async: false
         }).done(function(response) {
           console.log(response);
@@ -313,12 +319,12 @@ $(document).ready(function(){
           randomWord = userGameword;
           countBack = 0;
           guessesRemaining = 3 + userGamewordtoLowercase.length;
-          $(".container").html("");
+          $(".container1").html("");
           var newGameDiv = "<div class='panel panel-default text-center panelAll panelMain'>";
           var internalNewGameDiv = "<div class='panel-body panelWords'>"
           var rowDiv = "<div class='row row1'>"
           var columnDiv = "<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 column1'>"
-          $(".container").append(rowDiv);
+          $(".container1").append(rowDiv);
           $(".row1").append(columnDiv);
           $(".column1").append(newGameDiv);
           $(".panelAll").append(internalNewGameDiv);
@@ -338,7 +344,7 @@ $(document).ready(function(){
           $(".panelWords").append("<h2 id='letterGuessed'> Letters Guessed: " + guessedLetters + "</h2>");
           $(".panelWords").append("<h2 id='guesses'>Guesses Remaining: " + guessesRemaining + "</h2>");
           $(".panelWords").append("Use Your Keyboard to Play!");
-          $(".container").append("<div class='row row2'>");
+          $(".container1").append("<div class='row row2'>");
           $(".row2").append("<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column2'>");
           var newMultiDiv = "<div class='panel panel-default text-center panelAll panel1'>";
           $(".column2").append(newMultiDiv);

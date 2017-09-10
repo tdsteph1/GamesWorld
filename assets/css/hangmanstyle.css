@@ -103,3 +103,9 @@ body {
   font-family: times;
   font-size: 12px;
 } 
+
+#profilePic{
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
