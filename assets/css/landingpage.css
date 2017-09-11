@@ -63,11 +63,17 @@ p{
 
 #sign-out{
   margin: 10px;
-  color:black;
 }
 
-#astronaut{
+#astronaut-div{
   left: 75px;
+  font-family: 'Gloria Hallelujah', cursive;
+  color: white;
+}
+
+#astronaut-img{
+  height: 200px;
+  width: 200px;
 }
 
 #triviaTitle{
