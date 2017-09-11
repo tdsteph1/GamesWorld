@@ -7,6 +7,7 @@ body{
     background-size: cover;
     padding-bottom: 500px;
     font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
 }
 
 img{
@@ -21,6 +22,8 @@ div{
 p{
   color: white;
   font-size:medium;
+  font-family: 'Gloria Hallelujah', cursive;
+  letter-spacing: 2px;
 }
 
 .title{
@@ -72,8 +75,8 @@ p{
 }
 
 #astronaut-img{
-  height: 200px;
-  width: 200px;
+  height: 175px;
+  width: 175px;
 }
 
 #triviaTitle{
@@ -89,7 +92,7 @@ p{
 }
 
 #hangmanTitle{
-  left: 50px;
+  left: 45px;
   top: 85px;
   color: yellow;
 }
