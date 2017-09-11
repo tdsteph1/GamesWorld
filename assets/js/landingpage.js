@@ -25,7 +25,7 @@ $(document).ready(function() {
       $(this).next().show(500);
     }
       
-    else{
+    else {
       $(this).animate({ height:"150px", width: "150px"});
       $(this).attr("size", "small");
       $(this).next().hide();
@@ -41,24 +41,28 @@ $(document).ready(function() {
   var populationRPS = 0;
   var populationHangman = 0;
   var populationStarWars = 0;
+
   // Update Trivia Planet connections
   connectionsTrivia.on("value", function(snapshot) {
     console.log(snapshot.numChildren());
     populationTrivia = snapshot.numChildren();
     $("#popTriv").html(populationTrivia);
   });
+
   // Update RPS Planet connections
   connectionsRPS.on("value", function(snapshot) {
     console.log(snapshot.numChildren());
     populationRPS = snapshot.numChildren();
     $("#popRPS").html(populationRPS);
   });
+
   // Update Hangman Planet connections
   connectionsHangman.on("value", function(snapshot) {
     console.log(snapshot.numChildren());
     populationHangman = snapshot.numChildren();
     $("#popHangman").html(populationHangman);
   });
+
   // Update Star Wars Battle connections
   connectionsStarWars.on("value", function(snapshot) {
     console.log(snapshot.numChildren());
@@ -67,22 +71,18 @@ $(document).ready(function() {
   });
 
   // Sign out Player
-  $('#sign-out').on('click', function(event)
-  {
+  $('#sign-out').on('click', function(event) {
     event.preventDefault();
-    firebase.auth().signOut().then(function()
-    {
-        $(location).attr('href', 'index.html');
-
-     })
-      .catch(function(error)
-      {
-         swal( "Error" ,  error.message,  "error" );
-      });
-
+    firebase.auth().signOut().then(function() {
+      $(location).attr('href', 'index.html');
+    })
+    .catch(function(error) {
+      swal( "Error" ,  error.message,  "error" );
+    });
      //disconnect particular user
       //user.onDisconnect().remove();
- });
+  });
+  
   // Grab user name and display in navbar
   var user = firebase.auth().currentUser;
   console.log(user);
