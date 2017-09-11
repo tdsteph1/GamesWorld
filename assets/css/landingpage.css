@@ -52,6 +52,7 @@ p{
 
 #username{
   color:white;
+  padding-left: 16px;
 }
 
 #profilePic{
@@ -66,7 +67,7 @@ p{
 }
 
 #astronaut{
-  left: 50px;
+  left: 75px;
 }
 
 #triviaTitle{
