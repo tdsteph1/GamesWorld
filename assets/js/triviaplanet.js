@@ -13,7 +13,7 @@ $(document).ready(function() {
       var currentTriviaIndex = 0;      
       var allTimeQuestionsPlayed = 0;
       var allTimeScoreRight = 0;
-      const maxQuestions=10; 
+      const maxQuestions=5; 
       const maxPossibleAnswers=4;
       const timeBetweenQuestions = 1000;
       const maxTime = 15;
@@ -70,6 +70,7 @@ $(document).ready(function() {
   }); 
   $("#loginBtn").toggle(true);
   $("#waitingIcon").toggle(false);
+  $("#newGameBtn").toggle(false);
 //********** game on click events ************
       // onclick event for answer radio element
       $(".answerField").on("click", function(){
@@ -94,7 +95,8 @@ $(document).ready(function() {
         $("#gameSelect").fadeToggle(true);
         //reset the selection pulldowns from the gametype Window
         $("#catSelect").val('-1'); 
-        $("#catDifficulty").val('-1');            
+        $("#catDifficulty").val('-1'); 
+        $(this).toggle(false);           
       });      
       $("#gameSelectForm").submit(function(events){
         event.preventDefault();  
@@ -132,7 +134,7 @@ $(document).ready(function() {
       if (snapshot.val()!= null){
         playerWhoStartsGame.once("value", function(snapshot){
           if (player.gameName != snapshot.val().player){  //only do this for opponent
-            $("#triviaWindow").toggle(true);
+            // $("#triviaWindow").toggle(true);
             $("#waitingIcon").toggle(false);
             initGame();
           }
@@ -258,10 +260,11 @@ $(document).ready(function() {
               opponent.score = snapshot.val().score;
               opponent.ready = snapshot.val().ready; 
 
+              if (opponent.ready){       
+                evaluateWinner();
+              }
           }
-          if (opponent.ready){       
-            evaluateWinner();
-          }          
+          
       }
     });
     player2.on("value", function(snapshot){
@@ -276,7 +279,8 @@ $(document).ready(function() {
               opponent.wins = snapshot.val().wins;
               opponent.score = snapshot.val().score;
               opponent.ready = snapshot.val().ready;        
-              if (opponent.ready){
+
+              if (opponent.ready){       
                 evaluateWinner();
               }
           }   
@@ -329,51 +333,6 @@ $(document).ready(function() {
       $('#editPlayerName').modal('show');
     })
 // ********* functions ********************
-  // ******* db functions *************
-        function f(){
-            // if you both have made a move, then evaluate
-            // else waiting for move
-            if (player.ready && opponent.ready){
-              evaluate();
-            }
-            else if (player.ready && opponent.ready == false){      
-              displayPickedIcon(player.gameName, player.move);        
-              $("#messageBoard").html("waiting for "+ opponent.name +" to make finish");
-              $("#waitingIcon").css("display", "block");
-            }  
-            else if (player.ready == false && opponent.ready){
-              $("#messageBoard").html(opponent.name +" is waiting for you to make your finish");
-              $("#waitingIcon").css("display", "block");        
-            }  
-        }  
-        // function evaluate(){
-        //   // evaluate, display message, enable board and update both player's move to "";
-        //   // evaluate, change relational operator button and set timer to 3 seconds and clear board
-        //   var aWinner=winner();
-
-        //   $("#messageBoard").html(aWinner +"Game resets in 3 seconds");  
-
-        //   $("#wins").html(player.wins);
-        //   $("#losses").html(opponent.wins);
-        //   playerPointer.update({
-        //     move:"",
-        //     wins: player.wins
-        //   });
-        //   if (aWinner == player.gameName){
-        //     playerWhoStartsGame.set({player:player.gameName})
-        //   }
-        //   // set the countdown to game start
-        //   setTimeout(function(){ $("#messageBoard").html(aWinner + "Game resets in 2 seconds"); }, 1000);
-        //   setTimeout(function(){ $("#messageBoard").html(aWinner + "Game resets in 1 second"); }, 2000);        
-        //   setTimeout(function(){
-        //     $("#messageBoard").html("Game reset. Let's go!"); 
-        //     player.ready = false; 
-        //     opponent.ready = false; 
-        //     playerPointer.update({ready:false});
-        //     opponentPointer.update({ready:false});                               
-        //     },3000);
-        // }
-  // ******* game functions *****************
       function setGameType(obj){
         currentCategory = obj.childNodes[3].value;
         currentCategoryDifficulty =  obj.childNodes[9].value;
@@ -389,11 +348,11 @@ $(document).ready(function() {
           method: "GET"
         }).done(function(response) {
           if (!response.response_code){  // if there were no errors from the call then setup game
-                    gameInfo.set({htmlCall:htmlCall});
+                    // gameInfo.set({htmlCall:htmlCall});
                     createTriviaArray(response); //  questions and answers are now in global var triviaArray
                     //push triviaArray into db and clear triviaArray to be downloaded by this player
                     var trivia = JSON.stringify(triviaArray);
-                    gameInfo.update({trivia:trivia});
+                    gameInfo.set({trivia:trivia});
                     $("#gameSelect").fadeToggle(false);                    
                     initGame();                    
           }
@@ -428,7 +387,7 @@ $(document).ready(function() {
         } // for //
       }
       function getAQuestion(){
-      // get a question and possible answers from current trivia array index and update main screen
+        // get a question and possible answers from current trivia array index and update main screen
         if (currentTriviaIndex < maxQuestions){         
           unMarkCorrectAnswer(); //unmark from any previous question
           $("#triviaWindowScore").html("Score: " + scoreRight); 
@@ -442,16 +401,32 @@ $(document).ready(function() {
           }
           // timerOn();
         }
-        else {
+        else {  // all questions asked
           $("#triviaWindowScore").html("Score: " + scoreRight);
           player.ready = true;
-          playerPointer.update({ready:true, score:scoreRight});
+          playerPointer.update({ready:true, score:scoreRight});  //trigger opponent that locall player done
           setTimeout(gameOver, timeBetweenQuestions);
+
+          playerWhoStartsGame.once("value", function(snapshot){
+              if (snapshot.val().player == player.gameName){
+                $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i> Waiting for " + opponent.name + " to choose next category");
+                $("#waitingIcon").toggle(true);
+                playerWhoStartsGame.update({player:opponent.gameName});
+              } else {
+                $("#newGameBtn").toggle(true);
+              }
+          });
+
+          $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i>");
+          $("#messageBoard").html("Waiting for " + opponent.name + " to finish trivia");
+          $("#waitingIcon").toggle(true);
+          evaluateWinner();
+                          
         }
       }
 
       function evaluateGuess(guess){
-      // evaulate guess compared to correct answer then update stats and status
+        // evaulate guess compared to correct answer then update stats and status
         var playerAnswer = $(guess).attr("value");
         allTimeQuestionsPlayed++;
         var correctAnswerIndex = triviaArray[currentTriviaIndex].correctIndex;
@@ -491,14 +466,11 @@ $(document).ready(function() {
         $("#catDifficulty").val('-1');
         $("#triviaWindowClock").text("00:15");
         clearInterval(currentTimer);
-        playerPointer.update({score:scoreRight});
-        evaluateWinner();
       }
       function updateStats(){
         $("#scoreRight").html("Correct:" + scoreRight);
         $("#scoreWrong").html("Incorrect:" + maxQuestions -scoreRight);
         $("#winPercent").html("Winning Percentage:" + Math.round(scoreRight/maxQuestions)); 
-
       }
       function updateMainStatsWindow(){
         var playerResultImage;
@@ -589,12 +561,10 @@ $(document).ready(function() {
           }
         }
       }
-
       function timerOn(){
         var i = maxTime;
         currentTimer=setInterval(function(){ updateTimer(i--) }, 1000)  
       }
-
       function updateTimer(i){
         // time ran out, clear timer and evaluate a wrong answer to trigger "wrong" response
         if (i<=0){
@@ -630,6 +600,13 @@ $(document).ready(function() {
             opponentPointer.once("value", function(snapshot){
                 opponentScore = snapshot.val().score;
             });
+
+            // locally, the player is done so player is ready for next game and just waiting for opponent
+            // but player's status on db should still be set for true until end of game.
+            player.ready = false;  
+            opponent.ready = false; 
+            // playerPointer.update({ready:false, score:0});
+
             if (playerScore > opponentScore){
               $("#messageBoard").html("You win this round!! " + playerScore + " - " + opponentScore);
               player.wins ++;
@@ -647,22 +624,6 @@ $(document).ready(function() {
             }  
             $("#wins").html(player.wins);
             $("#losses").html(opponent.wins); 
-            player.ready = false;
-            opponent.ready = false;
-            playerPointer.update({ready:false, score:0});
-            opponentPointer.update({ready:false, score:0});
-            
-            playerWhoStartsGame.once("value", function(snapshot){
-                if (snapshot.val().player == player.gameName){
-                  playerWhoStartsGame.update({player:opponent.gameName});
-                  $("#messageBoard").html("Waiting for " + opponent.name + " to choose next category");
-                  $("#waitingIcon").toggle(true);
-                } else {
-                  playerWhoStartsGame.update({player:player.gameName});
-                  $("#messageBoard").html(opponent.name + "is waiting for you to choose next category");
-                  $("#waitingIcon").toggle(true);
-                }
-            });
-          }      
+        }      
       }
 });

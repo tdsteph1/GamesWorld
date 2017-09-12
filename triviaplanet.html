@@ -5,31 +5,35 @@
   <title>Trivia World</title>
 
     <!-- Bootstrap File -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">    
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- JQuery -->
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>  
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="assets/js/triviaplanet.js"></script> 
 
-
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css">  
   <link rel="stylesheet" type="text/css" href="assets/css/tp.css">
   <link rel="stylesheet" type="text/css" href="assets/css/triviaplanet.css">
+  <link href="assets/css/navbar.css" rel="stylesheet" type="text/css">  
 
   <!-- fonts -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css">    
+  <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css"> 
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Roboto" rel="stylesheet">
+
 </head>
 <body>
   <audio id="correct" src="assets/audio/correct.wav"></audio>
-  <audio id="incorrect" src="assets/audio/incorrect.wav"></audio>  
+  <audio id="incorrect" src="assets/audio/incorrect.wav"></audio>
+
 <!-- *********************** Main Window *****************************-->
     <!-- (Current Stats and previous questions)-->
     <div class="row" id="resultsWindow">
@@ -47,7 +51,7 @@
               <h3 class="title" id="allTimeWrong">Incorrect:</h3>
             </div> 
             <div class="p-2" id="percentage">
-              <h3 class="title" id="winPercent">Win percentage:</h3>
+              <h3 class="title" id="winPercent">Percentage Correct:</h3>
             </div>
             <div class="p-2 flex-last"  id="infoBtn">
               <a href="#"><img src="assets/images/totallytrivia/info.png" class="infoIcon"></a>
@@ -65,6 +69,7 @@
            <div class="d-flex justify-content-center align-middle">
               <div id="loginBtn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login to begin</div>
               <div class="waiting" id="waitingIcon"><i class='fa fa-cog fa-spin fa-fw'></i></div>
+              <button class="btn btn-primary" id="newGameBtn">New Game</button>
             </div> 
           <div class="container-fluid" style="border-top: 4px solid; margin-top: 30px;">
             <div class="row">
