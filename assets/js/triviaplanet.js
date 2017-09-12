@@ -260,7 +260,7 @@ $(document).ready(function() {
               opponent.score = snapshot.val().score;
               opponent.ready = snapshot.val().ready; 
 
-              if (opponent.ready){       
+              if (opponent.ready){     
                 evaluateWinner();
               }
           }
@@ -280,8 +280,9 @@ $(document).ready(function() {
               opponent.score = snapshot.val().score;
               opponent.ready = snapshot.val().ready;        
 
-              if (opponent.ready){       
+              if (opponent.ready){ 
                 evaluateWinner();
+                
               }
           }   
       } 
@@ -357,7 +358,7 @@ $(document).ready(function() {
                     initGame();                    
           }
           else{  //no questions found, disable category for future selections
-            alert(" no questions found for that category. Please try again");
+            swal(" no questions found for that category. Please try again");
             disabledCategories.push([$("#catSelect").val(),$("#catDifficulty").val()]);
           }
         });                    
@@ -366,6 +367,7 @@ $(document).ready(function() {
           // download questions and possilble answers from API then fill in Question
             resetResultsTabs();
             $("#triviaWindow").fadeToggle(true);
+            $("#waitingIcon").fadeToggle(false);
             resetVars();          
             gameInfo.once("value", function(snapshot){
               if (snapshot.val().trivia !== null)
@@ -374,6 +376,7 @@ $(document).ready(function() {
             getAQuestion();
       }
       function createTriviaArray(obj){
+        triviaArray = [];
         // for all objects returned by ajax, create trivia object and push into global trivia array for future use
         for (var i = 0; i < obj.results.length; i++) {
           var trivia = {
@@ -404,27 +407,17 @@ $(document).ready(function() {
         else {  // all questions asked
           $("#triviaWindowScore").html("Score: " + scoreRight);
           player.ready = true;
-          playerPointer.update({ready:true, score:scoreRight});  //trigger opponent that locall player done
+          playerPointer.update({ready:true, score:scoreRight});  //trigger opponent that local player done
           setTimeout(gameOver, timeBetweenQuestions);
 
-          playerWhoStartsGame.once("value", function(snapshot){
-              if (snapshot.val().player == player.gameName){
-                $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i> Waiting for " + opponent.name + " to choose next category");
-                $("#waitingIcon").toggle(true);
-                playerWhoStartsGame.update({player:opponent.gameName});
-              } else {
-                $("#newGameBtn").toggle(true);
-              }
-          });
-
-          $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i>");
+          
           $("#messageBoard").html("Waiting for " + opponent.name + " to finish trivia");
-          $("#waitingIcon").toggle(true);
-          evaluateWinner();
-                          
+          // $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i>");
+          // $("#waitingIcon").toggle();
+          swapCategoryChooser();          
+          evaluateWinner();                          
         }
       }
-
       function evaluateGuess(guess){
         // evaulate guess compared to correct answer then update stats and status
         var playerAnswer = $(guess).attr("value");
@@ -492,7 +485,7 @@ $(document).ready(function() {
         $(gameTitle).append(results);
         $("#allTimeScoreRight").text("Correct:" + allTimeScoreRight);
         $("#allTimeWrong").text("Incorrect:"+ wrong); 
-        $("#winPercent").text("Win Percentage:"+  percentage + "%");                
+        $("#winPercent").text("Overall Percentage:"+  percentage + "%");                
       }
       function isGameStarted(){
         // if new game hasn't started yet, create a new tab for questions and answers on the main page
@@ -625,5 +618,17 @@ $(document).ready(function() {
             $("#wins").html(player.wins);
             $("#losses").html(opponent.wins); 
         }      
+      }
+      function swapCategoryChooser(){
+          playerWhoStartsGame.once("value", function(snapshot){
+              if (snapshot.val().player == player.gameName){
+                $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i> Waiting for " + opponent.name + " to choose next category");
+                $("#waitingIcon").toggle(true);
+                playerWhoStartsGame.set({player:opponent.gameName});
+              } else {
+                $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i> " + opponent.name + " is waiting for you to choose next category");
+                $("#newGameBtn").toggle(true);
+              }
+          });        
       }
 });

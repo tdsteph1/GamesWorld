@@ -68,23 +68,25 @@
             </div>
            <div class="d-flex justify-content-center align-middle">
               <div id="loginBtn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login to begin</div>
-              <div class="waiting" id="waitingIcon"><i class='fa fa-cog fa-spin fa-fw'></i></div>
               <button class="btn btn-primary" id="newGameBtn">New Game</button>
             </div> 
           <div class="container-fluid" style="border-top: 4px solid; margin-top: 30px;">
             <div class="row">
-              <div class="d-flex col-sm-6" id="messageBoard">Welcome to Trivia World!</div>
-                <div class="d-flex col-sm-6" id="chatDiv">
-                      <form id="chatForm" style="width: 100%">
-                        <div id="chatBox"></div>                
-                        <div class="form-group d-flex flex-row justify-content-end">
-                          <input type="text" id="chatInput" placeholder="...smack">
-                                <button type="submit" class="btn btn-default ">
-                                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                                </button>
-                        </div>
-                      </form>
-                </div>
+              <div class="d-inline-flex col-sm-6">
+                <div id="messageBoard">Welcome to Trivia World!</div>
+                <div class="waiting align-self-center" id="waitingIcon"><i class='fa fa-cog fa-spin fa-fw'></i></div>
+              </div>
+              <div class="d-flex col-sm-6" id="chatDiv">
+                    <form id="chatForm" style="width: 100%">
+                      <div id="chatBox"></div>                
+                      <div class="form-group d-flex flex-row justify-content-end">
+                        <input type="text" id="chatInput" placeholder="...smack">
+                              <button type="submit" class="btn btn-default ">
+                                <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                              </button>
+                      </div>
+                    </form>
+              </div>
               </div>          
             </div>
           </div>            
