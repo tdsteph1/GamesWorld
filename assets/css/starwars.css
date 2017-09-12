@@ -19,16 +19,71 @@ body
 	bottom: 10px;
 }
 
+.navbar
+{
+	height: 61px;
+}
+
+li
+{
+	
+}
+
+.jumbotron
+{
+	display: none;
+	background: url("../images/starWarsJumbo.jpg");
+
+
+}
+
+
 .container
 {
 	position: relative;
-	bottom: 20px;
+	top: 20px;
+	left: 50px;
+}
+
+
+
+#obiInfo
+{
+	position: relative;
+	top: 20px;
+	left: 130px;
+}
+
+#lukeInfo
+{
+		
+	position: relative;
+	top: 20px;
+	left: 200px;
+	
+}
+
+#sidiousInfo
+{
+		
+	position: relative;
+	top: 20px;
+	left: 290px;
+	
+}
+
+#maulInfo
+{
+	position: relative;
+	top: 20px;
+	left: 380px;
+	
 }
 
 #characters
 {
 
-
+	margin-left: 100px;
 }
 
 .characterContainer
@@ -196,12 +251,16 @@ body
 #yourAttack
 {
 	display: none;
+	
 }
 
 #hisAttack
 {
 	display: none;
+	
 }
+
+
 
 #loseMsg
 {

@@ -61,7 +61,6 @@ user.on("value", function(snap)
 });
 */
 
-
 //var childKey = childSnapShot.key;
 
 
@@ -124,6 +123,8 @@ user.on("value", function(snap)
         userName: email
         
       });
+
+      
       
 	 
 	 //var user1 = firebase.auth().currentUser;
@@ -166,11 +167,18 @@ user.on("value", function(snap)
 
 
     var email = $('#sign-email').val();
+    var username = $("#sign-user").val();
     var password = $('#sign-password').val();
 
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function() 
     {
      
+      user.push(													//SAME AS: //var con = user.push(email);
+      {
+        userName: email
+        
+      });
+     	
 
         $(location).attr('href', 'landingpage.html');
       }).catch(function(error) 
@@ -200,7 +208,7 @@ user.on("value", function(snap)
       });
 
       //disconnect particular user
-      //user.onDisconnect().remove();
+      user.onDisconnect().remove();
       
 
   });
