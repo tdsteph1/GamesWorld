@@ -1,0 +1,34 @@
+nav{
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1px;
+}
+
+.navbar-nav > li > .dropdown-menu {
+  background-color: #242b35 ; 
+}
+
+.navbar-nav > li > .dropdown-menu a {
+  color: white;
+}
+
+.navbar-nav > li > .dropdown-menu a:hover {
+  color: black;
+}
+#g-logo{
+  color:lightgreen;
+}
+
+#username{
+  color:white;
+  padding-left: 16px;
+}
+
+#profilePic{
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+
+#sign-out{
+  margin: 10px;
+}

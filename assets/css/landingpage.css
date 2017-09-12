@@ -26,18 +26,6 @@ p{
   letter-spacing: 2px;
 }
 
-.navbar-nav > li > .dropdown-menu { 
-  background-color: #242b35; 
-}
-
-.navbar-nav > li > .dropdown-menu a { 
-  color: white;
-}
-
-.navbar-nav > li > .dropdown-menu a:hover { 
-  color: black;
-}
-
 .title{
   position:absolute;
   font-size: 24px;
@@ -59,25 +47,6 @@ p{
   box-shadow: -10px 10px 5px darkgrey;
   height: 150px;
   width: 150px;
-}
-
-#g-logo{
-  color:lightgreen;
-}
-
-#username{
-  color:white;
-  padding-left: 16px;
-}
-
-#profilePic{
-  height: 40px;
-  width: 40px;
-  margin: 5px;
-}
-
-#sign-out{
-  margin: 10px;
 }
 
 #astronaut-div{
