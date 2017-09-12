@@ -86,7 +86,7 @@ a {
 /************ play buttons ****************************/
 #loginBtn, #waitingIcon{
   color: white;
-  background-color: rgba(0, 255, 0, 0.3)!important;
+  background-color: rgba(0,191,255, 0.3)!important;
   border-radius: 10px;
   border: white solid 1px;
   font-weight: bold;
