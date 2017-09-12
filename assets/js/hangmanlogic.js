@@ -107,11 +107,7 @@ $(document).ready(function(){
 }
 
   function winChecker () {
-    singlePlayer.on("value", function(snap) {
-    oldWins = snap.val().hangmanWins;
-    oldLosses = snap.val().hangmanLosses;  
-    });
-
+    
     if (winCondition === randomWord.length && guessesRemaining >= 0){
       $(".panelAll").html("");
       $(".panelWords").html("");
@@ -120,6 +116,7 @@ $(document).ready(function(){
       $(".panelMain").append("<button class='btn-lg playAgain'>");
       $(".playAgain").html("Play Again?");
       wins++;
+      console.log(wins);
     }
 
     else if (guessesRemaining === 0 && winCondition !== randomWord.length) {
@@ -158,10 +155,10 @@ $(document).ready(function(){
     $(".jumbotron").css("display", "none");
     var newDiv = "<div class='panel panel-default text-center panelAll panelMain'>";
     var internalNewDiv = "<div class='panel-body panelWords'>"
-    $(".container").append(newDiv);
+    $(".container1").append(newDiv);
     $(".panelAll").append(internalNewDiv);
     $(".panelWords").html("<h3>Singleplayer Hangman. Choose a topic below:");
-    $(".panelWords").append("<h3> Your all time record: " + oldWins + " Wins and " + oldLosses + " Losses.");
+    $(".panelWords").append("<h3>All time Hangman record: " + oldWins + " Wins and " + oldLosses + " Losses.");
     var newButton = "<button class='btn-lg moviesButton theme'>"
     var newButton2 = "<button class='btn-lg spaceExplorationButton theme'>"
     $(".panelWords").append(newButton);
@@ -264,7 +261,7 @@ $(document).ready(function(){
     var columnDiv = "<div class='col-lg-4 col-md-4 col-sm-12 col-xs-12 column1'>"
     var newMultiDiv = "<div class='panel panel-default text-center panelAll panelMain'>";
     var internalMultiNewDiv = "<div class='panel-body panelWords'>"
-    $(".container").append(rowDiv);
+    $(".container1").append(rowDiv);
     $(".row1").append(columnDiv);
     $(".column1").append(newMultiDiv);
     $(".panelAll").append(internalMultiNewDiv);
@@ -283,7 +280,7 @@ $(document).ready(function(){
 
     //Creating form for player 1 to write word for player 2
 
-    var inputDiv = "<div class='form-group'><label for='text'>Player 1, please write your word for Player 2 to guess here<br>(15 character max, letters only): </label><textarea class='form-control' rows='5' id='userSelectedWord' maxlength='15'></textarea></div>"
+    var inputDiv = "<div class='form-group'><label for='text'>Player 1, please write a word while player 2 looks away and press submit.<br>(15 character max, letters only): </label><textarea class='form-control' rows='5' id='userSelectedWord' maxlength='15'></textarea></div>"
     $(".panelAll2").append(inputDiv);
     $(".panelAll2").append("<button class='btn-lg submit'>");
     $(".submit").html("Submit");
