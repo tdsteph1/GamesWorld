@@ -1,12 +1,13 @@
 body {
  background-image: url("../images/mars.jpg");
- height: 100%; 
- background-position: center;
- background-repeat: no-repeat;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
  background-size: cover;
+ padding-bottom: 500px;
  }
 
-.container {
+.container1 {
   font-family: 'Geostar Fill', cursive;
   
 }
@@ -108,4 +109,8 @@ body {
   height: 40px;
   width: 40px;
   margin: 5px;
+}
+
+#g-logo{
+  color:lightgreen;
 }
