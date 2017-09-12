@@ -27,8 +27,8 @@
 
 
 
-  // CHECK CURRENT PATH
-  var currentPath = $(location)[0].pathname;
+ // CHECK CURRENT PATH
+ var currentPath = $(location)[0].pathname;
 
 
 //Global Variables
@@ -55,6 +55,9 @@ var isEnemyDefeated = false;
 
 //Create a counter to know when last enemy is defeated so we can display winning msg
 var EnemiesDefeatedCount = 0;
+
+//Sound
+var audio;
 
 //Object1
 var Obi = 
@@ -331,6 +334,10 @@ $(".characterContainer").on("click", function()
 	}
 	else if(enemiesAvailable === true)
 	{
+		//Play Turn-on lightsaber sount
+		 audio = new Audio("assets/audio/lightsaber.mp3");
+		 audio.play();
+		
 		//Click on enemy in (Enemies Available To Attack) and move that chosen enemy to (Defender) area.
 		 chosenEnemy = $(this);						//(this) refers to the chosen enemy in the (Enemis Available To Attack)
 
@@ -414,6 +421,8 @@ $("#attackButton").on("click", function()
 	}
 	else
 	{
+
+
 		buttonCounter++;
 
 		$("#yourAttack").show();																		//when attack button is clicked display your damage and 
@@ -421,7 +430,7 @@ $("#attackButton").on("click", function()
 		
 	
 			
-		//You attack on (chosen Enemy)
+		//Your attack on (chosen Enemy)
 		enemyHealth = enemyHealth - (buttonCounter * yourAttackPower);
 
 							
@@ -534,24 +543,83 @@ function win_lose()
 			console.log(chosenCharacter.attr("starWarsCharacterName"));
 			//Display starwars gif and play sound
 			
-		if(chosenCharacter.attr("starWarsCharacterName") === "Luke Skywalker")
-		{
+			if(chosenCharacter.attr("starWarsCharacterName") === "Obi-Wan Kenobi")		//Obi Wan Giphy
+			{
+				swal(
+				{
+                  title: 'Auto close alert!',
+  				  html: '<img src="https://i.giphy.com/media/jP75FsMN3Iz3a/giphy.webp" onerror="this.onerror=null;this.src="https://i.giphy.com/jP75FsMN3Iz3a.gif"; alt="">',
+  				  timer: 5000
+				}).then(
+  				function () {},
+
+  				// handling the promise rejection
+  				function (dismiss) 
+  				{
+    				if (dismiss === 'timer') 
+    				{
+      					console.log('I was closed by the timer')
+   		    		}
+  				})
+			}
+			else if(chosenCharacter.attr("starWarsCharacterName") === "Luke Skywalker")	//Luke Giphy
+			{
 				swal(
 				{
                   title: 'Auto close alert!',
   				  html: '<img src="https://i.giphy.com/media/13zjUUbVp7wAGQ/giphy.webp" onerror="this.onerror=null;this.src="https://i.giphy.com/13zjUUbVp7wAGQ.gif";" alt="">',
   				  timer: 5000
-			}).then(
-  			function () {},
-  			// handling the promise rejection
-  			function (dismiss) 
-  			{
-    		if (dismiss === 'timer') 
-    		{
-      			console.log('I was closed by the timer')
-   		    }
-  			})
-  		}
+				}).then(
+  				function () {},
+
+  				// handling the promise rejection
+  				function (dismiss) 
+  				{
+    				if (dismiss === 'timer') 
+    				{
+      					console.log('I was closed by the timer')
+   		    		}
+  				})
+  			}
+  			else if(chosenCharacter.attr("starWarsCharacterName") === "Darth Sidious")		//Darth Maul Giphy
+			{
+				swal(
+				{
+                  title: 'Auto close alert!',
+  				  html: '<img src="https://i.giphy.com/media/fs5iUoWptyY3S/giphy.webp" onerror="this.onerror=null;this.src="https://i.giphy.com/fs5iUoWptyY3S.gif"; alt="">',
+  				  timer: 5000
+				}).then(
+  				function () {},
+
+  				// handling the promise rejection
+  				function (dismiss) 
+  				{
+    				if (dismiss === 'timer') 
+    				{
+      					console.log('I was closed by the timer')
+   		    		}
+  				})
+  			}
+  			else if(chosenCharacter.attr("starWarsCharacterName") === "Darth Maul")	 //Dath Sidious Giphy
+			{
+				swal(
+				{
+                  title: 'Auto close alert!',
+  				  html: '<img src="https://i.giphy.com/media/e7FOBuKCDtwWI/giphy.webp" onerror="this.onerror=null;this.src="https://i.giphy.com/e7FOBuKCDtwWI.gif";" alt="">',
+  				  timer: 5000
+				}).then(
+  				function () {},
+
+  				// handling the promise rejection
+  				function (dismiss) 
+  				{
+    				if (dismiss === 'timer') 
+    				{
+      					console.log('I was closed by the timer')
+   		    		}
+  				})
+  			}
+
 
 
 			//Win msg Game Over all enemies defeated

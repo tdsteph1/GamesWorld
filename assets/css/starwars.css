@@ -104,6 +104,7 @@ li
 {
 	position: absolute;
 	margin-left: 50px;
+	font-weight: bold;
 }
 
 #health
@@ -112,6 +113,7 @@ li
 	position: absolute;
 	bottom: 0px;
 	margin-left: 80px;
+	font-weight: bold;
 	
 	
 }
@@ -120,6 +122,7 @@ li
 {
 	position: absolute;
 	margin-left: 50px;
+	font-weight: bold;
 }
 
 #chosenHealth
@@ -128,6 +131,7 @@ li
 	position: absolute;
 	bottom: 0px;
 	margin-left: 80px;
+	font-weight: bold;
 	
 	
 }
@@ -136,6 +140,7 @@ li
 {
 	position: absolute;
 	margin-left: 50px;
+	font-weight: bold;
 }
 
 #enemyHealth1
@@ -143,6 +148,7 @@ li
 	position: absolute;
 	bottom: 0px;
 	margin-left: 80px;
+	font-weight: bold;
 	
 }
 
@@ -150,6 +156,7 @@ li
 {
 	position: absolute;
 	margin-left: 50px;
+	font-weight: bold;
 }
 
 #defenderHealth
@@ -157,12 +164,14 @@ li
 	position: absolute;
 	bottom: 0px;
 	margin-left: 80px;
+	font-weight: bold;
 }
 
 #name2
 {
 	position: absolute;
 	margin-left: 250px;
+	font-weight: bold;
 	
 }
 
@@ -171,6 +180,7 @@ li
 	position: absolute;
 	bottom: 0px;
 	margin-left: 280px;
+	font-weight: bold;
 
 	
 }
@@ -179,6 +189,7 @@ li
 {
 	position: absolute;
 	margin-left: 250px;
+	font-weight: bold;
 }
 
 #enemyHealth2
@@ -186,12 +197,14 @@ li
 	position: absolute;
 	bottom: 0px;
 	margin-left: 280px;	
+	font-weight: bold;
 }
 
 #name3
 {
 	position: absolute;
 	margin-left: 450px;
+	font-weight: bold;
 	
 }
 
@@ -200,6 +213,7 @@ li
 	position: absolute;
 	bottom: 0px;
 	margin-left: 480px;
+	font-weight: bold;
 
 }
 
@@ -207,6 +221,7 @@ li
 {
 	position: absolute;
 	margin-left: 450px;
+	font-weight: bold;
 }
 
 #enemyHealth3
@@ -214,13 +229,14 @@ li
 	position: absolute;
 	bottom: 0px;
 	margin-left: 480px;
+	font-weight: bold;
 }
 
 #name4
 {
 	position: absolute;
 	margin-left: 650px;
-	
+	font-weight: bold;
 }
 
 #health4
@@ -228,6 +244,7 @@ li
 	position: absolute;
 	bottom: 0px;
 	margin-left: 680px;
+	font-weight: bold;
 
 }
 
