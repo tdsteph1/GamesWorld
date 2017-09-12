@@ -1,0 +1,36 @@
+body {
+  background-image: url("../images/rocket3.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  padding-bottom: 500px;
+  color: #fff;
+}
+
+#header {
+  text-align: center;
+}
+
+#profilePic{
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+
+#g-logo{
+  color:lightgreen;
+}
+
+table {
+ background-color: rgba(0, 0, 0, 0.59);
+ border-radius: 10px;
+}
+
+td {
+  font-size: 20px;
+}
+
+img {
+  border-radius: 10px;
+}
