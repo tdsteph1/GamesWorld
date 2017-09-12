@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyBB23QESbNrXQRw6FbimCzI6BfXAkPYVKo",
@@ -79,14 +78,6 @@ $(document).ready(function() {
     .catch(function(error) {
       swal( "Error" ,  error.message,  "error" );
     });
-     //disconnect particular user
-      //user.onDisconnect().remove();
   });
-  
-  // Grab user name and display in navbar
-  var user = firebase.auth().currentUser;
-  console.log(user);
-  // var userName = user.userName;
-  // console.log(userName);
 });
 

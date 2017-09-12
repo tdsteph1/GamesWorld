@@ -49,25 +49,6 @@ p{
   width: 150px;
 }
 
-#g-logo{
-  color:lightgreen;
-}
-
-#username{
-  color:white;
-  padding-left: 16px;
-}
-
-#profilePic{
-  height: 40px;
-  width: 40px;
-  margin: 5px;
-}
-
-#sign-out{
-  margin: 10px;
-}
-
 #astronaut-div{
   left: 75px;
   font-family: 'Gloria Hallelujah', cursive;
