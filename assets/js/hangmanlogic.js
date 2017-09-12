@@ -15,7 +15,16 @@ $(document).ready(function(){
   var chat = database.ref("/hangman/multi/chat");
   var singlePlayer = database.ref("/hangman/single")
   var user1 = false;
-  var player1 = "";  
+  var player1 = "";
+  $('#sign-out').on('click', function(event) {
+      event.preventDefault();
+      firebase.auth().signOut().then(function() {
+        $(location).attr('href', 'index.html');
+      })
+      .catch(function(error) {
+        swal( "Error" ,  error.message,  "error" );
+      });
+    });  
 
   var gameWords = { marsMovies: ["RocketMan", "The Martian", "Mars Attacks", "Red Planet", "Total Recall"],
                    exploration: ["Neil Armstrong", "Discovery", "Atlantis", "Sputnik", "Apollo", "Buzz Aldrin"],
