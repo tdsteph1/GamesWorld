@@ -328,3 +328,14 @@ li
 	color: red;
 }
 
+.navbar
+{
+	position: relative;
+	bottom: 23px;
+}
+
+#music-button
+{
+	margin-top: 13px;
+}
+
