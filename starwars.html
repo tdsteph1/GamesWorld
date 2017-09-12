@@ -19,6 +19,9 @@
   	<link rel="stylesheet" href="assets/css/starwars.css">
   	<link href="assets/css/navbar.css" rel="stylesheet" type="text/css">
 
+  	<!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Roboto" rel="stylesheet">
+
     <!-- include sweetalert2 css library -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.css">
 
@@ -32,7 +35,6 @@
 <body>
 
 
-<div class="container">
 <!-- Navbar -->
     <div class="container">
       <nav class="navbar navbar-inverse">
@@ -42,21 +44,28 @@
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="landingpage.html">Home</a></li>
-            <li><a href="leaderboard.html">Leaderboard</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="about.html">About</a></li>
+            <!-- Dropdown Menu -->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Games
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="triviaplanet.html">Trivia Planet</a></li>
+                <li><a href="rps.html">RPS Planet</a></li>
+                <li><a href="hangman.html">Hangman Planet</a></li>
+                <li><a href="starwars.html" class="active">Star Wars Battle</a></li>
+              </ul>
+              <li><button class="btn btn-success" id="music-button">Music</button></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li id="username">Welcome!
-              <img id="profilePic" src="https://api.adorable.io/avatars/285/abott@adorable.png" width="60" height="60" alt="Profile Pic">
+              <img id="profilePic" src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="Profile Pic">
             </li>
             <li><button type="submit" class="btn btn-primary" id="sign-out">Sign out</button></li>
           </ul>
         </div>
       </nav>
     </div>
-
-
-</div>
 
 
 
