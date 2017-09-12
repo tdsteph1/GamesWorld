@@ -22,8 +22,18 @@
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="landingpage.html">Home</a></li>
-            <li><a href="leaderboard.html">Leaderboard</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="about.html">About</a></li>
+            <!-- Dropdown Menu -->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Games
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="triviaplanet.html">Trivia Planet</a></li>
+                <li><a href="rps.html">RPS Planet</a></li>
+                <li><a href="hangman.html">Hangman Planet</a></li>
+                <li><a href="starwars.html">Star Wars Battle</a></li>
+              </ul>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li id="username">Welcome!
@@ -45,45 +55,45 @@
       <div class="row">
         <div class ="col-xs-offset-3 col-md-4 col-md-offset-4 planetDiv" id="trivia">
           <img src="assets/images/blue_planet.png" alt="Trivia Game" class="planet img-responsive" size="small">
-          <span class="title text-center" id="triviaTitle">Trivia Planet<br>
+          <div class="title text-center" id="triviaTitle">Trivia Planet<br>
             <p>Population: <span id="popTriv"></span></p>
             <form style="display: inline" action="triviaplanet.html" method="get">
               <button class="btn-lg btn-warning">Play</button>
             </form>
-          </span>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class ="col-xs-10 col-xs-offset-2 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-2 planetDiv" id="rps">
           <img src="assets/images/pink-planet.png" alt="Rock Paper Scissors" class="planet img-responsive" size="small">
-          <span class="title text-center" id="rpsTitle">RPS Planet<br>
+          <div class="title text-center" id="rpsTitle">RPS Planet<br>
             <p>Population: <span id="popRPS"></span></p>
             <form style="display: inline" action="rps.html" method="get">
               <button class="btn-lg btn-primary">Play</button>
             </form>
-          </span>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-offset-3 col-md-4 col-md-offset-4 planetDiv" id="hangman">
           <img src="assets/images/orange_planet.png" alt="Hangman Game" class="planet img-responsive" size="small">
-          <span class="title text-center" id="hangmanTitle">Hangman Planet<br>
+          <div class="title text-center" id="hangmanTitle">Hangman Planet<br>
             <p>Population: <span id="popHangman"></span></p>
             <form style="display: inline" action="hangman.html" method="get">
               <button class="btn-lg btn-success">Play</button>
             </form>
-          </span>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-10 col-xs-offset-2 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-2 planetDiv" id="starWars">
-          <img id="planetSW" src="assets/images/spaceship.png" alt="Star Wars Game" class="planet img-responsive">
-          <span class="title text-center" id="starWarsTitle">Star Wars Battle<br>
+          <img id="planetSW" src="assets/images/spaceship.png" alt="Star Wars Game" class="planet img-responsive" size="small">
+          <div class="title text-center" id="starWarsTitle">Star Wars Battle<br>
             <p>Population: <span id="popStarWars"></span></p>
-            <form style="display: inline" action="#" method="get">
+            <form style="display: inline" action="starwars.html" method="get">
               <button class="btn-lg btn-danger">Play</button>
             </form>
-          </span>
+          </div>
         </div>
       </div>
       <!-- Fixed Logo -->
@@ -102,6 +112,8 @@
     <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap JQuery -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Javascript page -->
     <script type="text/javascript" src="assets/js/landingpage.js"></script>
   </body>

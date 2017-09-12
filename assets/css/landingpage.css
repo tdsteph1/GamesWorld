@@ -26,6 +26,18 @@ p{
   letter-spacing: 2px;
 }
 
+.navbar-nav > li > .dropdown-menu { 
+  background-color: #242b35; 
+}
+
+.navbar-nav > li > .dropdown-menu a { 
+  color: white;
+}
+
+.navbar-nav > li > .dropdown-menu a:hover { 
+  color: black;
+}
+
 .title{
   position:absolute;
   font-size: 24px;
