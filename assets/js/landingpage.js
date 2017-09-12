@@ -11,8 +11,25 @@ $(document).ready(function() {
 
   firebase.initializeApp(config);
   var database=firebase.database();
+
   // Hide text on planets
   $(".title").hide();
+
+  // Music
+  var audioState = false;
+
+  $("#music-button").on("click",function() {
+
+    if (audioState === false){
+      $("#music")[0].play();
+      audioState = true;
+    }
+
+    else {
+      $("#music")[0].pause();
+      audioState = false;
+    }
+  });
 
   // Allow players to click on planet to enlarge
   $(".planet").on("click",function() {
@@ -22,6 +39,7 @@ $(document).ready(function() {
       $(this).animate({ height:"250px", width: "250px"});
       $(this).attr("size", "large");
       $(this).next().show(500);
+      $("#planet-pop")[0].play();
     }
       
     else {

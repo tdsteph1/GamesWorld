@@ -49,6 +49,10 @@ p{
   width: 150px;
 }
 
+#music-button{
+  margin: 10px;
+}
+
 #astronaut-div{
   left: 75px;
   font-family: 'Gloria Hallelujah', cursive;
