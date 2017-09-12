@@ -34,6 +34,7 @@ $(document).ready(function() {
         name:"",
         gameName:"",
         score:0,
+        wins:0,
       }
       var currentConnections = 0;                        
 // ********* Initialize Firebase *************
@@ -59,7 +60,7 @@ $(document).ready(function() {
   var playerPointer = null;
   var playerWhoStartsGame = database.ref("/tp/playerWhoStartsGame");
   var gameInfo = database.ref("/tp/gameInfo");
-// *************** game start *********
+// ********* game start **********************
   if (!player.name){
     $('#editPlayerName').modal('toggle');  // prompt screen to enter name if none
   }
@@ -127,9 +128,14 @@ $(document).ready(function() {
 // ********* firebase on events **************
   //**************** listen for call to get API ********
     gameInfo.on("value", function(snapshot){
-      if (snapshot.val()){
-        htmlCall = snapshot.val().htmlCall;
-        callAPI();
+      if (snapshot.val()!= null){
+        playerWhoStartsGame.once("value", function(snapshot){
+          if (player.gameName != snapshot.val().player){  //only do this for opponent
+            $("#triviaWindow").toggle(true);
+            $("#waitingIcon").toggle(false);
+            initGame();
+          }
+        });
       }
     });
   // *************** Player Name submission *********** 
@@ -230,6 +236,7 @@ $(document).ready(function() {
       opponent.name = "";
       opponent.score = 0;
       playerWhoStartsGame.set({player:player.gameName});
+      gameInfo.remove();
     })      
   //**************** edit Player Name *******************
     $(".fa-pencil").on("click", function(){
@@ -237,33 +244,42 @@ $(document).ready(function() {
     })
   // *************** listen for opponent updates ********
     player1.on("value", function(snapshot){
-      if (opponent.gameName == "player1"){
-          // if opponent name has not been assigned
-          if (opponent.name ==""){    
-              opponent.name = snapshot.val().playerName;
-            $("#opponentName").html(opponent.name);
-            $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);
-            $("#welcomeTitle").html("Trivia Planet: " + player.name + " vs. "+ opponent.name);           
-          }        
-          opponent.wins = snapshot.val().wins;
-          opponent.score = snapshot.val().score;
-          opponent.ready = snapshot.val().ready;        
-          checkScores();
+      if (snapshot.val()!=null){
+          if (opponent.gameName == "player1"){
+              // if opponent name has not been assigned
+              if (opponent.name ==""){    
+                  opponent.name = snapshot.val().playerName;
+                $("#opponentName").html(opponent.name);
+                $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);
+                $("#welcomeTitle").html("Trivia Planet: " + player.name + " vs. "+ opponent.name);           
+              }        
+              opponent.wins = snapshot.val().wins;
+              opponent.score = snapshot.val().score;
+              opponent.ready = snapshot.val().ready; 
+
+          }
+          if (opponent.ready){       
+            evaluateWinner();
+          }          
       }
     });
     player2.on("value", function(snapshot){
-      if (opponent.gameName == "player2"){
-          // if opponent name has not been assigned
-          if (opponent.name ==""){    
-              opponent.name = snapshot.val().playerName;
-            $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);
-            $("#welcomeTitle").html("Trivia Planet: " + player.name + " vs. "+ opponent.name);            
-          }
-          opponent.wins = snapshot.val().wins;
-          opponent.score = snapshot.val().score;
-          opponent.ready = snapshot.val().ready;        
-          checkScores();
-      }    
+      if (snapshot.val()!=null){
+          if (opponent.gameName == "player2"){
+              // if opponent name has not been assigned
+              if (opponent.name ==""){    
+                  opponent.name = snapshot.val().playerName;
+                $("#chatInput").attr("placeholder", "lay the smack on " + opponent.name);
+                $("#welcomeTitle").html("Trivia Planet: " + player.name + " vs. "+ opponent.name);            
+              }
+              opponent.wins = snapshot.val().wins;
+              opponent.score = snapshot.val().score;
+              opponent.ready = snapshot.val().ready;        
+              if (opponent.ready){
+                evaluateWinner();
+              }
+          }   
+      } 
     });  
   // *************** listen for game start *************
     // if game started, then enable play buttons
@@ -311,10 +327,9 @@ $(document).ready(function() {
     $("#loginBtn").on("click", function(){
       $('#editPlayerName').modal('show');
     })
-
 // ********* functions ********************
   // ******* db functions *************
-        function checkScores(){
+        function f(){
             // if you both have made a move, then evaluate
             // else waiting for move
             if (player.ready && opponent.ready){
@@ -335,9 +350,8 @@ $(document).ready(function() {
           // evaluate, change relational operator button and set timer to 3 seconds and clear board
           var aWinner=winner();
 
-          $("#messageBoard").html(aWinner +"Game resets in 3 seconds");
-          player.ready = false;   
-          opponent.ready = false;
+          $("#messageBoard").html(aWinner +"Game resets in 3 seconds");  
+
           $("#wins").html(player.wins);
           $("#losses").html(opponent.wins);
           playerPointer.update({
@@ -352,7 +366,10 @@ $(document).ready(function() {
           setTimeout(function(){ $("#messageBoard").html(aWinner + "Game resets in 1 second"); }, 2000);        
           setTimeout(function(){
             $("#messageBoard").html("Game reset. Let's go!"); 
-            player.ready = false;                     
+            player.ready = false; 
+            opponent.ready = false; 
+            playerPointer.update({ready:false});
+            opponentPointer.update({ready:false});                               
             },3000);
         }
   // ******* game functions *****************
@@ -376,7 +393,8 @@ $(document).ready(function() {
                     //push triviaArray into db and clear triviaArray to be downloaded by this player
                     var trivia = JSON.stringify(triviaArray);
                     gameInfo.update({trivia:trivia});
-                    triviaArray=[];                    
+                    $("#gameSelect").fadeToggle(false);                    
+                    initGame();                    
           }
           else{  //no questions found, disable category for future selections
             alert(" no questions found for that category. Please try again");
@@ -384,34 +402,19 @@ $(document).ready(function() {
           }
         });                    
       }
-      function callAPI(){
-      // download questions and possilble answers from API then fill in Question
+      function initGame(){
+          // download questions and possilble answers from API then fill in Question
             resetResultsTabs();
             $("#triviaWindow").fadeToggle(true);
-            $("#gameSelect").fadeToggle(false);
             resetVars();          
             gameInfo.once("value", function(snapshot){
               if (snapshot.val().trivia !== null)
                 triviaArray = JSON.parse(snapshot.val().trivia);
-            })
+            });
             getAQuestion();
-
-        // $.ajax({
-        //   url: htmlCall,
-        //   method: "GET"
-        // }).done(function(response) {
-        //   if (!response.response_code){  // if there were no errors from the call then setup game
-        //     resetResultsTabs();
-        //     $("#triviaWindow").fadeToggle(true);
-        //     $("#gameSelect").fadeToggle(false);
-        //     resetVars();          
-        //     createTriviaArray(response);
-        //     getAQuestion();
-        //   }
-        // });
       }
       function createTriviaArray(obj){
-      // for all objects returned by ajax, create trivia object and push into global trivia array for future use
+        // for all objects returned by ajax, create trivia object and push into global trivia array for future use
         for (var i = 0; i < obj.results.length; i++) {
           var trivia = {
             question: obj.results[i].question,
@@ -419,24 +422,10 @@ $(document).ready(function() {
             incorrect_answers : obj.results[i].incorrect_answers,
             correctIndex : Math.round(Math.random()*3),
             player_result:"",
-
-            getTriviaAnswers : function(){
-              var i=0;
-              var triviaAnswers = [];
-              for (var j = 0; j <= this.incorrect_answers.length; j++) {
-                if (j === this.correctIndex)
-                  triviaAnswers.push(this.correct_answer);
-                else {
-                  triviaAnswers.push(this.incorrect_answers[i++])
-                }
-              };
-              return triviaAnswers; 
-            }, //getTriviaAnswers() //
           } // trivia object //
           triviaArray.push(trivia);
         } // for //
       }
-
       function getAQuestion(){
       // get a question and possible answers from current trivia array index and update main screen
         if (currentTriviaIndex < maxQuestions){         
@@ -445,15 +434,17 @@ $(document).ready(function() {
           $("#triviaWindowStatus").html(currentTriviaIndex+1 + " out of " + maxQuestions + " questions played.");
 
           $("#question").html(triviaArray[currentTriviaIndex].question);
-          var triviaAnswers = triviaArray[currentTriviaIndex].getTriviaAnswers();
+          var triviaAnswers = getTriviaAnswers(triviaArray[currentTriviaIndex]);
           for (var i = 0; i < triviaAnswers.length; i++) {
             $("#" + i).html(triviaAnswers[i]);
             $("#" + i).attr("value", i);
           }
-          timerOn();
+          // timerOn();
         }
         else {
-          $("#triviaWindowScore").html("Score: " + scoreRight);           
+          $("#triviaWindowScore").html("Score: " + scoreRight);
+          player.ready = true;
+          playerPointer.update({ready:true});
           setTimeout(gameOver, timeBetweenQuestions);
         }
       }
@@ -499,11 +490,13 @@ $(document).ready(function() {
         $("#catDifficulty").val('-1');
         $("#triviaWindowClock").text("00:15");
         clearInterval(currentTimer);
+        playerPointer.update({score:scoreRight});
       }
       function updateStats(){
         $("#scoreRight").html("Correct:" + scoreRight);
         $("#scoreWrong").html("Incorrect:" + maxQuestions -scoreRight);
         $("#winPercent").html("Winning Percentage:" + Math.round(scoreRight/maxQuestions)); 
+
       }
       function updateMainStatsWindow(){
         var playerResultImage;
@@ -612,5 +605,46 @@ $(document).ready(function() {
           $("#triviaWindowClock").text("00:0" + i);
         else
           $("#triviaWindowClock").text("00:" + i);
+      }
+      function getTriviaAnswers (obj){  //returns all the possible trivia answers from the global triviaArray
+        var i=0;
+        var triviaAnswers = [];
+        for (var j = 0; j <= obj.incorrect_answers.length; j++) {
+          if (j === obj.correctIndex)
+            triviaAnswers.push(obj.correct_answer);
+          else {
+            triviaAnswers.push(obj.incorrect_answers[i++])
+          }
+        };
+        return triviaAnswers; 
+      }
+      function evaluateWinner(){
+        if (player.ready && opponent.ready){  
+            var playerScore = 0;
+            var opponentScore = 0;
+            playerPointer.once("value", function(snapshot){
+                playerScore = snapshot.val().score;
+            });
+            opponentPointer.once("value", function(snapshot){
+                opponentScore = snapshot.val().score;
+            });
+            if (playerScore > opponentScore){
+              $("#messageBoard").html("You win this round!! " + playerScore + " - " + opponentScore);
+              player.wins ++;
+              $("#wins").html(player.wins);
+            }
+            else if (playerScore < opponentScore){     
+              $("#messageBoard").html("You lost this round!! " + playerScore + " - " + opponentScore);
+              opponent.wins ++;
+              $("losses").htmlCall(opponent.wins); 
+            }
+            else if (playerScore < opponentScore){     
+              $("#messageBoard").html("You both tied this round!! " + playerScore + " - " + opponentScore);
+              player.wins ++;
+              opponent.wins ++;
+              $("wins").htmlCall(opponent.wins);
+              $("losses").htmlCall(opponent.wins); 
+            }  
+          }      
       }
 });

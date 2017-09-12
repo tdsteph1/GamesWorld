@@ -1,12 +1,13 @@
 body{
   background: url("../images/landingpage_bg.jpg") no-repeat center fixed;
-  /*background: url("../images/144246-OTOQD9-270.jpg") no-repeat center fixed;*/
  /* Allows background image to fit perfectly on Computer screen, Ipad Screen, & Iphone Screen without any white space */
     -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-      padding-bottom: 500px;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding-bottom: 500px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
 }
 
 img{
@@ -18,40 +19,22 @@ div{
     position: relative;
 }
 
+p{
+  color: white;
+  font-size:medium;
+  font-family: 'Gloria Hallelujah', cursive;
+  letter-spacing: 2px;
+}
+
 .title{
   position:absolute;
   font-size: 24px;
   font-weight: bold;
-  color: yellow;
+  text-shadow: 2px 2px 8px black;
 }
 
-p{
-  color: white;
-  font-size:medium;
-}
-
-button{
-  margin: 7px;
-}
-
-#triviaTitle{
-  left: 200px;
-  top: 80px;
-}
-
-#hangmanTitle{
-  left: 30px;
-  top: 85px;
-}
-
-#rpsTitle{
-  left: 60px;
-  top: 75px;
-}
-
-#starWarsTitle{
-  left: 30px;
-  top: 130px;
+.row{
+  margin-bottom: 50px;
 }
 
 .planetDiv{
@@ -66,34 +49,64 @@ button{
   width: 150px;
 }
 
+#g-logo{
+  color:lightgreen;
+}
+
+#username{
+  color:white;
+  padding-left: 16px;
+}
+
+#profilePic{
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+
+#sign-out{
+  margin: 10px;
+}
+
+#astronaut-div{
+  left: 75px;
+  font-family: 'Gloria Hallelujah', cursive;
+  color: white;
+}
+
+#astronaut-img{
+  height: 175px;
+  width: 175px;
+}
+
+#triviaTitle{
+  left: 70px;
+  top: 80px;
+  color: #ffcc66;
+}
+
+#rpsTitle{
+  left: 75px;
+  top: 75px;
+  color: #ff99ff;
+}
+
+#hangmanTitle{
+  left: 45px;
+  top: 85px;
+  color: yellow;
+}
+
+#starWarsTitle{
+  left: 50px;
+  top: 118px;
+  color: yellow;
+}
+
 #planetSW{
   border-radius: 50%;
   border: 7px double lightgreen;
 }
-
-#astronaut{
-  float: left;
-  left: 50px;
-}
-
-#trivia{
-  left: 180px;
-}
-
-#rps{
-  left: 25px;
-  top: 25px;
-}
-
-#hangman{
- left: 320px;
-}
-
-#starWars{
-  left: 35px;
-  top: 35px;
-}
-
 
 #footer{
   border-radius: 50%;
@@ -106,16 +119,6 @@ button{
   color: lightgreen;
 }
 
-#profilePic{
-  height: 40px;
-  width: 40px;
-  margin: 5px;
-}
-
-#g-logo{
-  color:lightgreen;
-}
-
 #AP-logo{
   position: fixed;
   top: 8px;
@@ -125,7 +128,6 @@ button{
   z-index: -1;
 }
 
-
 @media screen and (max-width: 980px) and (min-width:769px){
 
   #AP-logo{
@@ -134,7 +136,6 @@ button{
     right: 130px;
     z-index: -1;
   }
-
 }
 
 @media screen and (max-width: 768px) and (min-width:641px){
@@ -142,12 +143,17 @@ button{
   #AP-logo{
     position: fixed;
     top: 75px;
-    right: 225px;
+    right: 200px;
     z-index: -1;
   }
 }
 
 @media screen and (max-width: 640px){
 
-
+  #AP-logo{
+    position: fixed;
+    top: 75px;
+    right: 175px;
+    z-index: -1;
+  }
 }

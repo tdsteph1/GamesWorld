@@ -1,3 +1,36 @@
+// Initialize Firebase
+  var config = 
+  {
+  	
+    apiKey: "AIzaSyBB23QESbNrXQRw6FbimCzI6BfXAkPYVKo",
+    authDomain: "gamesworld-d56f1.firebaseapp.com",
+    databaseURL: "https://gamesworld-d56f1.firebaseio.com",
+    projectId: "gamesworld-d56f1",
+    storageBucket: "gamesworld-d56f1.appspot.com",
+    messagingSenderId: "411556798841"
+    
+
+  };
+
+  // INITIALIZE FIREBASE
+  firebase.initializeApp(config);
+
+  //have databse = point to location of our GamesWorld Firebase/database
+  var database = firebase.database();
+
+  //Create a Root in Firebase called ('users')
+  var login = database.ref('login'); 			//Root[user]
+  var user = login.child('user');  
+
+ 
+  //var user = database.ref(".info/connected");  
+
+
+
+  // CHECK CURRENT PATH
+  var currentPath = $(location)[0].pathname;
+
+
 //Global Variables
 var character;
 var enemiesAvailable = false;												//This allows us to know if all 3 enemies are in (Enemies Available To Attack) if that is true then 
@@ -87,6 +120,59 @@ var Maul =
 	}
 };
 
+$(".info").on("click", function(event)
+{
+   event.preventDefault();
+
+   var name = $(this).val();
+
+   var fullName;
+
+   
+   var queryURL = "https://swapi.co/api/people/?search=" + name;
+
+    $.ajax(
+    {
+      url: queryURL,
+      method: "GET"
+    })
+    .done(function(response) 
+    {
+      console.log(response);
+      console.log();
+
+      //get Full name by finding character button val
+      var aka ="";
+      
+      if(name === "palpatine")
+      {
+      	aka = "AKA(Darth Sidius)";
+      }
+     
+
+      //Utilizing sweet alert2 & Star Wars API
+      swal(
+      {
+  		title: response.results[0].name + aka,
+  		text: 'I will close in 10 seconds.',
+   		html: "<b>Name: </b>" + response.results[0].name + 
+   			 "<br> <b>Height</b> " + response.results[0].height +
+   			 "<br> <b>Mass</b> " + response.results[0].mass +
+   			 "<br> <b>Hair Color</b> " + response.results[0].hair_color,
+  timer: 10000
+}).then(
+  function () {},
+  // handling the promise rejection
+  function (dismiss) {
+    if (dismiss === 'timer') {
+      console.log('I was closed by the timer')
+    }
+  }
+)
+
+    });
+
+});
 
 //Store objects in Array for the for-loop
    var arrayOfObjects = [];
@@ -168,6 +254,11 @@ for(var i = 0; i < arrayOfObjects.length; i++)
 //then move the rest of the characters underneath (Enemies Available To Attack)
 $(".characterContainer").on("click", function()
 {
+	//hide all info buttons
+	$("#obiInfo").hide()
+	$("#lukeInfo").hide()
+	$("#sidiousInfo").hide()
+	$("#maulInfo").hide()
 
 	
 	if(enemiesAvailable === false)
@@ -284,6 +375,8 @@ $(".characterContainer").on("click", function()
 			$("#enemyHealth3").css("margin-left", "280px");
 		}
 		
+		//Displayer Jumbotron Attack Area
+		$(".jumbotron").show();
 
 		//Relocate Name and Health in Defender Area
 		$("#defenderName").text($(this).attr("starWarsCharacterName"));			//TRY: $("#defenderName").append($(this).attr("starWarsCharacterName"));
@@ -342,12 +435,19 @@ $("#attackButton").on("click", function()
 
 		if(isEnemyDefeated != true)
 		{
+			//Display starwars gif and play sound
+			
+
 			//Enemy attack on (chosen character)
 			yourHealth = yourHealth - EnemyCounterAttackPower;		
 
 			//Display enemy's health status in Defender image && display results in <h5> msg
 			$("#defenderHealth").text(enemyHealth);
+
+			//Display the enemy you're currently attacking in the jumbotron && add css color
 			$(".enemyYouAttack").text(chosenEnemy.attr("starWarsCharacterName"));
+			$(".enemyYouAttack").css("color", "green");
+
 			$("#enemyAttackDamage").text(EnemyCounterAttackPower)
 		}
 
@@ -356,7 +456,11 @@ $("#attackButton").on("click", function()
 
 		//Display chosen character's health status in Your characterImage && display results in <h5> message
 		$("#chosenHealth").text(yourHealth);
+
+		//
 		$(".enemyYouAttack").text(chosenEnemy.attr("starWarsCharacterName"));
+		$(".enemyYouAttack").css("color", "green");
+
 		$("#yourAttackDamage").text(buttonCounter * yourAttackPower)
 
 		//reset isEnemyDefeated variable
@@ -457,3 +561,28 @@ function win_lose()
 
 
 }
+
+
+// SIGN OUT THE USER
+  $('#sign-out').on('click', function(event) 
+  {
+  	 //Don't refresh page and allows us to load the main(planets) page at login
+      event.preventDefault();
+
+
+
+    firebase.auth().signOut().then(function() 
+    {
+        $(location).attr('href', 'index.html');
+
+      })
+      .catch(function(error) 
+      {
+         swal( "Error" ,  error.message,  "error" );
+      });
+
+      //disconnect particular user
+      //user.onDisconnect().remove();
+      
+
+  });
