@@ -15,6 +15,10 @@ nav{
   color: black;
 }
 
+.navbar-nav > li > .dropdown-menu a:focus {
+  color: black;
+}
+
 #g-logo{
   color:lightgreen;
 }
