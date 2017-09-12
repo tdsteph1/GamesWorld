@@ -6,29 +6,40 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Geostar+Fill" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Roboto" rel="stylesheet">
       <link href="assets/css/hangmanstyle.css" rel="stylesheet" type="text/css">
+      <link href="assets/css/landingpage.css" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
-        <nav class="navbar navbar-inverse">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a id="g-logo" class="navbar-brand" href="landingpage.html">Gamesworld</a>
+          <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a id="g-logo" class="navbar-brand" href="landingpage.html">Gamesworld</a>
+              </div>
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="landingpage.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <!-- Dropdown Menu -->
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Games
+                  <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="triviaplanet.html">Trivia Planet</a></li>
+                    <li><a href="rps.html">RPS Planet</a></li>
+                    <li><a href="hangman.html">Hangman Planet</a></li>
+                    <li><a href="starwars.html">Star Wars Battle</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li id="username">Welcome!
+                  <img id="profilePic" src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="Profile Pic">
+                </li>
+                <li><button type="submit" class="btn btn-primary" id="sign-out">Sign out</button></li>
+              </ul>
             </div>
-            <ul class="nav navbar-nav">
-              <li><a href="landingpage.html">Home</a></li>
-              <li class="active"><a href="hangman.html">Hangman</a></li>
-              <li><a href="#">About</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><span id="username">User Name</span>
-                <img id="profilePic" src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="Profile Pic">
-              </li>
-              <li><button type="submit" class="btn btn-primary" id="sign-out"> Sign out </button></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
+          </nav>
         
       
     <div class="container container1">
@@ -48,6 +59,6 @@
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
   <script src="assets/js/hangmanlogic.js" type="text/javascript"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
  </html>
