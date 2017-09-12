@@ -202,7 +202,7 @@ for(var i = 0; i < arrayOfObjects.length; i++)
 	//Display each character image inside <div>/button
 	if(i === 0)																	//Obi-Wan Kenobi
 	{
-		character.attr("src", "https://vignette2.wikia.nocookie.net/starwars/images/d/df/Masterobiwan.jpg/revision/latest/scale-to-width-down/250?cb=20080719000305");	
+		character.attr("src", "assets/images/obi2.jpg");	
 
 		$("#name").text(arrayOfObjects[i].name); 	 //display name of character
 		$("#health").text(arrayOfObjects[i].health); //display health of character
@@ -213,7 +213,7 @@ for(var i = 0; i < arrayOfObjects.length; i++)
 	}
 	else if(i === 1)															//Luke
 	{
-		character.attr("src", "https://vignette4.wikia.nocookie.net/smosh/images/b/bb/Luke_Skywalker.jpg/revision/latest?cb=20130105032141");
+		character.attr("src", "assets/images/luke2.png");
 
 		$("#name2").text(arrayOfObjects[i].name); 	  //display name of character
 		$("#health2").text(arrayOfObjects[i].health); //display health of character
@@ -223,14 +223,14 @@ for(var i = 0; i < arrayOfObjects.length; i++)
 	}
 	else if(i === 2)															//Darth Sidious
 	{
-		character.attr("src", "https://images.moviepilot.com/image/upload/c_fill,h_470,q_auto:good,w_620/veplwhyniu2dq9fkn2qh.jpg");
+		character.attr("src", "assets/images/sidious2.jpg");
 
 		$("#name3").text(arrayOfObjects[i].name); 	  //display name of character
 		$("#health3").text(arrayOfObjects[i].health); //display health of character
 	}
 	else if(i === 3)															//Darth Maul
 	{
-		character.attr("src", "https://upload.wikimedia.org/wikipedia/en/b/bf/Darth_Maul.png");
+		character.attr("src", "assets/images/maul2.png");
 
 		$("#name4").text(arrayOfObjects[i].name); 	   //display name of character
 		$("#health4").text(arrayOfObjects[i].health);  //display health of character
@@ -435,7 +435,6 @@ $("#attackButton").on("click", function()
 
 		if(isEnemyDefeated != true)
 		{
-			//Display starwars gif and play sound
 			
 
 			//Enemy attack on (chosen character)
@@ -507,6 +506,7 @@ function win_lose()
 
 		if(EnemiesDefeatedCount != 3)
 		{
+
 			//Winning msg
 			$("#winMsg").show();
 
@@ -531,6 +531,28 @@ function win_lose()
 		}
 		else if(EnemiesDefeatedCount == 3)	//Execute when we've defeated all enemies
 		{
+			console.log(chosenCharacter.attr("starWarsCharacterName"));
+			//Display starwars gif and play sound
+			
+		if(chosenCharacter.attr("starWarsCharacterName") === "Luke Skywalker")
+		{
+				swal(
+				{
+                  title: 'Auto close alert!',
+  				  html: '<img src="https://i.giphy.com/media/13zjUUbVp7wAGQ/giphy.webp" onerror="this.onerror=null;this.src="https://i.giphy.com/13zjUUbVp7wAGQ.gif";" alt="">',
+  				  timer: 5000
+			}).then(
+  			function () {},
+  			// handling the promise rejection
+  			function (dismiss) 
+  			{
+    		if (dismiss === 'timer') 
+    		{
+      			console.log('I was closed by the timer')
+   		    }
+  			})
+  		}
+
 
 			//Win msg Game Over all enemies defeated
 			$("#winMsg2").show();
@@ -581,8 +603,8 @@ function win_lose()
          swal( "Error" ,  error.message,  "error" );
       });
 
-      //disconnect particular user
-      //user.onDisconnect().remove();
+      //disconnect all user
+      user.onDisconnect().remove();
       
 
   });
