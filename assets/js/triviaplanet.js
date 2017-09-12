@@ -35,6 +35,7 @@ $(document).ready(function() {
         gameName:"",
         score:0,
         wins:0,
+        ready:false,
       }
       var currentConnections = 0;                        
 // ********* Initialize Firebase *************
@@ -345,33 +346,33 @@ $(document).ready(function() {
               $("#waitingIcon").css("display", "block");        
             }  
         }  
-        function evaluate(){
-          // evaluate, display message, enable board and update both player's move to "";
-          // evaluate, change relational operator button and set timer to 3 seconds and clear board
-          var aWinner=winner();
+        // function evaluate(){
+        //   // evaluate, display message, enable board and update both player's move to "";
+        //   // evaluate, change relational operator button and set timer to 3 seconds and clear board
+        //   var aWinner=winner();
 
-          $("#messageBoard").html(aWinner +"Game resets in 3 seconds");  
+        //   $("#messageBoard").html(aWinner +"Game resets in 3 seconds");  
 
-          $("#wins").html(player.wins);
-          $("#losses").html(opponent.wins);
-          playerPointer.update({
-            move:"",
-            wins: player.wins
-          });
-          if (aWinner == player.gameName){
-            playerWhoStartsGame.set({player:player.gameName})
-          }
-          // set the countdown to game start
-          setTimeout(function(){ $("#messageBoard").html(aWinner + "Game resets in 2 seconds"); }, 1000);
-          setTimeout(function(){ $("#messageBoard").html(aWinner + "Game resets in 1 second"); }, 2000);        
-          setTimeout(function(){
-            $("#messageBoard").html("Game reset. Let's go!"); 
-            player.ready = false; 
-            opponent.ready = false; 
-            playerPointer.update({ready:false});
-            opponentPointer.update({ready:false});                               
-            },3000);
-        }
+        //   $("#wins").html(player.wins);
+        //   $("#losses").html(opponent.wins);
+        //   playerPointer.update({
+        //     move:"",
+        //     wins: player.wins
+        //   });
+        //   if (aWinner == player.gameName){
+        //     playerWhoStartsGame.set({player:player.gameName})
+        //   }
+        //   // set the countdown to game start
+        //   setTimeout(function(){ $("#messageBoard").html(aWinner + "Game resets in 2 seconds"); }, 1000);
+        //   setTimeout(function(){ $("#messageBoard").html(aWinner + "Game resets in 1 second"); }, 2000);        
+        //   setTimeout(function(){
+        //     $("#messageBoard").html("Game reset. Let's go!"); 
+        //     player.ready = false; 
+        //     opponent.ready = false; 
+        //     playerPointer.update({ready:false});
+        //     opponentPointer.update({ready:false});                               
+        //     },3000);
+        // }
   // ******* game functions *****************
       function setGameType(obj){
         currentCategory = obj.childNodes[3].value;
@@ -444,7 +445,7 @@ $(document).ready(function() {
         else {
           $("#triviaWindowScore").html("Score: " + scoreRight);
           player.ready = true;
-          playerPointer.update({ready:true});
+          playerPointer.update({ready:true, score:scoreRight});
           setTimeout(gameOver, timeBetweenQuestions);
         }
       }
@@ -491,6 +492,7 @@ $(document).ready(function() {
         $("#triviaWindowClock").text("00:15");
         clearInterval(currentTimer);
         playerPointer.update({score:scoreRight});
+        evaluateWinner();
       }
       function updateStats(){
         $("#scoreRight").html("Correct:" + scoreRight);
@@ -631,20 +633,36 @@ $(document).ready(function() {
             if (playerScore > opponentScore){
               $("#messageBoard").html("You win this round!! " + playerScore + " - " + opponentScore);
               player.wins ++;
-              $("#wins").html(player.wins);
+              playerPointer.update({wins:player.wins});                           
             }
             else if (playerScore < opponentScore){     
               $("#messageBoard").html("You lost this round!! " + playerScore + " - " + opponentScore);
-              opponent.wins ++;
-              $("losses").htmlCall(opponent.wins); 
+              opponent.wins ++; 
             }
             else if (playerScore < opponentScore){     
               $("#messageBoard").html("You both tied this round!! " + playerScore + " - " + opponentScore);
               player.wins ++;
               opponent.wins ++;
-              $("wins").htmlCall(opponent.wins);
-              $("losses").htmlCall(opponent.wins); 
+              playerPointer.update({wins:player.wins});
             }  
+            $("#wins").html(player.wins);
+            $("#losses").html(opponent.wins); 
+            player.ready = false;
+            opponent.ready = false;
+            playerPointer.update({ready:false, score:0});
+            opponentPointer.update({ready:false, score:0});
+            
+            playerWhoStartsGame.once("value", function(snapshot){
+                if (snapshot.val().player == player.gameName){
+                  playerWhoStartsGame.update({player:opponent.gameName});
+                  $("#messageBoard").html("Waiting for " + opponent.name + " to choose next category");
+                  $("#waitingIcon").toggle(true);
+                } else {
+                  playerWhoStartsGame.update({player:player.gameName});
+                  $("#messageBoard").html(opponent.name + "is waiting for you to choose next category");
+                  $("#waitingIcon").toggle(true);
+                }
+            });
           }      
       }
 });
