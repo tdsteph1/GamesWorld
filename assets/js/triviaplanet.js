@@ -134,8 +134,7 @@ $(document).ready(function() {
       if (snapshot.val()!= null){
         playerWhoStartsGame.once("value", function(snapshot){
           if (player.gameName != snapshot.val().player){  //only do this for opponent
-            // $("#triviaWindow").toggle(true);
-            $("#waitingIcon").toggle(false);
+            $("#waitingIcon").toggle();
             initGame();
           }
         });
@@ -260,7 +259,7 @@ $(document).ready(function() {
               opponent.score = snapshot.val().score;
               opponent.ready = snapshot.val().ready; 
 
-              if (opponent.ready){     
+              if (opponent.ready){   
                 evaluateWinner();
               }
           }
@@ -280,9 +279,9 @@ $(document).ready(function() {
               opponent.score = snapshot.val().score;
               opponent.ready = snapshot.val().ready;        
 
-              if (opponent.ready){ 
+              if (opponent.ready){
                 evaluateWinner();
-                
+              
               }
           }   
       } 
@@ -411,10 +410,7 @@ $(document).ready(function() {
           setTimeout(gameOver, timeBetweenQuestions);
 
           
-          $("#messageBoard").html("Waiting for " + opponent.name + " to finish trivia");
-          // $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i>");
-          // $("#waitingIcon").toggle();
-          swapCategoryChooser();          
+          $("#messageBoard").html("Waiting for " + opponent.name + " to finish trivia");      
           evaluateWinner();                          
         }
       }
@@ -603,10 +599,13 @@ $(document).ready(function() {
             if (playerScore > opponentScore){
               $("#messageBoard").html("You win this round!! " + playerScore + " - " + opponentScore);
               player.wins ++;
-              playerPointer.update({wins:player.wins});                           
+              playerPointer.update({wins:player.wins});
+              setCategoryChooser(player.gameName);                           
             }
             else if (playerScore < opponentScore){     
               $("#messageBoard").html("You lost this round!! " + playerScore + " - " + opponentScore);
+              $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i> Waiting for " + opponent.name + " to choose next category");
+              $("#waitingIcon").toggle(true);              
               opponent.wins ++; 
             }
             else if (playerScore < opponentScore){     
@@ -619,16 +618,9 @@ $(document).ready(function() {
             $("#losses").html(opponent.wins); 
         }      
       }
-      function swapCategoryChooser(){
-          playerWhoStartsGame.once("value", function(snapshot){
-              if (snapshot.val().player == player.gameName){
-                $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i> Waiting for " + opponent.name + " to choose next category");
-                $("#waitingIcon").toggle(true);
-                playerWhoStartsGame.set({player:opponent.gameName});
-              } else {
-                $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i> " + opponent.name + " is waiting for you to choose next category");
-                $("#newGameBtn").toggle(true);
-              }
-          });        
+      function setCategoryChooser(player){
+          $("#waitingIcon").html("<i class='fa fa-cog fa-spin fa-fw'></i> " + opponent.name + " is waiting for you to choose next category");
+          $("#newGameBtn").toggle(true);        
+          // playerWhoStartsGame.set({player:opponent.gameName});       
       }
 });
