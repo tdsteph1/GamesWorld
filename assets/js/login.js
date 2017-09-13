@@ -1,10 +1,9 @@
  $(document).ready(function() 
 {
 
- 
+
  var count = 0;
 
- var con;
 
 // Initialize Firebase
   var config = 
@@ -30,38 +29,9 @@
   var login = database.ref('login'); 			//Root[user]
   var user = login.child('user');  
 
- 
-  //var user = database.ref(".info/connected");  
 
-
-
-  // CHECK CURRENT PATH
-  var currentPath = $(location)[0].pathname;
-
-/*
-user.on("value", function(snap)
-{
-
-
-   			//If they are connected
-   			if(snap.val())
-   			{
-   				
-     			// con = login.push("data");
-
-     			con = login.push(email);
-
-
-    		 	//Remove user from the connection list when they disconnect.
-     			//automatically remove user when they click (x) on screen or sign out
-     			 con.onDisconnect().remove();  
-
-   			}
-
-});
-*/
-
-//var childKey = childSnapShot.key;
+ // CHECK CURRENT PATH
+ var currentPath = $(location)[0].pathname;
 
 
   // CHECK IF USER IS SIGNED IN
@@ -86,6 +56,7 @@ user.on("value", function(snap)
   // SIGN IN THE USER
   $('#loginButton').on('click', function(event) 
   {
+
   	//Don't refresh page and allows us to load the main(planets) page at login
      event.preventDefault();
 
@@ -98,42 +69,15 @@ user.on("value", function(snap)
     if(email && password) 
     {
     	 
-
-
-    	
-      /*
-      database.ref("/login/user").push(
-      {
-        userName: email
-        
-      });
-
-      database.ref("/login/user").onDisconnect().remove();
-      */
-      /********************OR********************/
-
-      //Add User data inside Firebase/database
-
-
-      
       //Push: allows us to push multiple users that sign in at once
       
-      user.push(													//SAME AS: //var con = user.push(email);
-      {
-        userName: email
-        
-      });
-
       
       
-	 
-	 //var user1 = firebase.auth().currentUser;
-	 //var user1 = firebase.auth().currentUser.key;
-     //console.log(user1);
-     // user.onDisconnect().remove(); 
+     
 
-      
-
+      //Remove user from the connection list when they disconnect.
+      //automatically remove user when they click (x) on screen or sign out
+      //con.onDisconnect().remove(); 
       
 
 
@@ -144,7 +88,12 @@ user.on("value", function(snap)
       // ADD USER TO DATABASE
       firebase.auth().signInWithEmailAndPassword(email, password).then(function() 
       {
-
+        user.push(                          //SAME AS: //var con = user.push(email);
+      {
+        userName: email
+        
+      });
+      
 
           $(location).attr('href', 'landingpage.html');
       })
@@ -162,22 +111,25 @@ user.on("value", function(snap)
   // SIGN UP THE USER
   $('#sign-btn').on('click', function(event) 
   {
+
   	//Don't refresh page and allows us to load the main(planets) page at login
       event.preventDefault();
 
 
-    var email = $('#sign-email').val();
-    var username = $("#sign-user").val();
-    var password = $('#sign-password').val();
+    var email = $('#sign-email').val().trim();
+    var username = $("#sign-user").val().trim();
+    var password = $('#sign-password').val().trim();
 
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function() 
     {
+     
      
       user.push(													//SAME AS: //var con = user.push(email);
       {
         userName: email
         
       });
+
      	
 
         $(location).attr('href', 'landingpage.html');
@@ -192,13 +144,14 @@ user.on("value", function(snap)
   // SIGN OUT THE USER
   $('#sign-out').on('click', function(event) 
   {
+      
   	 //Don't refresh page and allows us to load the main(planets) page at login
       event.preventDefault();
 
 
+      firebase.auth().signOut().then(function() 
+      {
 
-    firebase.auth().signOut().then(function() 
-    {
         $(location).attr('href', 'index.html');
 
       })
@@ -207,11 +160,12 @@ user.on("value", function(snap)
          swal( "Error" ,  error.message,  "error" );
       });
 
-      //disconnect particular user
-      user.onDisconnect().remove();
       
 
+
   });
+
+
 
   /*****************
   JAVASCRIPT FOR CSS

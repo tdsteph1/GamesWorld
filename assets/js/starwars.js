@@ -18,9 +18,49 @@
   //have databse = point to location of our GamesWorld Firebase/database
   var database = firebase.database();
 
+  var connectionsRef = database.ref("/connections/starwars");
+
+  var player1 = database.ref("/connections/chosenCharacter");
+  //var computerEnemy = database.ref("/starwars/chosenEnemy");
+
+// '.info/connected' is a special location provided by Firebase that is updated every time
+// the client's connection state changes.
+// '.info/connected' is a boolean value, true if the client is connected and false if they are not.
+var connectedRef = database.ref(".info/connected");
+
+// When the client's connection state changes...
+connectedRef.on("value", function(snap) 
+{
+  // If they are connected..
+  if (snap.val()) 
+  {
+      // Add user to the connections list.
+    var con = connectionsRef.push(true);
+
+    // Remove user from the connection list when they disconnect.
+    con.onDisconnect().remove();
+
+    //This is required so that (Player1 root disconnects)
+    player1.onDisconnect().remove();
+  }
+});
+
+ //This is used to detect total number of users in Current star wars game
+ connectionsRef.on("value", function(snapshot) 
+ {
+ 	//If I(Player1) log onto star wars then snapshot.numChildren() = 1
+ 	//If (Player2)  logs onto star wars then snapshot.numChildren() = 2
+    console.log(snapshot.numChildren());	
+   
+});
+
   //Create a Root in Firebase called ('users')
-  var login = database.ref('login'); 			//Root[user]
-  var user = login.child('user');  
+  //var login = database.ref('Star Wars'); 			//Root[user]
+  //var user = login.child('Player');  
+
+  //Player1 and Player2
+ // var player1 = user.child('Player1');
+  //var player2 = user.child('Player2');
 
  
   //var user = database.ref(".info/connected");  
@@ -257,6 +297,8 @@ for(var i = 0; i < arrayOfObjects.length; i++)
 //then move the rest of the characters underneath (Enemies Available To Attack)
 $(".characterContainer").on("click", function()
 {
+
+
 	//hide all info buttons
 	$("#obiInfo").hide()
 	$("#lukeInfo").hide()
@@ -272,6 +314,14 @@ $(".characterContainer").on("click", function()
 
 		 chosenCharacter = $(this);		  //(this) refers to the img-button that I clicked on
 										  //store the value of the <img> so when we move the remanining characters, we don't relocate chosen character
+
+		//store your Chosen Character and his health in Firebase
+		player1.set(
+		{
+			ChosenCharacter: chosenCharacter.attr("starWarsCharacterName"),
+			YourHealth: chosenCharacter.attr("starWarsCharacterHealth"),	
+			
+		});
 
 		 yourHealth = parseInt(chosenCharacter.attr("starWarsCharacterHealth"));						//your health   //USE this global variable in the ("#attack") button method
 		 yourAttackPower = parseInt(chosenCharacter.attr("starWarsCharacterAttkPower"));				//use this and multiply by counter for each iteration for base increase attack 
@@ -334,12 +384,23 @@ $(".characterContainer").on("click", function()
 	}
 	else if(enemiesAvailable === true)
 	{
-		//Play Turn-on lightsaber sount
+		//Play Turn-on lightsaber sound
 		 audio = new Audio("assets/audio/lightsaber.mp3");
 		 audio.play();
-		
+
 		//Click on enemy in (Enemies Available To Attack) and move that chosen enemy to (Defender) area.
 		 chosenEnemy = $(this);						//(this) refers to the chosen enemy in the (Enemis Available To Attack)
+
+		 //store Enemy and his health in Firebase
+		player1.set(
+		{
+			ChosenCharacter: chosenCharacter.attr("starWarsCharacterName"),
+			YourHealth: chosenCharacter.attr("starWarsCharacterHealth"),
+			ChosenEnemy: chosenEnemy.attr("starWarsCharacterName"),
+			EnemyHealth: chosenEnemy.attr("starWarsCharacterHealth")
+
+		});
+
 
 		 
 		 enemyHealth = parseInt(chosenEnemy.attr("starWarsCharacterHealth"));							//enemy health  //USE this global variable in the ("#attack") button method
@@ -381,6 +442,17 @@ $(".characterContainer").on("click", function()
 			$("#enemyName3").css("margin-left", "280px");
 			$("#enemyHealth3").css("margin-left", "280px");
 		}
+
+
+		//Fixes Darth Maul Name and Health positioning issue
+		//so that his (name) & (health) remains inside the div box
+		//and NOT outside of it.
+		if(EnemiesDefeatedCount === 1)
+		{
+			
+			$("#enemyName3").css("margin-left", "50px");
+			$("#enemyHealth3").css("margin-left", "80px");
+		}
 		
 		//Displayer Jumbotron Attack Area
 		$(".jumbotron").show();
@@ -415,6 +487,10 @@ $(".characterContainer").on("click", function()
 //Attack Enemy by clicking the Atack Button
 $("#attackButton").on("click", function()
 {
+	//Play clashing lightsaber sound
+	audio = new Audio("assets/audio/clash.mp3");
+	audio.play();
+
 	if(enemiesInDefender === false)
 	{
 		$("#errorMessage").html("No Enemy Here");
@@ -477,6 +553,16 @@ $("#attackButton").on("click", function()
 
 
 	}
+
+		//Update the players health status in Firebase Each time we press [Attack] button
+		player1.set(
+		{
+			ChosenCharacter: chosenCharacter.attr("starWarsCharacterName"),
+			YourHealth: yourHealth,
+			ChosenEnemy: chosenEnemy.attr("starWarsCharacterName"),
+			EnemyHealth: enemyHealth
+
+		});
 	
 
 });
@@ -497,6 +583,19 @@ function win_lose()
 
 	if(yourHealth <= 0)
 	{	
+		//Play Game Over Theme
+		audio = new Audio("assets/audio/lose.mp3");
+		audio.play();
+
+		//Display Game Over Modal
+		swal(
+		{
+  			title: 'Game Over, Press Restart.',
+  			width: 600,
+  			padding: 100,
+  			background: '#fff url(https://images2.alphacoders.com/591/thumb-1920-59190.jpg) center'
+		})
+
 		//losing msg
 		$("#loseMsg").show();
 
@@ -540,14 +639,20 @@ function win_lose()
 		}
 		else if(EnemiesDefeatedCount == 3)	//Execute when we've defeated all enemies
 		{
-			console.log(chosenCharacter.attr("starWarsCharacterName"));
-			//Display starwars gif and play sound
+
+			//play victory star wars theme
+			//Play clashing lightsaber sound
+			audio = new Audio("assets/audio/theme.mp3");
+			audio.play();
+
+			var winner = chosenCharacter.attr("starWarsCharacterName");
+			
 			
 			if(chosenCharacter.attr("starWarsCharacterName") === "Obi-Wan Kenobi")		//Obi Wan Giphy
 			{
 				swal(
 				{
-                  title: 'Auto close alert!',
+                  title: winner + ' is the winner!',
   				  html: '<img src="https://i.giphy.com/media/jP75FsMN3Iz3a/giphy.webp" onerror="this.onerror=null;this.src="https://i.giphy.com/jP75FsMN3Iz3a.gif"; alt="">',
   				  timer: 5000
 				}).then(
@@ -566,7 +671,7 @@ function win_lose()
 			{
 				swal(
 				{
-                  title: 'Auto close alert!',
+                  title: winner + ' is the winner!',
   				  html: '<img src="https://i.giphy.com/media/13zjUUbVp7wAGQ/giphy.webp" onerror="this.onerror=null;this.src="https://i.giphy.com/13zjUUbVp7wAGQ.gif";" alt="">',
   				  timer: 5000
 				}).then(
@@ -585,7 +690,7 @@ function win_lose()
 			{
 				swal(
 				{
-                  title: 'Auto close alert!',
+                  title: winner + ' is the winner!',
   				  html: '<img src="https://i.giphy.com/media/fs5iUoWptyY3S/giphy.webp" onerror="this.onerror=null;this.src="https://i.giphy.com/fs5iUoWptyY3S.gif"; alt="">',
   				  timer: 5000
 				}).then(
@@ -604,7 +709,7 @@ function win_lose()
 			{
 				swal(
 				{
-                  title: 'Auto close alert!',
+                  title: winner + ' is the winner!',
   				  html: '<img src="https://i.giphy.com/media/e7FOBuKCDtwWI/giphy.webp" onerror="this.onerror=null;this.src="https://i.giphy.com/e7FOBuKCDtwWI.gif";" alt="">',
   				  timer: 5000
 				}).then(

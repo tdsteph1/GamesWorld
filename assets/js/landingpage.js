@@ -54,6 +54,7 @@ $(document).ready(function() {
   var connectionsRPS = database.ref("/connections/rps");
   var connectionsHangman = database.ref("/connections/hangman");
   var connectionsStarWars = database.ref("/connections/starwars");
+  var signout = database.ref("/login/user");
   var populationTrivia = 0;
   var populationRPS = 0;
   var populationHangman = 0;
@@ -89,6 +90,7 @@ $(document).ready(function() {
 
   // Sign out Player
   $('#sign-out').on('click', function(event) {
+    signout.onDisconnect().remove();
     event.preventDefault();
     firebase.auth().signOut().then(function() {
       $(location).attr('href', 'index.html');
