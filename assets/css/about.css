@@ -8,6 +8,10 @@ body {
   color: #fff;
 }
 
+.logo {
+  text-align: center;
+}
+
 #header {
   text-align: center;
 }
