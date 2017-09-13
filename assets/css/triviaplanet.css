@@ -39,8 +39,7 @@ h3 {
 a:link, a:visited {
     padding: 10px;
     text-decoration: none;
-    color: #777;
-    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    color: #fff;
 }
 a {
   padding: 5px;
@@ -230,4 +229,34 @@ button {
 }
 #resultContent{
   background: rgba(122, 130, 136, 0.75)!important;
+}
+.nav>li>a{
+  color: #858585;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color:#222222;
+    color:#fff;
+}
+.dropdown-menu {
+  background-color: #242b35 ; 
+}
+
+.dropdown-menu>li>a {
+  color: white;
+}
+
+.dropdown-menu>li>a:hover {
+  color: black;
+}
+
+.dropdown-menu>li>a:focus {
+  color: black;
+}
+.dropdown.open{
+  background-color: #222222;
+}
+li>dropdown>{
+  background-color: #222222;
+  color:blue;
 }

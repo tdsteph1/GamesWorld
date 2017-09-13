@@ -196,3 +196,34 @@ a {
   width: 100%;
   color: #000;
 }
+
+.nav>li>a{
+  color: #858585;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color:#222222;
+    color:#fff;
+}
+.dropdown-menu {
+  background-color: #242b35 ; 
+}
+
+.dropdown-menu>li>a {
+  color: white;
+}
+
+.dropdown-menu>li>a:hover {
+  color: black;
+}
+
+.dropdown-menu>li>a:focus {
+  color: black;
+}
+.dropdown.open{
+  background-color: #222222;
+}
+li>dropdown>{
+  background-color: #222222;
+  color:blue;
+}

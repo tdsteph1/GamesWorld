@@ -21,18 +21,56 @@
 
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css">  
   <link rel="stylesheet" type="text/css" href="assets/css/tp.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/navbar.css">  
   <link rel="stylesheet" type="text/css" href="assets/css/triviaplanet.css">
-  <link href="assets/css/navbar.css" rel="stylesheet" type="text/css">  
 
   <!-- fonts -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css"> 
   <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Roboto" rel="stylesheet">
 
+<style type="text/css">
+  a {color: white;}
+</style>
+
 </head>
 <body>
   <audio id="correct" src="assets/audio/correct.wav"></audio>
   <audio id="incorrect" src="assets/audio/incorrect.wav"></audio>
+
+<div class="navbar navbar-inverse">
+
+  <div class="container d-flex justify-content-start">
+    <div class="navbar-header">
+      <a id="g-logo" class="navbar-brand" href="landingpage.html">Gamesworld</a>
+    </div>
+    <ul class="nav">
+      <li class="nav-item">
+        <a href="landingpage.html" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="about.html" class="nav-link">About</a>
+      </li>
+      <!-- Dropdown Menu -->
+      <li class="dropdown nav-item">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Games</a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="active"><a href="triviaplanet.html">Trivia Planet</a></li>
+          <li><a href="rps.html">RPS Planet</a></li>
+          <li><a href="hangman.html">Hangman Planet</a></li>
+          <li><a href="starwars.html">Star Wars Battle</a></li>
+        </ul>
+      </li>      
+    </ul>    
+
+    <ul class="nav ml-auto">
+        <li class="nav-item" id="username">Welcome!
+          <img id="profilePic" src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="Profile Pic">
+        </li>
+        <li class="nav-item"><button type="submit" class="btn btn-primary" id="sign-out">Sign out</button></li>
+    </ul>  
+  </div>  
+</div>
 
 <!-- *********************** Main Window *****************************-->
     <!-- (Current Stats and previous questions)-->
