@@ -88,11 +88,11 @@
       // ADD USER TO DATABASE
       firebase.auth().signInWithEmailAndPassword(email, password).then(function() 
       {
-        user.push(                          //SAME AS: //var con = user.push(email);
-      {
-        userName: email
+          user.push(                          //SAME AS: //var con = user.push(email);
+          {
+            userName: email
         
-      });
+          });
       
 
           $(location).attr('href', 'landingpage.html');
