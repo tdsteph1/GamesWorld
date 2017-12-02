@@ -22,11 +22,7 @@ Other Technologies Used:
 
 ### Login Page
 
-*To view our application in action, please use either of these preset usernames and passwords:
--User Name: Darnell   Password: pw1
--User Name: Reyna     Password: pw2
-
-*To-Do - Implement new user login
+Firebase authentication.  Create a username and password and it will be stored in firebase.
 
 ![Screenshot](assets/images/screenshot_login.JPG)
 
