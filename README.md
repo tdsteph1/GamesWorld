@@ -31,7 +31,7 @@ Firebase authentication.  Create a username and password and it will be stored i
 
 *From here, the user can click on a planet to pick a game to play.
 
-![Screenshot](assets/images/screenshot_landingpate.JPG)
+![Screenshot](assets/images/screenshot_landingpage.JPG)
 
 ### Trivia Planet
 
